@@ -1,5 +1,7 @@
-<div class="test" (click)="test($event, 'a')">{{vals.a}}</div>
-<div class="test" (mousedown)="test($event, 'b')">{{vals.b}}</div>
-<div class="test" (keydown)="keydown($event, 'c')">{{vals.c}}</div>
+<div class="container">
+  <div class="test" (click)="test($event, 'a')">{{vals.a}}</div>
+  <div class="test" (mousedown)="test($event, 'b')">{{vals.b}}</div>
+  <div class="test" (keydown)="keydown($event, 'c')">{{vals.c}}</div>
+</div>
 
 <router-outlet></router-outlet>
