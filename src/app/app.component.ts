@@ -1,26 +1,23 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AngularGlobalVariables } from './models/global/angular/angular-global-variables.model';
+import { UnityGlobalVariables } from './models/global/unity-global-variables.model';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
 
-  vals = {
-    a: 0,
-    b: 0,
-    c: 0
-  }
+    constructor() {
 
-  test(event, v) {
-    console.log(event);
-    this.vals[v] += 1;
-  }
+        // Create the global window objects so that Unity can access Angular
+        // components and variables that are registered for global access
+        // and vice versa.
+        window[AngularGlobalVariables.name] = new AngularGlobalVariables();
+        window[UnityGlobalVariables.name] = new UnityGlobalVariables();
 
-  keydown(event, v) {
-    console.log(event);
-  }
+    }
 
 }
