@@ -32,7 +32,7 @@ export class UnityHttpService extends HttpService {
     }
 
     private get unityWebServicesAvaiable(): boolean {
-        return this._unityService && this._unityService.standardFunctionsReady;
+        return this._unityService && this._unityService.webFunctionsReady;
     }
 
 }

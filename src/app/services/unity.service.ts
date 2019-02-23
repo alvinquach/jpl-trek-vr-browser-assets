@@ -8,8 +8,8 @@ export class UnityService {
 
     private _currentRequestId = 0;
 
-    get standardFunctionsReady(): boolean {
-        return this.unityGlobalVariables.standardFunctionsReady;
+    get webFunctionsReady(): boolean {
+        return this.unityGlobalVariables.webFunctionsReady;
     }
 
     executeFunction(functionName: string, args: any) {

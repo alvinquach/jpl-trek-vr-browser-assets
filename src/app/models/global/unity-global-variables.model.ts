@@ -7,7 +7,7 @@ export class UnityGlobalVariables {
 
     readonly functionsMap = {};
 
-    standardFunctionsReady = false;
+    webFunctionsReady = false;
 
     //#region Standard functions that should be registered by Unity
 
