@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DevNavigationComponent } from './components/dev-navigation/dev-navigation.component';
 import { AngularHttpService } from './services/http/angular-http.service';
 import { HttpService } from './services/http/base-http.service';
 import { UnityHttpService } from './services/http/unity-http.service';
@@ -12,7 +13,8 @@ import { UnityService } from './services/unity.service';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        DevNavigationComponent
     ],
     imports: [
         AppRoutingModule,
