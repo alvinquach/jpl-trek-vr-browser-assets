@@ -8,6 +8,10 @@ const UnityRoutes: Routes = [
         path: 'main-modal',
         loadChildren: './submodules/main-modal/main-modal.module#MainModalModule'
     },
+    {
+        path: 'controller-modal',
+        loadChildren: './submodules/controller-modal/controller-modal.module#ControllerModalModule'
+    },
 ];
 
 const WebRoutes: Routes = [

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainModalHomeComponent } from './components/main-modal-home/main-modal-home.component';
-import { MainModalContainerComponent } from './components/main-modal-container/main-modal-container.component';
+import { MainModalComponent } from './main-modal.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: MainModalContainerComponent,
+        component: MainModalComponent,
         children: [
             {
                 path: '',
@@ -23,7 +23,7 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        MainModalContainerComponent,
+        MainModalComponent,
         MainModalHomeComponent
     ],
     imports: [
@@ -34,4 +34,6 @@ const routes: Routes = [
     ],
     providers: []
 })
-export class MainModalModule { }
+export class MainModalModule {
+
+}
