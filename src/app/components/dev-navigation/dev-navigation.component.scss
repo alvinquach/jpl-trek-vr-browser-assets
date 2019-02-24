@@ -1,0 +1,71 @@
+$nav-theme-text: #000;
+
+@import '~@angular-mdc/theme/material';
+
+.mdc-top-app-bar--short {
+    right: 0;
+    left: auto;
+    background: $material-color-light-blue-400;
+    color: $nav-theme-text;
+
+    &.mdc-top-app-bar--short-collapsed {
+        width: 64px;
+        border-radius: 0 0 0 24px;
+
+        .mdc-top-app-bar__section--align-end {
+            padding-right: 4px;
+        }
+    }
+}
+
+.nav-buttons-container {
+    height: 100%;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+
+    &.wide {
+        @media screen and (max-width: 599px) {
+            display: none;
+        }
+    }
+
+    &.narrow {
+        @media screen and (min-width: 600px) {
+            display: none;
+        }
+    }
+
+    .nav-button {
+        @include mdc-button-icon-color($nav-theme-text);
+        @include mdc-button-ink-color($nav-theme-text);
+        @include mdc-states($material-color-light-blue-700);
+    
+        width: 128px;
+    }
+}
+
+mdc-icon {
+    color: $nav-theme-text !important;
+}
+
+.nav-menu {
+
+    .subheader {
+        font-size: .875rem;
+        line-height: 1.25rem;
+        font-weight: 400;
+        letter-spacing: .01785714em;
+        line-height: normal;
+        padding: 0 16px 8px 16px;
+    }
+
+    .link-active {
+        background: $material-color-light-blue-100;
+    }
+    
+    .ass {
+        color: blue;
+    }
+}

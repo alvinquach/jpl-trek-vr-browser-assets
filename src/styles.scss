@@ -1,5 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+$mdc-theme-primary: #20c0ff;
+$mdc-theme-secondary: #83e603;
+
+@import '~@angular-mdc/theme/material';
+
 body {
     margin: 0;
     font-family: Roboto;
+}
+
+.modal-container {
+    width: 100vw;
+    height: 100vh;
+}
+
+mdc-icon {
+    user-select: none;
 }

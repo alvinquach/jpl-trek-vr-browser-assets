@@ -1,3 +1,4 @@
+import { MdcButtonModule, MdcIconButtonModule, MdcIconModule, MdcTopAppBarModule, MdcMenuModule, MdcListModule } from '@angular-mdc/web';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -10,6 +11,14 @@ import { HttpService } from './services/http/base-http.service';
 import { UnityHttpService } from './services/http/unity-http.service';
 import { UnityService } from './services/unity.service';
 
+const MdcWebModules = [
+    MdcButtonModule,
+    MdcIconButtonModule,
+    MdcIconModule,
+    MdcListModule,
+    MdcMenuModule,
+    MdcTopAppBarModule,
+];
 
 @NgModule({
     declarations: [
@@ -19,7 +28,8 @@ import { UnityService } from './services/unity.service';
     imports: [
         AppRoutingModule,
         BrowserModule,
-        HttpClientModule
+        HttpClientModule,
+        ...MdcWebModules
     ],
     providers: [
         {

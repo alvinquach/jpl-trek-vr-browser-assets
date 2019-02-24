@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainModalHomeComponent } from './components/main-modal-home/main-modal-home.component';
 import { MainModalComponent } from './main-modal.component';
 
-const routes: Routes = [
+const ModuleRoutes: Routes = [
     {
         path: '',
         component: MainModalComponent,
@@ -21,13 +21,18 @@ const routes: Routes = [
     }
 ];
 
+const MdcWebModules = [
+
+];
+
 @NgModule({
     declarations: [
         MainModalComponent,
         MainModalHomeComponent
     ],
     imports: [
-        RouterModule.forChild(routes)
+        RouterModule.forChild(ModuleRoutes),
+        ...MdcWebModules
     ],
     exports: [
         RouterModule

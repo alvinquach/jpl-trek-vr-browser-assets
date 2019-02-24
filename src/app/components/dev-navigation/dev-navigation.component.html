@@ -1,2 +1,59 @@
-<div style="line-height: 64px; background: lightgreen;">NAVIGATION</div>
-<router-outlet></router-outlet>
+<mdc-top-app-bar [shortCollapsed]="collapsed">
+    <mdc-top-app-bar-row>
+        <mdc-top-app-bar-title>
+            <div class="nav-buttons-container wide">
+                <button mdc-button class="nav-button" [routerLink]="mainModal.link">
+                    {{mainModal.label}}
+                </button>
+                |
+                <button mdc-button class="nav-button" (click)="controllerMenu.open = !controllerMenu.open">
+                    Controller
+                </button>
+                |
+                <button mdc-button class="nav-button" (click)="controllerMenu.open = !controllerMenu.open">
+                    Controller
+                </button>
+            </div>
+            <div class="nav-buttons-container narrow">
+                <button mdc-icon-button (click)="narrowMenu.open = !narrowMenu.open">
+                    <mdc-icon>menu</mdc-icon>
+                </button>
+            </div>
+        </mdc-top-app-bar-title>
+        <mdc-top-app-bar-section align="end">
+            <mdc-icon mdcTopAppBarActionItem (click)="toggleCollapsed()">
+                {{collapsed ? 'chevron_left' : 'chevron_right'}}
+            </mdc-icon>
+        </mdc-top-app-bar-section>
+    </mdc-top-app-bar-row>
+</mdc-top-app-bar>
+<div #fixedContent>
+    <router-outlet></router-outlet>
+</div>
+
+<mdc-menu #narrowMenu [anchorMargin]="{top: 32, left: 32}" class="nav-menu">
+    <mdc-list>
+        <mdc-list-item [routerLink]="mainModal.link" routerLinkActive="link-active">
+            {{mainModal.label}}
+        </mdc-list-item>
+        <mdc-list-divider></mdc-list-divider>
+        <ng-container *ngTemplateOutlet="menuItems; context: {subheader: 'Hello Hello Hello', items: testLinks1}"></ng-container>
+        <mdc-list-divider></mdc-list-divider>
+        <ng-container *ngTemplateOutlet="menuItems; context: {subheader: 'Hello', items: testLinks2}"></ng-container>
+    </mdc-list>
+</mdc-menu>
+
+<mdc-menu #controllerMenu [anchorMargin]="{top: 24, left: 20 + 132 + 64}">
+    <mdc-list>
+        <ng-container *ngTemplateOutlet="menuItems; context: {items: testLinks1}"></ng-container>
+    </mdc-list>
+</mdc-menu>
+
+<ng-template #menuItems let-subheader="subheader" let-items="items">
+    <div *ngIf="subheader" class="subheader">{{subheader}}</div>
+    <ng-container *ngFor="let item of items">
+        <mdc-list-item [routerLink]="item.link" routerLinkActive="link-active">
+            {{item.label}}
+        </mdc-list-item>
+    </ng-container>
+</ng-template>

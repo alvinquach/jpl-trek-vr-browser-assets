@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ControllerModalComponent } from './controller-modal.component';
 
-const routes: Routes = [
+const ModuleRoutes: Routes = [
     {
         path: '',
         component: ControllerModalComponent,
@@ -16,12 +16,17 @@ const routes: Routes = [
     }
 ];
 
+const MdcWebModules = [
+
+];
+
 @NgModule({
     declarations: [
         ControllerModalComponent,
     ],
     imports: [
-        RouterModule.forChild(routes)
+        RouterModule.forChild(ModuleRoutes),
+        ...MdcWebModules
     ],
     exports: [
         RouterModule
