@@ -1,0 +1,26 @@
+<div class="modal-contents with-header with-footer">
+    <div class="modal-header">
+        Bounding Box Selection
+    </div>
+    <div class="main-contents" [ngSwitch]="helpMode">
+        <div *ngSwitchCase="false">
+            <div style="height: 1000px">
+                Make an area selection by specifying the bounding box boundaries:
+            </div>
+            <div style="height: 1000px">
+                Make an area selection by specifying the bounding box boundaries:
+            </div>
+        </div>
+        <div *ngSwitchCase="true">
+            TODO Help mode
+        </div>
+    </div>
+    <div class="modal-footer" (click)="toggleHelpMode()" [ngSwitch]="helpMode">
+        <div *ngSwitchCase="false">
+            Press the Steam button for help
+        </div>
+        <div *ngSwitchCase="true">
+            Press the Steam button to return
+        </div>
+    </div>
+</div>

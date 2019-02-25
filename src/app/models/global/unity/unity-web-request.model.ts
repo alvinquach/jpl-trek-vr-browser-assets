@@ -1,4 +1,4 @@
-export class AngularWebRequest {
+export class UnityWebRequest {
 
     private _response: any;
 

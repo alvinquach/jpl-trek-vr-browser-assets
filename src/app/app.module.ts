@@ -1,4 +1,4 @@
-import { MdcButtonModule, MdcIconButtonModule, MdcIconModule, MdcTopAppBarModule, MdcMenuModule, MdcListModule } from '@angular-mdc/web';
+import { MdcButtonModule, MdcIconButtonModule, MdcIconModule, MdcListModule, MdcMenuModule, MdcTopAppBarModule } from '@angular-mdc/web';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -9,7 +9,7 @@ import { DevNavigationComponent } from './components/dev-navigation/dev-navigati
 import { AngularHttpService } from './services/http/angular-http.service';
 import { HttpService } from './services/http/base-http.service';
 import { UnityHttpService } from './services/http/unity-http.service';
-import { UnityService } from './services/unity.service';
+import { UnityBridgeService } from './services/unity-bridge.service';
 
 const MdcWebModules = [
     MdcButtonModule,
@@ -28,7 +28,7 @@ const MdcWebModules = [
     imports: [
         AppRoutingModule,
         BrowserModule,
-        HttpClientModule,
+        environment.unity ? [] : HttpClientModule,
         ...MdcWebModules
     ],
     providers: [
@@ -37,8 +37,8 @@ const MdcWebModules = [
             useClass: environment.unity ? UnityHttpService : AngularHttpService
         },
         {
-            provide: UnityService,
-            useFactory: () => environment.unity ? new UnityService() : null
+            provide: UnityBridgeService,
+            useFactory: (httpService: UnityHttpService) => environment.unity ? new UnityBridgeService(httpService) : null
         }
     ],
     bootstrap: [AppComponent]

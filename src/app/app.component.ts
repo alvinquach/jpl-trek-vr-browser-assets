@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AngularGlobalVariables } from './models/global/angular/angular-global-variables.model';
-import { UnityGlobalVariables } from './models/global/unity-global-variables.model';
+import { UnityGlobalVariables } from './models/global/unity/unity-global-variables.model';
 
 @Component({
     selector: 'app-root',

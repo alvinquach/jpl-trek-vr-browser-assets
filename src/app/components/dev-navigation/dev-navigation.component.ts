@@ -15,8 +15,8 @@ export class DevNavigationComponent {
 
     readonly testLinks1: Link[] = [
         {
-            label: 'Link 1',
-            link: './fake-link'
+            label: 'BBox Selection',
+            link: './controller-modal/bbox-selection'
         },
         {
             label: 'Link 2',

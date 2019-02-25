@@ -8,11 +8,15 @@ body {
     font-family: Roboto;
 }
 
-.modal-container {
-    width: 100vw;
-    height: 100vh;
-}
-
 mdc-icon {
     user-select: none;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
 }

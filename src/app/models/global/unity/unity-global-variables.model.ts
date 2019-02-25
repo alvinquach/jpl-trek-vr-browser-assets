@@ -7,17 +7,27 @@ export class UnityGlobalVariables {
 
     readonly functionsMap = {};
 
-    webFunctionsReady = false;
-
-    //#region Standard functions that should be registered by Unity
-
     registerFunctionsFor: (name: string) => void;
 
     unregisterFunctionsFor: (name: string) => void;
 
+    //#region Functions registered by UnityBrowserWebFunctions.cs
+
+    webFunctionsReady = false;
+
     getRequest: (uri: string, requestId: string) => void;
 
     postRequest: (uri: string, body: string, requestId: string) => void;
+
+    //#endregion
+
+    //#region Functions registered by UnityBrowserControllerFunctions.cs
+
+    controllerFunctionsReady = false;
+
+    startPrimaryControllerActivity: (activityName: string) => void;
+
+    startSecondaryControllerActivity: (activityName: string) => void;
 
     //#endregion
 

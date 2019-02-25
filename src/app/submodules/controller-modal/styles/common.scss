@@ -1,0 +1,53 @@
+@import './dimensions.scss';
+
+.modal-header {
+    text-transform: capitalize;
+    font-size: 42px;
+    padding-left: 24px;
+    background: yellow;
+    line-height: $modal-header-height;
+}
+
+.modal-footer {
+
+    cursor: pointer;
+        border-top: 1px solid rgba(0,0,0,0.54);
+        line-height: $modal-footer-height;
+        height: $modal-footer-height;
+        text-align: center;
+        font-size: 28px;
+}
+
+.modal-contents {
+
+    .main-contents {
+        height: $modal-height;
+        overflow-y: auto;
+        overflow-x: hidden;
+        font-size: 24px;
+        padding: 24px;
+        box-sizing: border-box;
+    }
+
+    &.with-header {
+
+        .main-contents {
+            height: #{$modal-height - $modal-header-height};
+        }
+    }
+
+    &.with-footer {
+
+        .main-contents {
+            height: #{$modal-height - $modal-footer-height};
+        }
+    }
+
+    &.with-header.with-footer {
+
+        .main-contents {
+            height: #{$modal-height - $modal-header-height - $modal-footer-height};
+        }
+    }
+
+}

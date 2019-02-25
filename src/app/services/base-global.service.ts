@@ -6,15 +6,23 @@ export abstract class GlobalService {
 
     constructor(serviceName: string) {
 
-        // Unlike with components, there should only be one instance of
-        // a service at any time.
-        this._globalServiceId = serviceName;
-        const angularGlobalVariables: AngularGlobalVariables = window[AngularGlobalVariables.name];
-        if (!!angularGlobalVariables.injectablesMap[this._globalServiceId]) {
-            console.error(`Error: Injectable with the name ${this._globalServiceId} already exists in the global map.`);
+        if (serviceName == null) {
             return;
         }
-        angularGlobalVariables.injectablesMap[this._globalServiceId] = this;
+
+        // Unlike with components, there should only be one instance of a
+        // service at any time, so we don't need to generate a unique name.
+        this._globalServiceId = serviceName;
+
+        setTimeout(() => {
+            const angularGlobalVariables: AngularGlobalVariables = window[AngularGlobalVariables.name];
+            if (!!angularGlobalVariables.injectablesMap[this._globalServiceId]) {
+                console.error(`Error: Injectable with the name ${this._globalServiceId} already exists in the global map.`);
+                return;
+            }
+            angularGlobalVariables.injectablesMap[this._globalServiceId] = this;
+        });
+
     }
 
 }
