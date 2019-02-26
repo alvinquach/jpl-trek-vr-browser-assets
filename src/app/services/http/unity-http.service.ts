@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
-import { UnityWebRequest } from 'src/app/models/global/unity/unity-web-request.model';
+import { UnityDataRequest } from 'src/app/models/global/unity/unity-data-request.model';
 import { HttpService } from './base-http.service';
 
 /**
@@ -15,24 +15,18 @@ export class UnityHttpService extends HttpService {
 
     private _currentRequestId = 0;
 
-    private readonly _webRequests: {[key: string]: UnityWebRequest} = {};
+    private readonly _webRequests: {[key: string]: UnityDataRequest<string>} = {};
 
     constructor() {
         super(UnityHttpService.name);
     }
 
     get(uri: string, callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
-        const unityGlobalVariables = this.unityGlobalVariables;
-        if (!unityGlobalVariables || !unityGlobalVariables.webFunctionsReady) {
-            console.error('Error: Web requests through Unity is currently not available.');
+        if (!this.functionReadyAndValid('getRequest')) {
             return;
         }
-        if (typeof unityGlobalVariables.getRequest !== 'function') {
-            console.error('Error: getRequest is not a function.');
-            return;
-        }
-        const requestId = `GET${this._currentRequestId++}`;
-        unityGlobalVariables.getRequest(uri, requestId);
+        const requestId = `${this._currentRequestId++}_GET`;
+        this.unityGlobalVariables.getRequest(uri, requestId);
 
         // Register a web request so that a response can be received from Unity.
         this.addWebRequest(requestId, (res: string) => {
@@ -43,17 +37,11 @@ export class UnityHttpService extends HttpService {
     }
 
     post(uri: string, body: any, callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
-        const unityGlobalVariables = this.unityGlobalVariables;
-        if (!unityGlobalVariables || !unityGlobalVariables.webFunctionsReady) {
-            console.error('Error: Web requests through Unity is currently not available.');
+        if (!this.functionReadyAndValid('postRequest')) {
             return;
         }
-        if (typeof unityGlobalVariables.postRequest !== 'function') {
-            console.error('Error: postRequest is not a function.');
-            return;
-        }
-        const requestId = `POST${this._currentRequestId++}`;
-        unityGlobalVariables.postRequest(uri, JSON.stringify(body), requestId);
+        const requestId = `${this._currentRequestId++}_POST`;
+        this.unityGlobalVariables.postRequest(uri, JSON.stringify(body), requestId);
 
         // Register a web request so that a response can be received from Unity.
         this.addWebRequest(requestId, (res: string) => {
@@ -75,16 +63,29 @@ export class UnityHttpService extends HttpService {
         return true;
     }
 
-    private addWebRequest(requestId: string, callback?: (res: string) => void): UnityWebRequest {
+    private addWebRequest(requestId: string, callback?: (res: string) => void): UnityDataRequest<string> {
         if (!!this._webRequests[requestId]) {
             console.error(`Web request ID ${requestId} already exists.`);
             return null;
         }
-        return this._webRequests[requestId] = new UnityWebRequest(requestId, callback);
+        return this._webRequests[requestId] = new UnityDataRequest(requestId, callback);
     }
 
     private get unityGlobalVariables(): UnityGlobalVariables {
         return window[UnityGlobalVariables.name];
+    }
+
+    private functionReadyAndValid(functionName: string): boolean {
+        const unityGlobalVariables = this.unityGlobalVariables;
+        if (!unityGlobalVariables || !unityGlobalVariables.webFunctionsReady) {
+            console.error('Error: Web requests through Unity is currently not available.');
+            return false;
+        }
+        if (typeof unityGlobalVariables[functionName] !== 'function') {
+            console.error(`Error: ${functionName} is not a function.`);
+            return false;
+        }
+        return true;
     }
 
 }

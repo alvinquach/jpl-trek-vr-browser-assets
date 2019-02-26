@@ -1,8 +1,8 @@
-export class UnityWebRequest {
+export class UnityDataRequest<T> {
 
-    private _response: any;
+    private _response: T;
 
-    constructor(public readonly requestId, private _callback: (res?: string) => void) {
+    constructor(public readonly requestId, private _callback: (res?: T) => void) {
 
     }
 

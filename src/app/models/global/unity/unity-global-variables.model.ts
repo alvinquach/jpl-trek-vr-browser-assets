@@ -31,4 +31,14 @@ export class UnityGlobalVariables {
 
     //#endregion
 
+    //#region Functions registered by UnityBrowserSearchFunctions.cs
+
+    searchFunctionsReady = false;
+
+    getFacetInfo: (requestId: string) => void;
+
+    getBookmarks: (requestId: string) => void;
+
+    //#endregion
+
 }

@@ -9,7 +9,9 @@ import { DevNavigationComponent } from './components/dev-navigation/dev-navigati
 import { AngularHttpService } from './services/http/angular-http.service';
 import { HttpService } from './services/http/base-http.service';
 import { UnityHttpService } from './services/http/unity-http.service';
-import { UnityBridgeService } from './services/unity-bridge.service';
+import { SearchService } from './services/search/base-search.service';
+import { UnitySearchService } from './services/search/unity-search.service';
+import { AngularSearchService } from './services/search/angular-search.service';
 
 const MdcWebModules = [
     MdcButtonModule,
@@ -37,8 +39,8 @@ const MdcWebModules = [
             useClass: environment.unity ? UnityHttpService : AngularHttpService
         },
         {
-            provide: UnityBridgeService,
-            useFactory: (httpService: UnityHttpService) => environment.unity ? new UnityBridgeService(httpService) : null
+            provide: SearchService,
+            useClass: environment.unity ? UnitySearchService : AngularSearchService
         }
     ],
     bootstrap: [AppComponent]
