@@ -54,4 +54,8 @@ export class ControllerModalBoundingSearchResultsComponent implements OnInit {
         }
     }
 
+    toggleHelpMode(): void {
+        this.helpMode = !this._helpMode;
+    }
+
 }
