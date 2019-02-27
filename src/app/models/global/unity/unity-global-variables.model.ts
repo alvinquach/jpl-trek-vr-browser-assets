@@ -39,6 +39,14 @@ export class UnityGlobalVariables {
 
     getFacetInfo: (requestId: string) => void;
 
+    getBookmarks: (requestId: string) => void;
+
+    getDatasets: (requestId: string) => void;
+
+    getNomenclature: (requestId: string) => void;
+
+    getProducts: (requestId: string) => void;
+
     search: (searchParams: SearchParameters, requestId: string) => void;
 
     //#endregion

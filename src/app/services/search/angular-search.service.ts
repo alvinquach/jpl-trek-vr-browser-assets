@@ -21,6 +21,22 @@ export class AngularSearchService extends SearchService {
         // TODO Implement this
     }
 
+    getBookmarks(callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+        // TODO Implement this
+    }
+
+    getDatasets(callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+        // TODO Implement this
+    }
+
+    getNomenclature(callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+        // TODO Implement this
+    }
+
+    getProducts(callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+        // TODO Implement this
+    }
+
     search(searchParams: SearchParameters, callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
         // TODO Implement this
     }

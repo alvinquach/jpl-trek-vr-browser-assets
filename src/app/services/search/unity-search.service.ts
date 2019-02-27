@@ -27,8 +27,64 @@ export class UnitySearchService extends SearchService {
         if (!this.functionReadyAndValid('getFacetInfo')) {
             return;
         }
-        const requestId = `${this._currentRequestId++}_FACET`;
+        const requestId = `${this._currentRequestId++}_GET_FACET_INFO`;
         this.unityGlobalVariables.getFacetInfo(requestId);
+
+        // Register a web request so that a response can be received from Unity.
+        this.addSearchRequest(requestId, (res: SearchResult) => {
+            // TODO Handle errors
+            callback(res);
+        });
+    }
+
+    getBookmarks(callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+        if (!this.functionReadyAndValid('getBookmarks')) {
+            return;
+        }
+        const requestId = `${this._currentRequestId++}_GET_BOOKMARKS`;
+        this.unityGlobalVariables.getBookmarks(requestId);
+
+        // Register a web request so that a response can be received from Unity.
+        this.addSearchRequest(requestId, (res: SearchResult) => {
+            // TODO Handle errors
+            callback(res);
+        });
+    }
+
+    getDatasets(callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+        if (!this.functionReadyAndValid('getDatasets')) {
+            return;
+        }
+        const requestId = `${this._currentRequestId++}_GET_DATASETS`;
+        this.unityGlobalVariables.getDatasets(requestId);
+
+        // Register a web request so that a response can be received from Unity.
+        this.addSearchRequest(requestId, (res: SearchResult) => {
+            // TODO Handle errors
+            callback(res);
+        });
+    }
+
+    getNomenclature(callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+        if (!this.functionReadyAndValid('getNomenclature')) {
+            return;
+        }
+        const requestId = `${this._currentRequestId++}_GET_NOMENCLATURE`;
+        this.unityGlobalVariables.getNomenclature(requestId);
+
+        // Register a web request so that a response can be received from Unity.
+        this.addSearchRequest(requestId, (res: SearchResult) => {
+            // TODO Handle errors
+            callback(res);
+        });
+    }
+
+    getProducts(callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+        if (!this.functionReadyAndValid('getProducts')) {
+            return;
+        }
+        const requestId = `${this._currentRequestId++}_GET_PRODUCTS`;
+        this.unityGlobalVariables.getProducts(requestId);
 
         // Register a web request so that a response can be received from Unity.
         this.addSearchRequest(requestId, (res: SearchResult) => {
