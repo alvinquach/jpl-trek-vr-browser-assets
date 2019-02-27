@@ -1,5 +1,9 @@
+import { SearchResultItem } from './search-result-item.model';
+import { SearchFacetInfo } from './search-facet-info.model';
+
 export interface SearchResult {
-    readonly totalCount: number;
-    readonly startIndex: number;
-    // TODO Add the rest of the fields
+    totalCount: number;
+    startIndex: number;
+    items: SearchResultItem[];
+    searchFacetInfo: SearchFacetInfo;
 }

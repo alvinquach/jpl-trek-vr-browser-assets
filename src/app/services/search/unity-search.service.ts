@@ -23,7 +23,7 @@ export class UnitySearchService extends SearchService {
         super(UnitySearchService.name);
     }
 
-    getFacetInfo(callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+    getFacetInfo(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
         if (!this.functionReadyAndValid('getFacetInfo')) {
             return;
         }
@@ -37,7 +37,7 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    getBookmarks(callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+    getBookmarks(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
         if (!this.functionReadyAndValid('getBookmarks')) {
             return;
         }
@@ -51,7 +51,7 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    getDatasets(callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+    getDatasets(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
         if (!this.functionReadyAndValid('getDatasets')) {
             return;
         }
@@ -65,7 +65,7 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    getNomenclature(callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+    getNomenclature(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
         if (!this.functionReadyAndValid('getNomenclature')) {
             return;
         }
@@ -79,7 +79,7 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    getProducts(callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+    getProducts(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
         if (!this.functionReadyAndValid('getProducts')) {
             return;
         }
@@ -93,7 +93,7 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    search(searchParams: SearchParameters, callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+    search(searchParams: SearchParameters, callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
         if (!this.functionReadyAndValid('search')) {
             return;
         }
