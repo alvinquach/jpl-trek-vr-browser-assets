@@ -48,7 +48,7 @@ export class UnityGlobalVariables {
 
     getDatasets: (requestId: string) => void;
 
-    getNomenclature: (requestId: string) => void;
+    getNomenclatures: (requestId: string) => void;
 
     getProducts: (requestId: string) => void;
 

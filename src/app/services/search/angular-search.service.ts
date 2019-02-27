@@ -23,7 +23,7 @@ export class AngularSearchService extends SearchService {
     private _facetInfo: SearchResult;
     private _bookmarks: SearchResult;
     private _datasets: SearchResult;
-    private _nomenclature: SearchResult;
+    private _nomenclatures: SearchResult;
     private _products: SearchResult;
 
     constructor(private _http: HttpClient) {
@@ -64,13 +64,13 @@ export class AngularSearchService extends SearchService {
         });
     }
 
-    getNomenclature(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
-        if (this._nomenclature) {
-            callback(this._nomenclature);
+    getNomenclatures(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
+        if (this._nomenclatures) {
+            callback(this._nomenclatures);
         }
         this.search({ itemType: 'Nomenclature' }, res => {
-            this._nomenclature = res;
-            callback(this._nomenclature);
+            this._nomenclatures = res;
+            callback(this._nomenclatures);
         });
     }
 

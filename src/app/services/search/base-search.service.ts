@@ -10,7 +10,7 @@ export abstract class SearchService extends GlobalService {
 
     abstract getDatasets(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void;
 
-    abstract getNomenclature(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void;
+    abstract getNomenclatures(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void;
 
     abstract getProducts(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void;
 

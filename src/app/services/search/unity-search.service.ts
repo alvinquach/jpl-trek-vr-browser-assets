@@ -65,12 +65,12 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    getNomenclature(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
-        if (!this.functionReadyAndValid('getNomenclature')) {
+    getNomenclatures(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
+        if (!this.functionReadyAndValid('getNomenclatures')) {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_NOMENCLATURE`;
-        UnityGlobalVariables.instance.getNomenclature(requestId);
+        UnityGlobalVariables.instance.getNomenclatures(requestId);
 
         // Register a web request so that a response can be received from Unity.
         this.addSearchRequest(requestId, (res: SearchResult) => {
