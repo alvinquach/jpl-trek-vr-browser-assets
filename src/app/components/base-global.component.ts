@@ -3,25 +3,19 @@ import { OnDestroy, ChangeDetectorRef } from '@angular/core';
 
 export abstract class GlobalComponent implements OnDestroy {
 
-    protected readonly _globalComponentId: string;
-
-    constructor(componentName: string, public changeDetector: ChangeDetectorRef) {
-        const angularGlobalVariables: AngularGlobalVariables = window[AngularGlobalVariables.name];
-        let i = 0;
-        while (true) {
-            this._globalComponentId = componentName + i;
-            if (!angularGlobalVariables.componentsMap[this._globalComponentId]) {
-                angularGlobalVariables.componentsMap[this._globalComponentId] = this;
-                break;
-            }
-            i++;
+    constructor(protected readonly _componentName: string, public changeDetector: ChangeDetectorRef) {
+        const angularGlobalVariables = AngularGlobalVariables.instance;
+        if (!!angularGlobalVariables.injectablesMap[_componentName]) {
+            console.error(`Error: Injectable with the name ${_componentName} already exists in the global map.`);
+            return;
         }
+        angularGlobalVariables.componentsMap[_componentName] = this;
     }
 
     ngOnDestroy() {
-        console.log("DESTROYED");
-        const angularGlobalVariables: AngularGlobalVariables = window[AngularGlobalVariables.name];
-        delete angularGlobalVariables.componentsMap[this._globalComponentId];
+        console.log(`Component ${this._componentName} destroyed.`);
+        const angularGlobalVariables = AngularGlobalVariables.instance;
+        delete angularGlobalVariables.componentsMap[this._componentName];
     }
 
 }

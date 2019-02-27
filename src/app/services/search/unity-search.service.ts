@@ -28,7 +28,7 @@ export class UnitySearchService extends SearchService {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_FACET_INFO`;
-        this.unityGlobalVariables.getFacetInfo(requestId);
+        UnityGlobalVariables.instance.getFacetInfo(requestId);
 
         // Register a web request so that a response can be received from Unity.
         this.addSearchRequest(requestId, (res: SearchResult) => {
@@ -42,7 +42,7 @@ export class UnitySearchService extends SearchService {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_BOOKMARKS`;
-        this.unityGlobalVariables.getBookmarks(requestId);
+        UnityGlobalVariables.instance.getBookmarks(requestId);
 
         // Register a web request so that a response can be received from Unity.
         this.addSearchRequest(requestId, (res: SearchResult) => {
@@ -56,7 +56,7 @@ export class UnitySearchService extends SearchService {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_DATASETS`;
-        this.unityGlobalVariables.getDatasets(requestId);
+        UnityGlobalVariables.instance.getDatasets(requestId);
 
         // Register a web request so that a response can be received from Unity.
         this.addSearchRequest(requestId, (res: SearchResult) => {
@@ -70,7 +70,7 @@ export class UnitySearchService extends SearchService {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_NOMENCLATURE`;
-        this.unityGlobalVariables.getNomenclature(requestId);
+        UnityGlobalVariables.instance.getNomenclature(requestId);
 
         // Register a web request so that a response can be received from Unity.
         this.addSearchRequest(requestId, (res: SearchResult) => {
@@ -84,7 +84,7 @@ export class UnitySearchService extends SearchService {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_PRODUCTS`;
-        this.unityGlobalVariables.getProducts(requestId);
+        UnityGlobalVariables.instance.getProducts(requestId);
 
         // Register a web request so that a response can be received from Unity.
         this.addSearchRequest(requestId, (res: SearchResult) => {
@@ -98,7 +98,7 @@ export class UnitySearchService extends SearchService {
             return;
         }
         const requestId = `${this._currentRequestId++}_SEARCH`;
-        this.unityGlobalVariables.search(searchParams, requestId);
+        UnityGlobalVariables.instance.search(searchParams, requestId);
 
         // Register a web request so that a response can be received from Unity.
         this.addSearchRequest(requestId, (res: SearchResult) => {
@@ -127,12 +127,8 @@ export class UnitySearchService extends SearchService {
         return this._searchRequests[requestId] = new UnityDataRequest(requestId, callback);
     }
 
-    private get unityGlobalVariables(): UnityGlobalVariables {
-        return window[UnityGlobalVariables.name];
-    }
-
     private functionReadyAndValid(functionName: string): boolean {
-        const unityGlobalVariables = this.unityGlobalVariables;
+        const unityGlobalVariables = UnityGlobalVariables.instance;
         if (!unityGlobalVariables || !unityGlobalVariables.webFunctionsReady) {
             console.error('Error: Search requests through Unity is currently not available.');
             return false;

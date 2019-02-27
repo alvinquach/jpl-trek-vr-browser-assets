@@ -1,6 +1,11 @@
 import { SearchParameters } from '../../search/search-parameters.model';
+import { ControllerModalActivity } from '../../controller-modal-activity.type';
 
 export class UnityGlobalVariables {
+
+    static get instance(): UnityGlobalVariables {
+        return window[UnityGlobalVariables.name];
+    }
 
     // Note that Unity registers the functions after the onload
     // event is fired, which takes place after the components are
@@ -27,9 +32,9 @@ export class UnityGlobalVariables {
 
     controllerFunctionsReady = false;
 
-    startPrimaryControllerActivity: (activityName: string) => void;
+    startPrimaryControllerActivity: (activityName: ControllerModalActivity) => void;
 
-    startSecondaryControllerActivity: (activityName: string) => void;
+    startSecondaryControllerActivity: (activityName: ControllerModalActivity) => void;
 
     //#endregion
 

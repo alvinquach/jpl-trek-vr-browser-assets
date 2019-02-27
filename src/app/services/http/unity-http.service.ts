@@ -26,7 +26,7 @@ export class UnityHttpService extends HttpService {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET`;
-        this.unityGlobalVariables.getRequest(uri, requestId);
+        UnityGlobalVariables.instance.getRequest(uri, requestId);
 
         // Register a web request so that a response can be received from Unity.
         this.addWebRequest(requestId, (res: string) => {
@@ -41,7 +41,7 @@ export class UnityHttpService extends HttpService {
             return;
         }
         const requestId = `${this._currentRequestId++}_POST`;
-        this.unityGlobalVariables.postRequest(uri, JSON.stringify(body), requestId);
+        UnityGlobalVariables.instance.postRequest(uri, JSON.stringify(body), requestId);
 
         // Register a web request so that a response can be received from Unity.
         this.addWebRequest(requestId, (res: string) => {
@@ -71,12 +71,8 @@ export class UnityHttpService extends HttpService {
         return this._webRequests[requestId] = new UnityDataRequest(requestId, callback);
     }
 
-    private get unityGlobalVariables(): UnityGlobalVariables {
-        return window[UnityGlobalVariables.name];
-    }
-
     private functionReadyAndValid(functionName: string): boolean {
-        const unityGlobalVariables = this.unityGlobalVariables;
+        const unityGlobalVariables = UnityGlobalVariables.instance;
         if (!unityGlobalVariables || !unityGlobalVariables.webFunctionsReady) {
             console.error('Error: Web requests through Unity is currently not available.');
             return false;

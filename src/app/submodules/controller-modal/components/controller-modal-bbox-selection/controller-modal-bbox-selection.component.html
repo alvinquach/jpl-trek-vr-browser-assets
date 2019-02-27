@@ -4,15 +4,28 @@
     </div>
     <div class="main-contents" [ngSwitch]="helpMode">
         <div *ngSwitchCase="false">
-            <div style="height: 1000px">
-                Make an area selection by specifying the bounding box boundaries:
-            </div>
-            <div style="height: 1000px">
-                Make an area selection by specifying the bounding box boundaries:
+            <div class="bbox-container">
+                <div class="latitude end">
+                    {{formatCoordinate(boundingBox.latEnd)}}
+                </div>
+                <div class="mid-section">
+                    <div class="longitude start">
+                        {{formatCoordinate(boundingBox.lonStart)}}
+                    </div>
+                    <div class="square"></div>
+                    <div class="longitude end">
+                        {{formatCoordinate(boundingBox.lonEnd)}}
+                    </div>
+                </div>
+                <div class="latitude start">
+                    {{formatCoordinate(boundingBox.latStart)}}
+                </div>
             </div>
         </div>
         <div *ngSwitchCase="true">
-            TODO Help mode
+            <div>
+                Make an area selection by specifying the bounding box boundaries:
+            </div>
         </div>
     </div>
     <div class="modal-footer" (click)="toggleHelpMode()" [ngSwitch]="helpMode">

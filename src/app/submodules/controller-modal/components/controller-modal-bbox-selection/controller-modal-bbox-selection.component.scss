@@ -1,1 +1,59 @@
 @import '../../styles/common.scss';
+
+$square-dimensions: 320px;
+$square-padding: 32px;
+
+.bbox-container {
+    height: $modal-height * 0.6;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+    font-size: 56px;
+
+    .longitude {
+        flex: 1 1 0%;
+        box-sizing: border-box;
+
+        &.start {
+            padding-right: $square-padding;
+            text-align: right;
+        }
+        
+        &.end {
+            padding-left: $square-padding;
+        }
+    }
+    
+    .latitude {
+        width: 100%;
+        text-align: center;
+        
+        &.end {
+            padding-bottom: $square-padding;
+        }
+        
+        &.start {
+            padding-top: $square-padding;
+        }
+    }
+    
+    .mid-section {
+        width: 100%;
+        // height: 100%;
+        flex-direction: row;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        place-content: center;
+        
+        .square {
+            width: $square-dimensions;
+            height: $square-dimensions;
+            border: 8px solid cyan;
+        }
+    }
+    
+}
+    

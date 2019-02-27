@@ -1,10 +1,13 @@
+@import '~@angular-mdc/theme/material';
 @import './dimensions.scss';
 
 .modal-header {
     text-transform: capitalize;
-    font-size: 42px;
-    padding-left: 24px;
-    background: yellow;
+    font-size: 64px;
+    font-weight: 500;
+    padding-left: 32px;
+    background: $material-color-amber-400;
+    color: black;
     line-height: $modal-header-height;
 }
 
@@ -15,7 +18,7 @@
         line-height: $modal-footer-height;
         height: $modal-footer-height;
         text-align: center;
-        font-size: 28px;
+        font-size: 56px;
 }
 
 .modal-contents {
@@ -24,8 +27,8 @@
         height: $modal-height;
         overflow-y: auto;
         overflow-x: hidden;
-        font-size: 24px;
-        padding: 24px;
+        font-size: 48px;
+        padding: 32px;
         box-sizing: border-box;
     }
 

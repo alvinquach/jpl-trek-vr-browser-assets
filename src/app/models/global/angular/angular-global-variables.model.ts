@@ -1,16 +1,32 @@
 import { GlobalComponent } from 'src/app/components/base-global.component';
 import { GlobalService } from 'src/app/services/base-global.service';
+import { Router } from '@angular/router';
+import { NgZone } from '@angular/core';
 
 export class AngularGlobalVariables {
+
+    static get instance(): AngularGlobalVariables {
+        return window[AngularGlobalVariables.name];
+    }
 
     readonly componentsMap: {[key: string]: GlobalComponent} = {};
 
     readonly injectablesMap: {[key: string]: GlobalService} = {};
 
+    constructor(private _ngZone: NgZone, private _router: Router) {
+
+    }
+
     detectChanges(): void {
         for (const key of Object.keys(this.componentsMap)) {
             this.componentsMap[key].changeDetector.detectChanges();
         }
+    }
+
+    navigateTo(path: string): void {
+        this._ngZone.run(() => {
+            this._router.navigateByUrl(path);
+        });
     }
 
 }
