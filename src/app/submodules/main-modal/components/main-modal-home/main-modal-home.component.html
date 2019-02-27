@@ -1,2 +1,36 @@
-HOME
-<div (click)="startBoundingBoxSelection()" style="background: lightcoral; line-height: 64px; width: 50%;">SELECTION</div>
+<!-- <div (click)="startBoundingBoxSelection()" style="background: lightcoral; line-height: 64px; width: 50%;">SELECTION</div> -->
+
+<div *ngIf="isLastChild" class="grid-icons-container">
+    <div class="grid-icon-container" routerLink="./search">
+        <div class="grid-icon">
+            <mdc-icon>search</mdc-icon>
+        </div>
+        <div class="description">
+            Search
+        </div>
+    </div>
+    <div class="grid-icon-container" (click)="startBoundingBoxSelection()">
+        <div class="grid-icon">
+            <mdc-icon>build</mdc-icon>
+        </div>
+        <div class="description">
+            Tools
+        </div>
+    </div>
+    <div class="grid-icon-container">
+        <div class="grid-icon">
+            <mdc-icon>settings</mdc-icon>
+        </div>
+        <div class="description">
+            Options
+        </div>
+    </div>
+</div>
+<div *ngIf="!isLastChild">
+    <div (click)="onBackTriggerClick($event)" class="back-trigger">
+        <mdc-icon>arrow_back</mdc-icon>
+    </div>
+    <div style="flex: 1;">
+        <router-outlet></router-outlet>
+    </div>
+</div>

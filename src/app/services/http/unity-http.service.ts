@@ -36,6 +36,10 @@ export class UnityHttpService extends HttpService {
         });
     }
 
+    getText(uri: string, callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+        // TODO Implement this
+    }
+
     post(uri: string, body: any, callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
         if (!this.functionReadyAndValid('postRequest')) {
             return;

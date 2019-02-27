@@ -1,0 +1,107 @@
+@import '~@angular-mdc/theme/material';
+@import './dimensions.scss';
+
+.back-trigger {
+    cursor: pointer;
+    width: $back-trigger-width;
+    height: #{$modal-height - $modal-header-height};
+    position: fixed;
+    transition: background 200ms ease-in-out;
+
+
+    &:hover {
+        background: rgb(41, 182, 246);
+    }
+
+    .material-icons {
+        user-select: none;
+        font-size: $back-trigger-width;
+        position: relative;
+        top: #{($modal-height - $modal-header-height - $back-trigger-width) / 2};;
+        color: white;
+    }
+}
+
+.grid-icons-container {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+
+    .grid-icon-container {
+        user-select: none;
+        cursor: pointer;
+        width: $grid-icon-size;
+        // height: $grid-icon-size;
+        background: rgba(0,0,0,0.12);
+        margin: 32px;
+        padding: 32px;
+        color: white;
+        transition: all 150ms ease-in-out;
+        // border: 2px solid blue;
+        // text-align: center;
+
+        .grid-icon {
+            
+            .material-icons {
+                font-size: $grid-icon-size;
+            }
+        }
+
+        .description {
+            font-size: 36px;
+
+            &.sub {
+                font-size: 28px;
+            }
+        }
+
+        &:hover {
+            background: $material-color-amber-400;
+            color: black;
+        }
+    }
+}
+
+.search-results-container {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+
+    .actions-container {
+        width: 280px;
+        height: 500px; // FIXME
+
+        .action {
+            margin-bottom: 16px;
+            
+            button {
+                width: 240px;
+            }
+        }
+    }
+
+    .search-results-list {
+        width: $search-results-width;
+        height: #{$modal-height - $modal-header-height};
+        background: rgba(0,0,0,0.12);
+        overflow-y: auto;
+
+        .search-item {
+            cursor: pointer;
+            user-select: none;
+            line-height: 64px;
+            font-size: 24px;
+            padding-left: 24px;
+            box-sizing: border-box;
+
+            &:hover {
+                background: $material-color-amber-400;
+                color: black;
+            }
+        }
+    }
+}

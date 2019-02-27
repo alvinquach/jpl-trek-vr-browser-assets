@@ -1,3 +1,5 @@
 export type ControllerModalActivity =
     'Default' |
-    'BBoxSelection';
+    'BBoxSelection' |
+    'BookmarkResults' |
+    'ProductResults';

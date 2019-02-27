@@ -19,12 +19,12 @@ export class DevNavigationComponent {
             link: './controller-modal/bbox-selection'
         },
         {
-            label: 'Link 2',
-            link: './fake-link'
+            label: 'Products',
+            link: './controller-modal/products'
         },
         {
-            label: 'Link 3',
-            link: './fake-link'
+            label: 'Bookmarks',
+            link: './controller-modal/bookmarks'
         }
     ];
 

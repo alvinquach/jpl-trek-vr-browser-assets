@@ -1,0 +1,13 @@
+<div class="info-container">
+    <ng-container *ngIf="imageUrl || description" >
+        <div *ngIf="imageUrl" class="image-container">
+            <img [src]="imageUrl">
+        </div>
+        <div *ngIf="description" class="description">
+            {{description}}
+        </div>
+        <button mdc-button outlined (click)="navigate()">
+            Navigate To
+        </button>
+    </ng-container>
+</div>

@@ -20,6 +20,10 @@ export class AngularHttpService extends HttpService {
         this._http.get(uri).subscribe(value => callback(value), error => errorCallback && errorCallback(error));
     }
 
+    getText(uri: string, callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+        this._http.get(uri, { responseType: 'text' }).subscribe(value => callback(value), error => errorCallback && errorCallback(error));
+    }
+
     post(uri: string, body: any, callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
         this._http.post(uri, body).subscribe(value => callback(value), error => errorCallback && errorCallback(error));
     }

@@ -1,5 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
+import { MainModalService } from '../../services/main-modal.service';
+import { NavigatibleComponent } from '../base-navigatible.component';
 
 @Component({
     selector: 'app-main-modal-home',
@@ -7,7 +10,17 @@ import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-v
     styleUrls: ['./main-modal-home.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainModalHomeComponent {
+export class MainModalHomeComponent extends NavigatibleComponent {
+
+    protected readonly _title = 'Menu';
+
+    constructor(activatedRoute: ActivatedRoute,
+                cd: ChangeDetectorRef,
+                router: Router,
+                mainModalService: MainModalService) {
+
+        super(activatedRoute, cd, router, mainModalService);
+    }
 
     startBoundingBoxSelection() {
         UnityGlobalVariables.instance.startPrimaryControllerActivity('BBoxSelection');

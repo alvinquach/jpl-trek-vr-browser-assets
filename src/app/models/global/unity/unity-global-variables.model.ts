@@ -36,6 +36,8 @@ export class UnityGlobalVariables {
 
     startSecondaryControllerActivity: (activityName: ControllerModalActivity) => void;
 
+    navigateTo: (bbox: string) => void;
+
     //#endregion
 
     //#region Functions registered by UnityBrowserSearchFunctions.cs

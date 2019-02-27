@@ -33,6 +33,7 @@ export class AngularSearchService extends SearchService {
     getFacetInfo(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
         if (this._facetInfo) {
             callback(this._facetInfo);
+            return;
         }
         const paramsMap = {
             start: '0',
@@ -47,6 +48,7 @@ export class AngularSearchService extends SearchService {
     getBookmarks(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
         if (this._bookmarks) {
             callback(this._bookmarks);
+            return;
         }
         this.search({ itemType: 'Bookmark' }, res => {
             this._bookmarks = res;
@@ -57,6 +59,7 @@ export class AngularSearchService extends SearchService {
     getDatasets(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
         if (this._datasets) {
             callback(this._datasets);
+            return;
         }
         this.search({ itemType: 'Dataset' }, res => {
             this._datasets = res;
@@ -67,6 +70,7 @@ export class AngularSearchService extends SearchService {
     getNomenclatures(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
         if (this._nomenclatures) {
             callback(this._nomenclatures);
+            return;
         }
         this.search({ itemType: 'Nomenclature' }, res => {
             this._nomenclatures = res;
@@ -77,6 +81,7 @@ export class AngularSearchService extends SearchService {
     getProducts(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
         if (this._products) {
             callback(this._products);
+            return;
         }
         this.search({ itemType: 'Product' }, res => {
             this._products = res;
@@ -132,8 +137,14 @@ export class AngularSearchService extends SearchService {
     private _convertResults(res: any): SearchResult {
         const items: any[] = (<any[]>res.response.docs).map(doc => {
             return {
-                name: doc.productLabel,
-                itemType: StringUtils.firstCharacterToUpper(doc.itemType)
+                name: doc.title,
+                thumbnailUrl: doc.thumbnailURLDir,
+                itemType: StringUtils.firstCharacterToUpper(doc.itemType),
+                productLabel: doc.productLabel,
+                productType: doc.productType,
+                instrument: doc.instrument,
+                description: doc.description,
+                boundingBox: doc.bbox
             };
         });
         const facetInfo: SearchFacetInfo = {

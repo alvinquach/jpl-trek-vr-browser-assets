@@ -1,0 +1,12 @@
+@import '../../styles/common.scss';
+
+.item {
+    cursor: pointer;
+    user-select: none;
+    line-height: 96px;
+
+    &:hover {
+        background: $material-color-light-blue-400;
+        color: black;
+    }
+}

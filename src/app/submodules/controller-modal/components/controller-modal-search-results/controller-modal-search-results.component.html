@@ -1,0 +1,25 @@
+<div class="modal-contents with-header with-footer">
+    <div class="modal-header">
+        {{itemType}}s
+    </div>
+    <div class="main-contents no-padding" [ngSwitch]="helpMode">
+        <div *ngSwitchCase="false">
+            <div *ngFor="let item of items" class="item">
+                {{item.name}}
+            </div>
+        </div>
+        <div *ngSwitchCase="true">
+            <div>
+                Coming Soon
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" (click)="toggleHelpMode()" [ngSwitch]="helpMode">
+        <div *ngSwitchCase="false">
+            Press the Steam button for help
+        </div>
+        <div *ngSwitchCase="true">
+            Press the Steam button to return
+        </div>
+    </div>
+</div>

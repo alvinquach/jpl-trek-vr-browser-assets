@@ -30,6 +30,10 @@
         font-size: 48px;
         padding: 32px;
         box-sizing: border-box;
+    
+        &.no-padding {
+            padding: 0;
+        }
     }
 
     &.with-header {
