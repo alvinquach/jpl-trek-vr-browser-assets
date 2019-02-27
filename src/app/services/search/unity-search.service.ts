@@ -3,6 +3,7 @@ import { SearchService } from './base-search.service';
 import { UnityDataRequest } from 'src/app/models/global/unity/unity-data-request.model';
 import { SearchResult } from 'src/app/models/search/search-result.model';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
+import { SearchParameters } from 'src/app/models/search/search-parameters.model';
 
 /**
  * Implementation of SearchService that makes HTTP calls through
@@ -36,12 +37,12 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    getBookmarks(callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
-        if (!this.functionReadyAndValid('getBookmarks')) {
+    search(searchParams: SearchParameters, callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
+        if (!this.functionReadyAndValid('search')) {
             return;
         }
-        const requestId = `${this._currentRequestId++}_BOOKMARKS`;
-        this.unityGlobalVariables.getBookmarks(requestId);
+        const requestId = `${this._currentRequestId++}_SEARCH`;
+        this.unityGlobalVariables.search(searchParams, requestId);
 
         // Register a web request so that a response can be received from Unity.
         this.addSearchRequest(requestId, (res: SearchResult) => {

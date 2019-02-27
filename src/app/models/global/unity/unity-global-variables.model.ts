@@ -1,3 +1,5 @@
+import { SearchParameters } from '../../search/search-parameters.model';
+
 export class UnityGlobalVariables {
 
     // Note that Unity registers the functions after the onload
@@ -37,7 +39,7 @@ export class UnityGlobalVariables {
 
     getFacetInfo: (requestId: string) => void;
 
-    getBookmarks: (requestId: string) => void;
+    search: (searchParams: SearchParameters, requestId: string) => void;
 
     //#endregion
 
