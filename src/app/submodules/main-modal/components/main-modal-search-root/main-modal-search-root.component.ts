@@ -34,7 +34,8 @@ export class MainModalSearchRootComponent extends NavigatibleComponent implement
         super.ngOnInit();
 
         this._searchService.getFacetInfo(res => {
-            this._facetInfo = res.searchFacetInfo;
+            this._facetInfo = res.facetInfo;
+            console.log(this._facetInfo);
             this._cd.detectChanges();
         });
     }

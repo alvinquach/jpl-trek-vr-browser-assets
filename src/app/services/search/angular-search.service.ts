@@ -157,7 +157,7 @@ export class AngularSearchService extends SearchService {
             totalCount: res.response.numFound,
             startIndex: res.response.start,
             items: items,
-            searchFacetInfo: facetInfo
+            facetInfo: facetInfo
         };
         return result;
     }

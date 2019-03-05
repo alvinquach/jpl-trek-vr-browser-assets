@@ -37,7 +37,17 @@ export class UnityHttpService extends HttpService {
     }
 
     getText(uri: string, callback: (value: Object) => void, errorCallback?: (error: any) => void): void {
-        // TODO Implement this
+        if (!this.functionReadyAndValid('getRequest')) {
+            return;
+        }
+        const requestId = `${this._currentRequestId++}_GET`;
+        UnityGlobalVariables.instance.getRequest(uri, requestId);
+
+        // Register a web request so that a response can be received from Unity.
+        this.addWebRequest(requestId, (res: string) => {
+            // TODO Handle errors
+            callback(res);
+        });
     }
 
     post(uri: string, body: any, callback: (value: Object) => void, errorCallback?: (error: any) => void): void {

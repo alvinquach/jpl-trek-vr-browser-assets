@@ -5,5 +5,5 @@ export interface SearchResult {
     totalCount: number;
     startIndex: number;
     items: SearchResultItem[];
-    searchFacetInfo: SearchFacetInfo;
+    facetInfo: SearchFacetInfo;
 }

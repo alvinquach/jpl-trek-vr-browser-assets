@@ -4,6 +4,7 @@ import { UnityDataRequest } from 'src/app/models/global/unity/unity-data-request
 import { SearchResult } from 'src/app/models/search/search-result.model';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
 import { SearchParameters } from 'src/app/models/search/search-parameters.model';
+import { SearchItemType } from 'src/app/models/search/search-item-type.type';
 
 /**
  * Implementation of SearchService that makes HTTP calls through
@@ -24,85 +25,91 @@ export class UnitySearchService extends SearchService {
     }
 
     getFacetInfo(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
-        if (!this.functionReadyAndValid('getFacetInfo')) {
+        if (!this._functionReadyAndValid('getFacetInfo')) {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_FACET_INFO`;
         UnityGlobalVariables.instance.getFacetInfo(requestId);
 
         // Register a web request so that a response can be received from Unity.
-        this.addSearchRequest(requestId, (res: SearchResult) => {
+        this._addSearchRequest(requestId, (res: SearchResult) => {
             // TODO Handle errors
+            this._processResults(res);
             callback(res);
         });
     }
 
     getBookmarks(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
-        if (!this.functionReadyAndValid('getBookmarks')) {
+        if (!this._functionReadyAndValid('getBookmarks')) {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_BOOKMARKS`;
         UnityGlobalVariables.instance.getBookmarks(requestId);
 
         // Register a web request so that a response can be received from Unity.
-        this.addSearchRequest(requestId, (res: SearchResult) => {
+        this._addSearchRequest(requestId, (res: SearchResult) => {
             // TODO Handle errors
+            this._processResults(res);
             callback(res);
         });
     }
 
     getDatasets(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
-        if (!this.functionReadyAndValid('getDatasets')) {
+        if (!this._functionReadyAndValid('getDatasets')) {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_DATASETS`;
         UnityGlobalVariables.instance.getDatasets(requestId);
 
         // Register a web request so that a response can be received from Unity.
-        this.addSearchRequest(requestId, (res: SearchResult) => {
+        this._addSearchRequest(requestId, (res: SearchResult) => {
             // TODO Handle errors
+            this._processResults(res);
             callback(res);
         });
     }
 
     getNomenclatures(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
-        if (!this.functionReadyAndValid('getNomenclatures')) {
+        if (!this._functionReadyAndValid('getNomenclatures')) {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_NOMENCLATURE`;
         UnityGlobalVariables.instance.getNomenclatures(requestId);
 
         // Register a web request so that a response can be received from Unity.
-        this.addSearchRequest(requestId, (res: SearchResult) => {
+        this._addSearchRequest(requestId, (res: SearchResult) => {
             // TODO Handle errors
+            this._processResults(res);
             callback(res);
         });
     }
 
     getProducts(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
-        if (!this.functionReadyAndValid('getProducts')) {
+        if (!this._functionReadyAndValid('getProducts')) {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_PRODUCTS`;
         UnityGlobalVariables.instance.getProducts(requestId);
 
         // Register a web request so that a response can be received from Unity.
-        this.addSearchRequest(requestId, (res: SearchResult) => {
+        this._addSearchRequest(requestId, (res: SearchResult) => {
             // TODO Handle errors
+            this._processResults(res);
             callback(res);
         });
     }
 
     search(searchParams: SearchParameters, callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
-        if (!this.functionReadyAndValid('search')) {
+        if (!this._functionReadyAndValid('search')) {
             return;
         }
         const requestId = `${this._currentRequestId++}_SEARCH`;
         UnityGlobalVariables.instance.search(searchParams, requestId);
 
         // Register a web request so that a response can be received from Unity.
-        this.addSearchRequest(requestId, (res: SearchResult) => {
+        this._addSearchRequest(requestId, (res: SearchResult) => {
             // TODO Handle errors
+            this._processResults(res);
             callback(res);
         });
     }
@@ -119,7 +126,18 @@ export class UnitySearchService extends SearchService {
         return true;
     }
 
-    private addSearchRequest(requestId: string, callback?: (res: SearchResult) => void): UnityDataRequest<SearchResult> {
+    private _processResults(res: SearchResult): void {
+        if (res.facetInfo && res.facetInfo.itemType) {
+            const itemType = <any>res.facetInfo.itemType;
+            const itemTypeMap = new Map<SearchItemType, number>();
+            for (const key of Object.keys(itemType)) {
+                itemTypeMap.set(<any>key, itemType[key]);
+            }
+            res.facetInfo.itemType = itemTypeMap;
+        }
+    }
+
+    private _addSearchRequest(requestId: string, callback?: (res: SearchResult) => void): UnityDataRequest<SearchResult> {
         if (!!this._searchRequests[requestId]) {
             console.error(`Search request ID ${requestId} already exists.`);
             return null;
@@ -127,7 +145,7 @@ export class UnitySearchService extends SearchService {
         return this._searchRequests[requestId] = new UnityDataRequest(requestId, callback);
     }
 
-    private functionReadyAndValid(functionName: string): boolean {
+    private _functionReadyAndValid(functionName: string): boolean {
         const unityGlobalVariables = UnityGlobalVariables.instance;
         if (!unityGlobalVariables || !unityGlobalVariables.webFunctionsReady) {
             console.error('Error: Search requests through Unity is currently not available.');
