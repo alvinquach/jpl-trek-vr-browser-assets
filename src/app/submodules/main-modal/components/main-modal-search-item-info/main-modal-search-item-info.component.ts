@@ -25,7 +25,12 @@ export class MainModalSearchItemInfoComponent {
     boundingBox: string;
 
     navigate() {
-        UnityGlobalVariables.instance.navigateTo(this.boundingBox);
+        const unityGlobalVariables = UnityGlobalVariables.instance;
+        if (unityGlobalVariables.terrainFunctionsReady) {
+            unityGlobalVariables.navigateToCoordinate(this.boundingBox);
+        } else {
+            console.error(`Terrain functions are not available or ready.`);
+        }
     }
 
 }

@@ -36,7 +36,13 @@ export class UnityGlobalVariables {
 
     startSecondaryControllerActivity: (activityName: ControllerModalActivity) => void;
 
-    navigateTo: (bbox: string) => void;
+    //#endregion
+
+    //#region Functions registered by UnityTerrainModelFunctions.cs
+
+    terrainFunctionsReady = false;
+
+    navigateToCoordinate: (bbox: string) => void;
 
     //#endregion
 
