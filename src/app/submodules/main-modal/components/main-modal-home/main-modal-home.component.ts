@@ -26,4 +26,13 @@ export class MainModalHomeComponent extends NavigatibleComponent {
         UnityGlobalVariables.instance.startSecondaryControllerActivity('BBoxSelection');
     }
 
+    protected _navigateBackAction() {
+        const unityGlobalVariables = UnityGlobalVariables.instance;
+        if (unityGlobalVariables.terrainFunctionsReady) {
+            unityGlobalVariables.setMainModalVisiblity(false);
+        } else {
+            console.error(`Terrain functions are not available or ready.`);
+        }
+    }
+
 }

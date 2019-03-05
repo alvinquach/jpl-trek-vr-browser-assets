@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 import { AngularGlobalVariables } from './models/global/angular/angular-global-variables.model';
 import { UnityGlobalVariables } from './models/global/unity/unity-global-variables.model';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-root',

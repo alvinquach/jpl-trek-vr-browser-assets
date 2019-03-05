@@ -3,6 +3,13 @@ import { GlobalService } from 'src/app/services/base-global.service';
 import { Router } from '@angular/router';
 import { NgZone } from '@angular/core';
 
+/**
+ * An instance of this class is stored globally in the 'window'
+ * variable so that certain parts of the Angular application can
+ * be accessed externally by Unity, etc.
+ *
+ * @author Alvin Quach
+ */
 export class AngularGlobalVariables {
 
     static get instance(): AngularGlobalVariables {

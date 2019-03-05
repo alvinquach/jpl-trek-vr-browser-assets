@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { MainModalService } from '../services/main-modal.service';
 
 export abstract class NavigatibleComponent implements OnInit, OnDestroy {
@@ -17,6 +17,13 @@ export abstract class NavigatibleComponent implements OnInit, OnDestroy {
                 protected _router: Router,
                 protected _mainModalService: MainModalService) {
 
+    }
+
+    @HostListener('window:keydown', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+        if (this.isLastChild && event.key === 'm') {
+            this._navigateBackAction();
+        }
     }
 
     ngOnInit() {
@@ -38,6 +45,10 @@ export abstract class NavigatibleComponent implements OnInit, OnDestroy {
     onBackTriggerClick(event): void {
         this._router.navigate(['./'], { relativeTo: this._activatedRoute });
         event.stopPropagation();
+    }
+
+    protected _navigateBackAction() {
+        this._router.navigate(['../'], { relativeTo: this._activatedRoute });
     }
 
 }

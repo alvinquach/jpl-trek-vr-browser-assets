@@ -36,6 +36,8 @@ export class UnityGlobalVariables {
 
     startSecondaryControllerActivity: (activityName: ControllerModalActivity) => void;
 
+    setMainModalVisiblity: (visible: boolean) => void;
+
     //#endregion
 
     //#region Functions registered by UnityTerrainModelFunctions.cs
