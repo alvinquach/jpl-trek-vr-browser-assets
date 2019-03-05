@@ -23,7 +23,7 @@ export class MainModalHomeComponent extends NavigatibleComponent {
     }
 
     startBoundingBoxSelection() {
-        UnityGlobalVariables.instance.startPrimaryControllerActivity('BBoxSelection');
+        UnityGlobalVariables.instance.startSecondaryControllerActivity('BBoxSelection');
     }
 
 }

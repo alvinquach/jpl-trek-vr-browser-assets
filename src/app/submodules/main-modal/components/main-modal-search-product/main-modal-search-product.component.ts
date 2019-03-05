@@ -68,7 +68,7 @@ export class MainModalSearchProductComponent extends NavigatibleComponent implem
     }
 
     viewInController() {
-        UnityGlobalVariables.instance.startPrimaryControllerActivity('ProductResults');
+        UnityGlobalVariables.instance.startSecondaryControllerActivity('ProductResults');
     }
 
 }

@@ -68,7 +68,7 @@ export class MainModalSearchBookmarkComponent extends NavigatibleComponent imple
     }
 
     viewInController() {
-        UnityGlobalVariables.instance.startPrimaryControllerActivity('BookmarkResults');
+        UnityGlobalVariables.instance.startSecondaryControllerActivity('BookmarkResults');
     }
 
 }

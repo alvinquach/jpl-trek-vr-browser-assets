@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SearchItemType } from 'src/app/models/search/search-item-type.type';
-import { SearchService } from 'src/app/services/search/base-search.service';
-import { SearchResult } from 'src/app/models/search/search-result.model';
 import { SearchResultItem } from 'src/app/models/search/search-result-item.model';
+import { SearchService } from 'src/app/services/search/base-search.service';
 
 @Component({
     selector: 'app-controller-modal-search-results',
