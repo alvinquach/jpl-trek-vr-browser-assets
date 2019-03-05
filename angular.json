@@ -17,6 +17,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
+            "sourceMap": false,
+            "optimization": false,
             "outputPath": "dist/jpl-trek-vr-browser-assets",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -39,12 +42,9 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
+              "outputHashing": "none",
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
