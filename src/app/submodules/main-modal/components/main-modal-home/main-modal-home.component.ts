@@ -26,7 +26,7 @@ export class MainModalHomeComponent extends NavigatibleComponent {
         UnityGlobalVariables.instance.startSecondaryControllerActivity('BBoxSelection');
     }
 
-    startBoundingBoxSelection() {
+    startLayerManager() {
         UnityGlobalVariables.instance.startSecondaryControllerActivity('LayerManager');
     }
 

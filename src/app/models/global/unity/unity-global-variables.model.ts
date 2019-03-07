@@ -46,6 +46,8 @@ export class UnityGlobalVariables {
 
     navigateToCoordinate: (bbox: string) => void;
 
+    adjustLayer: (layer: number, value: number) => void; // Temporary
+
     //#endregion
 
     //#region Functions registered by UnityBrowserSearchFunctions.cs
