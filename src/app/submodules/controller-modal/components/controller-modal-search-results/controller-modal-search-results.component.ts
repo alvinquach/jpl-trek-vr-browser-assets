@@ -10,7 +10,7 @@ import { SearchService } from 'src/app/services/search/base-search.service';
     styleUrls: ['./controller-modal-search-results.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ControllerModalBoundingSearchResultsComponent implements OnInit {
+export class ControllerModalSearchResultsComponent implements OnInit {
 
     private _itemType: SearchItemType;
     get itemType() {

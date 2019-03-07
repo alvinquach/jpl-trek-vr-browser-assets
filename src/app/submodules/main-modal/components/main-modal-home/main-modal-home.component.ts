@@ -26,6 +26,10 @@ export class MainModalHomeComponent extends NavigatibleComponent {
         UnityGlobalVariables.instance.startSecondaryControllerActivity('BBoxSelection');
     }
 
+    startBoundingBoxSelection() {
+        UnityGlobalVariables.instance.startSecondaryControllerActivity('LayerManager');
+    }
+
     protected _navigateBackAction() {
         const unityGlobalVariables = UnityGlobalVariables.instance;
         if (unityGlobalVariables.terrainFunctionsReady) {
