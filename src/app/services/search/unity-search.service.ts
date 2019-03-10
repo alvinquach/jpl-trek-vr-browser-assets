@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { SearchService } from './base-search.service';
 import { UnityDataRequest } from 'src/app/models/global/unity/unity-data-request.model';
 import { SearchResult } from 'src/app/models/search/search-result.model';
@@ -20,7 +20,7 @@ export class UnitySearchService extends SearchService {
 
     private readonly _searchRequests: {[key: string]: UnityDataRequest<SearchResult>} = {};
 
-    constructor() {
+    constructor(private _ngZone: NgZone) {
         super(UnitySearchService.name);
     }
 
@@ -121,8 +121,10 @@ export class UnitySearchService extends SearchService {
             console.error(`Search request ID ${requestId} does not exist.`);
             return false;
         }
-        request.response = JSON.parse(response);
-        delete this._searchRequests[requestId];
+        this._ngZone.run(() => {
+            request.response = JSON.parse(response);
+            delete this._searchRequests[requestId];
+        });
         return true;
     }
 

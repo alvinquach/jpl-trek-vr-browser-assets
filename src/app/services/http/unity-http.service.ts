@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
 import { UnityDataRequest } from 'src/app/models/global/unity/unity-data-request.model';
 import { HttpService } from './base-http.service';
@@ -17,7 +17,7 @@ export class UnityHttpService extends HttpService {
 
     private readonly _webRequests: {[key: string]: UnityDataRequest<string>} = {};
 
-    constructor() {
+    constructor(private _ngZone: NgZone) {
         super(UnityHttpService.name);
     }
 
@@ -72,8 +72,10 @@ export class UnityHttpService extends HttpService {
             console.error(`Web request ID ${requestId} does not exist.`);
             return false;
         }
-        request.response = response;
-        delete this._webRequests[requestId];
+        this._ngZone.run(() => {
+            request.response = response;
+            delete this._webRequests[requestId];
+        });
         return true;
     }
 
