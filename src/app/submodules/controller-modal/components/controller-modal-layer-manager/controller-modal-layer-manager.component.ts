@@ -102,6 +102,11 @@ export class ControllerModalLayerManagerComponent implements OnInit {
         } else if (layer.opacity > 100) {
             layer.opacity = 100;
         }
+
+        const unityGlobalVariables = UnityGlobalVariables.instance;
+        if (unityGlobalVariables.terrainFunctionsReady) {
+            unityGlobalVariables.adjustLayer(index + 1, layer.opacity);
+        }
     }
 
 }
