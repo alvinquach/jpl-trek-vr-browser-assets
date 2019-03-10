@@ -1,6 +1,6 @@
 import { MdcButtonModule, MdcIconButtonModule, MdcIconModule, MdcListModule, MdcMenuModule, MdcTopAppBarModule } from '@angular-mdc/web';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, NgZone } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +12,7 @@ import { UnityHttpService } from './services/http/unity-http.service';
 import { SearchService } from './services/search/base-search.service';
 import { UnitySearchService } from './services/search/unity-search.service';
 import { AngularSearchService } from './services/search/angular-search.service';
+import { UnityDataService } from './services/unity-data/unity-data.service';
 
 const MdcWebModules = [
     MdcButtonModule,
@@ -41,6 +42,10 @@ const MdcWebModules = [
         {
             provide: SearchService,
             useClass: environment.unity ? UnitySearchService : AngularSearchService
+        },
+        {
+            provide: UnityDataService,
+            useFactory: (ngZone: NgZone) => environment.unity ? new UnityDataService(ngZone) : null
         }
     ],
     bootstrap: [AppComponent]
