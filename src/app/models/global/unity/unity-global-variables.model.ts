@@ -30,7 +30,7 @@ export class UnityGlobalVariables {
 
     //#region Functions registered by UnityBrowserControllerFunctions.cs
 
-    controllerFunctionsReady = false;
+    userInterfaceFunctionsReady = false;
 
     startPrimaryControllerActivity: (activityName: ControllerModalActivity) => void;
 

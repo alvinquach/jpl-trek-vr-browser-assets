@@ -114,7 +114,7 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    fulfillSearchRequest(requestId: string, response: string): boolean {
+    fulfillRequest(requestId: string, response: string): boolean {
         console.log(requestId);
         const request = this._searchRequests[requestId];
         if (!request) {

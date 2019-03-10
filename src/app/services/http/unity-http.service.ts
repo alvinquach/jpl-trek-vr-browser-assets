@@ -65,7 +65,7 @@ export class UnityHttpService extends HttpService {
         });
     }
 
-    fulfillWebRequest(requestId: string, response: string): boolean {
+    fulfillRequest(requestId: string, response: string): boolean {
         console.log(requestId);
         const request = this._webRequests[requestId];
         if (!request) {
