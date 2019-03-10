@@ -5,6 +5,8 @@ import { ControllerModalBoundingBoxSelectionComponent } from './components/contr
 import { ControllerModalLayerManagerComponent } from './components/controller-modal-layer-manager/controller-modal-layer-manager.component';
 import { ControllerModalSearchResultsComponent } from './components/controller-modal-search-results/controller-modal-search-results.component';
 import { ControllerModalComponent } from './controller-modal.component';
+import { MdcSliderModule, MdcIconModule } from '@angular-mdc/web';
+import { FormsModule } from '@angular/forms';
 
 const ModuleRoutes: Routes = [
     {
@@ -37,7 +39,8 @@ const ModuleRoutes: Routes = [
 ];
 
 const MdcWebModules = [
-
+    MdcIconModule,
+    MdcSliderModule
 ];
 
 @NgModule({
@@ -49,6 +52,7 @@ const MdcWebModules = [
     ],
     imports: [
         CommonModule,
+        FormsModule,
         RouterModule.forChild(ModuleRoutes),
         ...MdcWebModules
     ],

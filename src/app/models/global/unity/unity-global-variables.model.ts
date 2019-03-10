@@ -48,6 +48,8 @@ export class UnityGlobalVariables {
 
     adjustLayer: (layer: number, value: number) => void; // Temporary
 
+    getCurrentLayers: (requestId: string) => void; // Temporary
+
     //#endregion
 
     //#region Functions registered by UnityBrowserSearchFunctions.cs

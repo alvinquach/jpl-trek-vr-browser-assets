@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
 import { MainModalService } from '../../services/main-modal.service';
 import { NavigatibleComponent } from '../base-navigatible.component';
+import { ControllerModalActivity } from 'src/app/models/controller-modal-activity.type';
 
 @Component({
     selector: 'app-main-modal-home',
@@ -22,12 +23,13 @@ export class MainModalHomeComponent extends NavigatibleComponent {
         super(activatedRoute, cd, router, mainModalService);
     }
 
-    startBoundingBoxSelection() {
-        UnityGlobalVariables.instance.startSecondaryControllerActivity('BBoxSelection');
-    }
-
-    startLayerManager() {
-        UnityGlobalVariables.instance.startSecondaryControllerActivity('LayerManager');
+    startActivity(activity: ControllerModalActivity) {
+        const unityGlobalVariables = UnityGlobalVariables.instance;
+        if (unityGlobalVariables.userInterfaceFunctionsReady) {
+            UnityGlobalVariables.instance.startSecondaryControllerActivity(activity);
+        } else {
+            console.error(`User interface functions are not available or ready.`);
+        }
     }
 
     protected _navigateBackAction() {

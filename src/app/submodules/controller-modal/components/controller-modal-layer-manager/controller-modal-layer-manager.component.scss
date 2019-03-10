@@ -1,0 +1,45 @@
+@import '../../styles/common.scss';
+
+.layer-item {
+    user-select: none;
+    padding: 32px;
+    
+    &.focused {
+        background: $material-color-light-blue-400;
+        color: black;
+    }
+
+    .name {
+        font-size: 48px;
+        line-height: 64px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .opacity {
+        flex-direction: row;
+        box-sizing: border-box;
+        display: flex;
+        place-content: center space-between;
+        align-items: center;
+        line-height: 84px;
+
+        mdc-icon {
+            font-size: 64px;
+        }
+
+        .slider-container {
+            flex: 1;
+            max-width: 180px;
+            max-height: 24px;
+            position: relative;
+            top: -12px;
+            zoom: 400%;
+        }
+
+        .value {
+            font-size: 42px;
+        }
+    }
+}
