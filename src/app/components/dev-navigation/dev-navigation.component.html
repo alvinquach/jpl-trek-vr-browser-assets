@@ -6,6 +6,10 @@
                     {{mainModal.label}}
                 </button>
                 |
+                <button mdc-button class="nav-button" [routerLink]="terrainControlPanel.link">
+                    {{terrainControlPanel.label}}
+                </button>
+                |
                 <button mdc-button class="nav-button" (click)="controllerMenu.open = !controllerMenu.open">
                     Controller
                 </button>
@@ -35,6 +39,9 @@
     <mdc-list>
         <mdc-list-item [routerLink]="mainModal.link" routerLinkActive="link-active">
             {{mainModal.label}}
+        </mdc-list-item>
+        <mdc-list-item [routerLink]="terrainControlPanel.link" routerLinkActive="link-active">
+            {{terrainControlPanel.label}}
         </mdc-list-item>
         <mdc-list-divider></mdc-list-divider>
         <ng-container *ngTemplateOutlet="menuItems; context: {subheader: 'Controller Activities', items: testLinks1}"></ng-container>

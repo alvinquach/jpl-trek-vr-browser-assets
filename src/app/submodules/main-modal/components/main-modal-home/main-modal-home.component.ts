@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
-import { MainModalService } from '../../services/main-modal.service';
-import { NavigatibleComponent } from '../base-navigatible.component';
 import { ControllerModalActivity } from 'src/app/models/controller-modal-activity.type';
+import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
+import { NavigatibleComponent } from '../base-navigatible.component';
+import { MainModalService } from '../../services/main-modal.service';
 
 @Component({
     selector: 'app-main-modal-home',

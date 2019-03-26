@@ -1,6 +1,5 @@
-import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MainModalService } from './services/main-modal.service';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 @Component({
     selector: 'app-main-modal',

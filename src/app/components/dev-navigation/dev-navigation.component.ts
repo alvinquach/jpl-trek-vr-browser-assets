@@ -13,6 +13,11 @@ export class DevNavigationComponent {
         link: './main-modal'
     };
 
+    readonly terrainControlPanel: Link = {
+        label: 'Terrain Ctrl',
+        link: './terrain-control-panel'
+    };
+
     readonly testLinks1: Link[] = [
         {
             label: 'BBox Selection',

@@ -12,6 +12,10 @@ const UnityRoutes: Routes = [
         path: 'controller-modal',
         loadChildren: './submodules/controller-modal/controller-modal.module#ControllerModalModule'
     },
+    {
+        path: 'terrain-control-panel',
+        loadChildren: './submodules/terrain-control-panel/terrain-control-panel.module#TerrainControlPanelModule'
+    }
 ];
 
 const WebRoutes: Routes = [

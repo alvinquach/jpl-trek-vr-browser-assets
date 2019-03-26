@@ -1,0 +1,28 @@
+<div class="grid-icons-container">
+    <div *ngFor="let setting of viewSettings"
+        class="grid-icon-container"
+        [ngClass]="{'disabled' : !setting.enabled}"
+        (click)="toggleSetting(setting)">
+        <div class="grid-icon">
+            <mdc-icon>
+                {{(setting.status && setting.enabled) ? setting.onIcon : setting.offIcon}}
+            </mdc-icon>
+        </div>
+        <div class="description">
+            {{setting.name}}
+        </div>
+        <div class="sub description" [ngSwitch]="setting.enabled">
+            <div *ngSwitchCase=true [ngSwitch]="setting.status">
+                <div *ngSwitchCase="true" class="green">
+                    Enabled
+                </div>
+                <div *ngSwitchDefault class="red">
+                    Disabled
+                </div>
+            </div>
+            <div *ngSwitchDefault class="yellow">
+                Not Available
+            </div>
+        </div>
+    </div>
+</div>

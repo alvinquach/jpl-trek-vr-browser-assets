@@ -1,0 +1,8 @@
+@import './styles/dimensions.scss';
+
+.screen-bounds {
+    width: $screen-width;
+    height: $screen-height;
+    overflow: hidden;
+    background: rgba(32, 48, 64, 1.0);
+}

@@ -1,6 +1,6 @@
+import { ChangeDetectorRef, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { ChangeDetectorRef, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { MainModalService } from '../services/main-modal.service';
 
 export abstract class NavigatibleComponent implements OnInit, OnDestroy {

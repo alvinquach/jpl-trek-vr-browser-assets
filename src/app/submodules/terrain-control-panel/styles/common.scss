@@ -1,0 +1,63 @@
+@import '~@angular-mdc/theme/material';
+@import './dimensions.scss';
+
+.grid-icons-container {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+
+    .grid-icon-container {
+        user-select: none;
+        cursor: pointer;
+        width: $grid-icon-size;
+        // height: $grid-icon-size;
+        background: rgba(255, 255, 255, 0.12);
+        margin: 32px;
+        padding: 32px;
+        color: white;
+        transition: all 150ms ease-in-out;
+        // border: 2px solid blue;
+        // text-align: center;
+
+        .grid-icon {
+            
+            .material-icons {
+                font-size: $grid-icon-size;
+            }
+        }
+
+        .description {
+            font-size: 32px;
+
+            &.sub {
+                font-size: 24px;
+
+                &.red, .red {
+                    color: red;
+                }
+
+                &.yellow, .yellow {
+                    color: gold;
+                }
+
+                &.green, .green {
+                    color: greenyellow;
+                }
+            }
+        }
+
+        &:not(.disabled):hover {
+            background: $material-color-amber-400;
+            color: black;
+        }
+
+        &.disabled {
+            cursor: default;
+            background: rgba(0, 0, 0, 0.12);
+            color: rgba(255, 255, 255, 0.38);
+        }
+
+    }
+}

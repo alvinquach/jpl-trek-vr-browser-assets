@@ -9,9 +9,9 @@ import { DevNavigationComponent } from './components/dev-navigation/dev-navigati
 import { AngularHttpService } from './services/http/angular-http.service';
 import { HttpService } from './services/http/base-http.service';
 import { UnityHttpService } from './services/http/unity-http.service';
+import { AngularSearchService } from './services/search/angular-search.service';
 import { SearchService } from './services/search/base-search.service';
 import { UnitySearchService } from './services/search/unity-search.service';
-import { AngularSearchService } from './services/search/angular-search.service';
 import { UnityDataService } from './services/unity-data/unity-data.service';
 
 const MdcWebModules = [
