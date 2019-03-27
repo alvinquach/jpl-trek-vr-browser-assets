@@ -1,5 +1,6 @@
-<div class="grid-icons-container">
-    <div *ngFor="let setting of viewSettings"
+<div class="title">Display Settings</div>
+<div *ngIf="settingsRetrieved" class="grid-icons-container">
+    <div *ngFor="let setting of booleanViewSettings"
         class="grid-icon-container"
         [ngClass]="{'disabled' : !setting.enabled}"
         (click)="toggleSetting(setting)">
@@ -23,6 +24,17 @@
             <div *ngSwitchDefault class="yellow">
                 Not Available
             </div>
+        </div>
+    </div>
+    <div class="grid-icon-container" (click)="temp()">
+        <div class="grid-icon">
+            <mdc-icon>terrain</mdc-icon>
+        </div>
+        <div class="description">
+            Height Scale
+        </div>
+        <div class="sub description">
+            {{heightExaggeration | number: '1.2-2'}}x
         </div>
     </div>
 </div>

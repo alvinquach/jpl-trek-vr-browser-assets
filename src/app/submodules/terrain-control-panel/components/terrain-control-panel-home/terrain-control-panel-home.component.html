@@ -1,5 +1,5 @@
 <div *ngIf="isLastChild" class="grid-icons-container">
-    <div class="grid-icon-container disabled">
+    <div class="grid-icon-container" (click)="showGlobeModel()">
         <div class="grid-icon">
             <mdc-icon>language</mdc-icon>
         </div>
@@ -15,7 +15,7 @@
             Display Settings
         </div>
     </div>
-    <div class="grid-icon-container">
+    <div class="grid-icon-container disabled">
         <div class="grid-icon">
             <mdc-icon>info</mdc-icon>
         </div>

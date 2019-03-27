@@ -2,6 +2,7 @@
 @import './dimensions.scss';
 
 .grid-icons-container {
+    padding-top: 160px;
     flex-direction: row;
     box-sizing: border-box;
     display: flex;
@@ -14,8 +15,8 @@
         width: $grid-icon-size;
         // height: $grid-icon-size;
         background: rgba(255, 255, 255, 0.12);
-        margin: 32px;
-        padding: 32px;
+        margin: 56px;
+        padding: 48px;
         color: white;
         transition: all 150ms ease-in-out;
         // border: 2px solid blue;
@@ -29,10 +30,10 @@
         }
 
         .description {
-            font-size: 32px;
+            font-size: 48px;
 
             &.sub {
-                font-size: 24px;
+                font-size: 36px;
 
                 &.red, .red {
                     color: red;

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
 
 @Component({
     selector: 'app-terrain-control-panel-home',
@@ -9,6 +10,8 @@ import { Subscription } from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TerrainControlPanelHomeComponent implements OnInit, OnDestroy {
+
+    private readonly _unityGlobalVariables = UnityGlobalVariables.instance;
 
     protected _routerSubscription: Subscription;
     get isLastChild() {
@@ -31,6 +34,14 @@ export class TerrainControlPanelHomeComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this._routerSubscription.unsubscribe();
+    }
+
+    showGlobeModel() {
+        if (!this._unityGlobalVariables.terrainFunctionsReady) {
+            console.error('Unity terrain functions are not ready or not available.');
+            return;
+        }
+        this._unityGlobalVariables.showGlobeModel();
     }
 
     onBackTriggerClick(event): void {

@@ -1,1 +1,38 @@
 @import '../../styles/common.scss';
+
+$title-height: 160px;
+
+.title {
+    height: $title-height;
+    text-align: center;
+    color: white;
+    font-size: 64px;
+    line-height: $title-height;
+}
+
+.grid-icons-container {
+    padding-top: 80px;
+
+    .grid-icon-container {
+        width: #{$grid-icon-size * 0.8};
+        margin: 32px;
+        padding: 32px;
+
+        .grid-icon {
+            
+            .material-icons {
+                font-size: #{$grid-icon-size * 0.8};
+            }
+        }
+
+        .description {
+            font-size: 42px;
+            padding-top: 12px;
+
+            &.sub {
+                font-size: 32px;
+            }
+        }
+    }
+
+}

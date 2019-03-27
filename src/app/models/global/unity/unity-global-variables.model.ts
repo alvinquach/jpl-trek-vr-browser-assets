@@ -44,7 +44,19 @@ export class UnityGlobalVariables {
 
     terrainFunctionsReady = false;
 
+    showGlobeModel: () => void;
+
     navigateToCoordinate: (bbox: string) => void;
+
+    getCurrentViewSettings: (requestId: string) => void;
+
+    setHeightExaggeration: (value: number) => void;
+
+    setTexturesVisiblity: (visible: boolean) => void;
+
+    setCoordinateIndicatorsVisibility: (visible: boolean) => void;
+
+    setLocationNamesVisibility: (visible: boolean) => void;
 
     adjustLayer: (layer: number, value: number) => void; // Temporary
 
