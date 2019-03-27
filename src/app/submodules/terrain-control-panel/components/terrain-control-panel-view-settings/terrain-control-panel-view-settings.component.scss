@@ -8,6 +8,7 @@ $title-height: 160px;
     color: white;
     font-size: 64px;
     line-height: $title-height;
+    user-select: none;
 }
 
 .grid-icons-container {
