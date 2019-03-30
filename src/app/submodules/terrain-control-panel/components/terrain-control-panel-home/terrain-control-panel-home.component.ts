@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { GlobalComponent } from 'src/app/components/base-global.component';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
 
 @Component({
@@ -9,31 +10,12 @@ import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-v
     styleUrls: ['./terrain-control-panel-home.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TerrainControlPanelHomeComponent implements OnInit, OnDestroy {
+export class TerrainControlPanelHomeComponent extends GlobalComponent {
 
     private readonly _unityGlobalVariables = UnityGlobalVariables.instance;
 
-    protected _routerSubscription: Subscription;
-    get isLastChild() {
-        return this._activatedRoute.snapshot.children.length === 0;
-    }
-
-    constructor(protected _activatedRoute: ActivatedRoute,
-                protected _cd: ChangeDetectorRef,
-                protected _router: Router) {
-
-    }
-
-    ngOnInit() {
-        this._routerSubscription = this._router.events.subscribe(event => {
-            if (event instanceof NavigationEnd) {
-                this._cd.detectChanges();
-            }
-        });
-    }
-
-    ngOnDestroy() {
-        this._routerSubscription.unsubscribe();
+    constructor(protected _cd: ChangeDetectorRef) {
+        super(TerrainControlPanelHomeComponent.name, _cd);
     }
 
     showGlobeModel() {
@@ -42,11 +24,6 @@ export class TerrainControlPanelHomeComponent implements OnInit, OnDestroy {
             return;
         }
         this._unityGlobalVariables.showGlobeModel();
-    }
-
-    onBackTriggerClick(event): void {
-        this._router.navigate(['./'], { relativeTo: this._activatedRoute });
-        event.stopPropagation();
     }
 
 }

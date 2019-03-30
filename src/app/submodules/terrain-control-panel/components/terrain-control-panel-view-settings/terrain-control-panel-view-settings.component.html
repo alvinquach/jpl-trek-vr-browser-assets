@@ -1,40 +1,77 @@
-<div class="title">Display Settings</div>
-<div *ngIf="settingsRetrieved" class="grid-icons-container">
-    <div *ngFor="let setting of booleanViewSettings"
-        class="grid-icon-container"
-        [ngClass]="{'disabled' : !setting.enabled}"
-        (click)="toggleSetting(setting)">
-        <div class="grid-icon">
-            <mdc-icon>
-                {{(setting.status && setting.enabled) ? setting.onIcon : setting.offIcon}}
-            </mdc-icon>
-        </div>
-        <div class="description">
-            {{setting.name}}
-        </div>
-        <div class="sub description" [ngSwitch]="setting.enabled">
-            <div *ngSwitchCase=true [ngSwitch]="setting.status">
-                <div *ngSwitchCase="true" class="green">
-                    Enabled
+<div class="title">{{editHeightScaleMode ? 'Terrain Exaggeration' : 'Display Settings'}}</div>
+<div *ngIf="settingsRetrieved">
+    <div *ngIf="!editHeightScaleMode; else heightExaggerationTemplate" class="grid-icons-container">
+        <div *ngFor="let setting of booleanViewSettings"
+            class="grid-icon-container"
+            [ngClass]="{'disabled' : !setting.enabled}"
+            (click)="toggleSetting(setting)">
+            <div class="grid-icon">
+                <mdc-icon>
+                    {{(setting.status && setting.enabled) ? setting.onIcon : setting.offIcon}}
+                </mdc-icon>
+            </div>
+            <div class="description">
+                {{setting.name}}
+            </div>
+            <div class="sub description" [ngSwitch]="setting.enabled">
+                <div *ngSwitchCase=true [ngSwitch]="setting.status">
+                    <div *ngSwitchCase="true" class="green">
+                        Enabled
+                    </div>
+                    <div *ngSwitchDefault class="red">
+                        Disabled
+                    </div>
                 </div>
-                <div *ngSwitchDefault class="red">
-                    Disabled
+                <div *ngSwitchDefault class="yellow">
+                    Not Available
                 </div>
             </div>
-            <div *ngSwitchDefault class="yellow">
-                Not Available
+        </div>
+        <div class="grid-icon-container" (click)="editHeightScaleMode = true">
+            <div class="grid-icon">
+                <mdc-icon>terrain</mdc-icon>
             </div>
-        </div>
-    </div>
-    <div class="grid-icon-container" (click)="temp()">
-        <div class="grid-icon">
-            <mdc-icon>terrain</mdc-icon>
-        </div>
-        <div class="description">
-            Height Scale
-        </div>
-        <div class="sub description">
-            {{heightExaggeration | number: '1.2-2'}}x
+            <div class="description">
+                Terrain Exaggeration
+            </div>
+            <div class="sub description">
+                {{(heightExaggeration / 10) | number: '1.1-2'}}x
+            </div>
         </div>
     </div>
 </div>
+<div (click)="onBackTriggerClick($event)" class="back-trigger">
+    <mdc-icon>arrow_back</mdc-icon>
+</div>
+
+<ng-template #heightExaggerationTemplate>
+    <div class='height-exaggeration-template'>
+            <div class="slider-container">
+                <mdc-slider [min]="minTerrainExaggeration" 
+                    [max]="maxTerrainExaggeration" 
+                    [step]="terrainExaggerationStep" 
+                    [(ngModel)]="heightExaggeration"
+                    (change)="onSliderChange($event)">
+                </mdc-slider>
+            </div>
+        <div class="value-row">
+            <button mdc-icon-button (click)="heightExaggeration = heightExaggeration - terrainExaggerationStep">
+                <mdc-icon>remove</mdc-icon>
+            </button>
+            <div class="value">
+                {{(heightExaggeration / 10) | number: '1.1-2'}}x
+            </div>
+            <button mdc-icon-button (click)="heightExaggeration = heightExaggeration + terrainExaggerationStep">
+                <mdc-icon>add</mdc-icon>
+            </button>
+        </div>
+        <div class="button-row">
+            <button mdc-button (click)="heightExaggeration = defaultTerrainExaggeration">
+                <mdc-icon>replay</mdc-icon>DEFAULT
+            </button>
+            <button mdc-button (click)="editHeightScaleMode = false">
+                <mdc-icon>done</mdc-icon>DONE
+            </button>
+        </div>
+    </div>
+</ng-template>

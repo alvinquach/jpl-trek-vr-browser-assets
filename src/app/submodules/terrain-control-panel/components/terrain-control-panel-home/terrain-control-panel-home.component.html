@@ -1,4 +1,4 @@
-<div *ngIf="isLastChild" class="grid-icons-container">
+<div class="grid-icons-container">
     <div class="grid-icon-container" (click)="showGlobeModel()">
         <div class="grid-icon">
             <mdc-icon>language</mdc-icon>
@@ -7,7 +7,7 @@
             Return to Globe
         </div>
     </div>
-    <div class="grid-icon-container" routerLink="./view-settings">
+    <div class="grid-icon-container" routerLink="../view-settings">
         <div class="grid-icon">
             <mdc-icon>visibility</mdc-icon>
         </div>
@@ -22,13 +22,5 @@
         <div class="description">
             Information
         </div>
-    </div>
-</div>
-<div *ngIf="!isLastChild">
-    <div (click)="onBackTriggerClick($event)" class="back-trigger">
-        <mdc-icon>arrow_back</mdc-icon>
-    </div>
-    <div style="flex: 1;">
-        <router-outlet></router-outlet>
     </div>
 </div>

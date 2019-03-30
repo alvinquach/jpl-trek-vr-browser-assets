@@ -1,7 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, Optional, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, Optional } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GlobalComponent } from 'src/app/components/base-global.component';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
 import { TerrainType } from 'src/app/models/terrain/terrain-type.type';
 import { UnityDataService } from 'src/app/services/unity-data/unity-data.service';
+import { MathUtils } from 'src/app/utils/math.utils';
 
 @Component({
     selector: 'app-terrain-control-panel-view-settings',
@@ -9,13 +12,28 @@ import { UnityDataService } from 'src/app/services/unity-data/unity-data.service
     styleUrls: ['./terrain-control-panel-view-settings.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TerrainControlPanelViewSettingsComponent implements OnInit {
+export class TerrainControlPanelViewSettingsComponent extends GlobalComponent implements OnInit {
 
     private readonly _unityGlobalVariables = UnityGlobalVariables.instance;
+
+    // Note, these values are scaled by a factor of 10.
+    readonly defaultTerrainExaggeration = 10;
+    readonly minTerrainExaggeration = 0;
+    readonly maxTerrainExaggeration = 100;
+    readonly terrainExaggerationStep = 1;
 
     private _settingsRetrieved = false;
     get settingsRetrieved() {
         return this._settingsRetrieved;
+    }
+
+    private _editHeightScaleMode = false;
+    get editHeightScaleMode() {
+        return this._editHeightScaleMode;
+    }
+    set editHeightScaleMode(value) {
+        this._editHeightScaleMode = value;
+        this._cd.detectChanges();
     }
 
     private _terrainType: TerrainType = 'globe';
@@ -23,9 +41,18 @@ export class TerrainControlPanelViewSettingsComponent implements OnInit {
         return this._terrainType;
     }
 
-    private _heightExaggeration = 1;
+    // Note, this value is scaled by a factor of 10.
+    private _heightExaggeration = this.defaultTerrainExaggeration;
     get heightExaggeration() {
         return this._heightExaggeration;
+    }
+    set heightExaggeration(value) {
+        value = MathUtils.clamp(value, this.minTerrainExaggeration, this.maxTerrainExaggeration);
+        if (value !== this._heightExaggeration) {
+            this._executeUnityTerrainFunction(this._unityGlobalVariables.setHeightExaggeration, value / 10);
+            this._heightExaggeration = value;
+            this._cd.detectChanges();
+        }
     }
 
     readonly booleanViewSettings: BooleanViewSetting[] = [
@@ -67,9 +94,12 @@ export class TerrainControlPanelViewSettingsComponent implements OnInit {
         },
     ];
 
-    constructor(private _cd: ChangeDetectorRef,
+    constructor(private _activatedRoute: ActivatedRoute,
+                private _cd: ChangeDetectorRef,
+                private _router: Router,
                 @Optional() private _unityDataService: UnityDataService) {
 
+        super(TerrainControlPanelViewSettingsComponent.name, _cd);
     }
 
     ngOnInit() {
@@ -94,8 +124,19 @@ export class TerrainControlPanelViewSettingsComponent implements OnInit {
         this._cd.detectChanges();
     }
 
-    temp() {
-        this._executeUnityTerrainFunction(this._unityGlobalVariables.setHeightExaggeration, 1.0);
+    onBackTriggerClick(event): void {
+        if (this.editHeightScaleMode) {
+            this.editHeightScaleMode = false;
+        } else {
+            this._router.navigate(['../'], { relativeTo: this._activatedRoute });
+        }
+    }
+
+    /**
+     * @deprecated
+     */
+    onSliderChange(event) {
+        console.log(event);
     }
 
     private _executeUnityTerrainFunction<T>(fn: (value: T) => void, val: T) {
@@ -115,7 +156,7 @@ export class TerrainControlPanelViewSettingsComponent implements OnInit {
                     this._terrainType = settings[key];
                     break;
                 case 'heightExaggeration':
-                    this._heightExaggeration = settings[key];
+                    this._heightExaggeration = ~~(settings[key] * 10);
                     break;
                 default:
                     for (const setting of this.booleanViewSettings) {

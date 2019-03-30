@@ -1,0 +1,31 @@
+@mixin mdc-slider-thumb-size($size) {
+
+    .mdc-slider__thumb-container {
+        top: #{-0.48 * $size + 25px};
+        width: $size;
+
+        .mdc-slider__thumb {
+            width: $size;
+            height: $size;
+
+            circle {
+                cx: #{$size / 2};
+                cy: #{$size / 2};
+                r: #{$size * 3 / 8} !important;
+            }
+        }
+
+        .mdc-slider__focus-ring {
+            width: $size;
+            height: $size;
+        }
+    }
+}
+
+@mixin mdc-slider-track-thickness($thickness) {
+
+    .mdc-slider__track-container {
+        height: $thickness;
+        top: calc(50% - #{($thickness - 2px) / 2});
+    }
+}
