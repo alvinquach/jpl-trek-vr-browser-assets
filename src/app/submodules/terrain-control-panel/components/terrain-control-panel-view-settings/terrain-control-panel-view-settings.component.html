@@ -43,6 +43,11 @@
 <div (click)="onBackTriggerClick($event)" class="back-trigger">
     <mdc-icon>arrow_back</mdc-icon>
 </div>
+<div class="minimize-button-container">
+    <button mdc-icon-button (click)="hideControlPanel()">
+        <mdc-icon>launch</mdc-icon>
+    </button>
+</div>
 
 <ng-template #heightExaggerationTemplate>
     <div class='height-exaggeration-template'>

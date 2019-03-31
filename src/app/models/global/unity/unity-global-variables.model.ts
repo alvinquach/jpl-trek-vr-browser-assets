@@ -58,6 +58,8 @@ export class UnityGlobalVariables {
 
     setLocationNamesVisibility: (visible: boolean) => void;
 
+    hideControlPanel: () => void;
+
     adjustLayer: (layer: number, value: number) => void; // Temporary
 
     getCurrentLayers: (requestId: string) => void; // Temporary

@@ -62,3 +62,19 @@
 
     }
 }
+
+.minimize-button-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    color: white;
+
+    .mdc-icon-button {
+        @include mdc-icon-button-size($hide-control-panel-button-size);
+
+        mdc-icon {
+            transform: rotate(180deg);
+            font-size: $hide-control-panel-button-size;
+        }
+    }
+}

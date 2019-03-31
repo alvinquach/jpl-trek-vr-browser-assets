@@ -139,6 +139,10 @@ export class TerrainControlPanelViewSettingsComponent extends GlobalComponent im
         console.log(event);
     }
 
+    hideControlPanel() {
+        this._executeUnityTerrainFunction(this._unityGlobalVariables.hideControlPanel, undefined);
+    }
+
     private _executeUnityTerrainFunction<T>(fn: (value: T) => void, val: T) {
         if (!this._unityGlobalVariables.terrainFunctionsReady) {
             console.error('Unity terrain functions are not ready or not available.');

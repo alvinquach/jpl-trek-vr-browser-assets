@@ -26,4 +26,12 @@ export class TerrainControlPanelHomeComponent extends GlobalComponent {
         this._unityGlobalVariables.showGlobeModel();
     }
 
+    hideControlPanel() {
+        if (!this._unityGlobalVariables.terrainFunctionsReady) {
+            console.error('Unity terrain functions are not ready or not available.');
+            return;
+        }
+        this._unityGlobalVariables.hideControlPanel();
+    }
+
 }
