@@ -14,6 +14,10 @@ export abstract class SearchService extends GlobalService {
 
     abstract getProducts(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void;
 
-    abstract search(searchParams: SearchParameters, callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void;
+    abstract getRasters(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void;
+
+    abstract searchItems(searchParams: SearchParameters, callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void;
+
+    // abstract searchRasters(searchParams: SearchParameters, callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void;
 
 }

@@ -1,15 +1,16 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { MainModalHomeComponent } from './components/main-modal-home/main-modal-home.component';
-import { MainModalComponent } from './main-modal.component';
-import { MainModalSearchRootComponent } from './components/main-modal-search-root/main-modal-search-root.component';
-import { MainModalSearchBookmarkComponent } from './components/main-modal-search-bookmark/main-modal-search-bookmark.component';
-import { MainModalSearchProductComponent } from './components/main-modal-search-product/main-modal-search-product.component';
-import { MainModalSearchNomenclatureComponent } from './components/main-modal-search-nomenclature/main-modal-search-nomenclature.component';
-import { MainModalService } from './services/main-modal.service';
+import { MdcButtonModule, MdcIconModule } from '@angular-mdc/web';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { MainModalHomeComponent } from './components/main-modal-home/main-modal-home.component';
+import { MainModalLayerManagerComponent } from './components/main-modal-layer-manager/main-modal-layer-manager.component';
+import { MainModalSearchBookmarkComponent } from './components/main-modal-search-bookmark/main-modal-search-bookmark.component';
 import { MainModalSearchItemInfoComponent } from './components/main-modal-search-item-info/main-modal-search-item-info.component';
-import { MdcIconModule, MdcButtonModule } from '@angular-mdc/web';
+import { MainModalSearchNomenclatureComponent } from './components/main-modal-search-nomenclature/main-modal-search-nomenclature.component';
+import { MainModalSearchProductComponent } from './components/main-modal-search-product/main-modal-search-product.component';
+import { MainModalSearchRootComponent } from './components/main-modal-search-root/main-modal-search-root.component';
+import { MainModalComponent } from './main-modal.component';
+import { MainModalService } from './services/main-modal.service';
 
 const ModuleRoutes: Routes = [
     {
@@ -43,6 +44,10 @@ const ModuleRoutes: Routes = [
                             }
                         ]
                     },
+                    {
+                        path: 'layer-manager',
+                        component: MainModalLayerManagerComponent,
+                    }
                 ]
             },
         ]
@@ -62,7 +67,8 @@ const MdcWebModules = [
         MainModalSearchBookmarkComponent,
         MainModalSearchNomenclatureComponent,
         MainModalSearchProductComponent,
-        MainModalSearchItemInfoComponent
+        MainModalSearchItemInfoComponent,
+        MainModalLayerManagerComponent
     ],
     imports: [
         CommonModule,

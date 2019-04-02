@@ -18,13 +18,18 @@ import { SearchItemType } from 'src/app/models/search/search-item-type.type';
 @Injectable()
 export class AngularSearchService extends SearchService {
 
-    private readonly _baseUrl = 'https://trek.nasa.gov/mars/TrekServices/ws/index/eq/searchItems?&&&&proj=urn:ogc:def:crs:EPSG::104905';
+    private readonly _baseUrl = 'https://trek.nasa.gov/marsbeta/TrekServices/ws/index/eq';
+
+    private readonly _itemSearchUrl = '/searchItems?&&&&proj=urn:ogc:def:crs:EPSG::104905';
+
+    private readonly _rasterSearchUrl = '/searchRaster?';
 
     private _facetInfo: SearchResult;
     private _bookmarks: SearchResult;
     private _datasets: SearchResult;
     private _nomenclatures: SearchResult;
     private _products: SearchResult;
+    private _rasters: SearchResult;
 
     constructor(private _http: HttpClient) {
         super(undefined);
@@ -39,7 +44,7 @@ export class AngularSearchService extends SearchService {
             start: '0',
             rows: '0' // Only get the facet data.
         };
-        this._http.get(this._baseUrl, { params: paramsMap }).subscribe(res => {
+        this._http.get(`${this._baseUrl}${this._itemSearchUrl}`, { params: paramsMap }).subscribe(res => {
             this._facetInfo = this._convertResults(res);
             callback(this._facetInfo);
         });
@@ -50,7 +55,7 @@ export class AngularSearchService extends SearchService {
             callback(this._bookmarks);
             return;
         }
-        this.search({ itemType: 'Bookmark' }, res => {
+        this.searchItems({ itemType: 'Bookmark' }, res => {
             this._bookmarks = res;
             callback(this._bookmarks);
         });
@@ -61,7 +66,7 @@ export class AngularSearchService extends SearchService {
             callback(this._datasets);
             return;
         }
-        this.search({ itemType: 'Dataset' }, res => {
+        this.searchItems({ itemType: 'Dataset' }, res => {
             this._datasets = res;
             callback(this._datasets);
         });
@@ -72,7 +77,7 @@ export class AngularSearchService extends SearchService {
             callback(this._nomenclatures);
             return;
         }
-        this.search({ itemType: 'Nomenclature' }, res => {
+        this.searchItems({ itemType: 'Nomenclature' }, res => {
             this._nomenclatures = res;
             callback(this._nomenclatures);
         });
@@ -83,19 +88,35 @@ export class AngularSearchService extends SearchService {
             callback(this._products);
             return;
         }
-        this.search({ itemType: 'Product' }, res => {
+        this.searchItems({ itemType: 'Product' }, res => {
             this._products = res;
             callback(this._products);
         });
     }
 
-    search(searchParams: SearchParameters, callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
+    getRasters(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
+        if (this._rasters) {
+            callback(this._rasters);
+            return;
+        }
+
+        const paramsMap = {
+            productType: '*'
+        };
+
+        this._http.get(`${this._baseUrl}${this._rasterSearchUrl}`, { params: paramsMap }).subscribe(res => {
+            const result = this._convertResults(res);
+            callback(result);
+        });
+    }
+
+    searchItems(searchParams: SearchParameters, callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
 
         this.getFacetInfo(info => {
 
             const paramsMap = {
                 start: '0',
-                rows: '3000' // TODO check facet info for exact count
+                rows: `${info.totalCount}`
             };
 
             const facetKeys: string[] = [];
@@ -125,7 +146,7 @@ export class AngularSearchService extends SearchService {
                 paramsMap['key'] = searchParams.search;
             }
 
-            this._http.get(this._baseUrl, { params: paramsMap }).subscribe(res => {
+            this._http.get(`${this._baseUrl}${this._itemSearchUrl}`, { params: paramsMap }).subscribe(res => {
                 const result = this._convertResults(res);
                 callback(result);
             });

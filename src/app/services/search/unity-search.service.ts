@@ -99,7 +99,11 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    search(searchParams: SearchParameters, callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
+    getRasters(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
+        // TODO Implement this
+    }
+
+    searchItems(searchParams: SearchParameters, callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
         if (!this._functionReadyAndValid('search')) {
             return;
         }
