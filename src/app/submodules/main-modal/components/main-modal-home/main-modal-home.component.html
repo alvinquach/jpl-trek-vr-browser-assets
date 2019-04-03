@@ -1,52 +1,46 @@
 <!-- <div (click)="startBoundingBoxSelection()" style="background: lightcoral; line-height: 64px; width: 50%;">SELECTION</div> -->
-
-<div *ngIf="isLastChild" class="grid-icons-container">
-    <div class="grid-icon-container" routerLink="./search">
-        <div class="grid-icon">
-            <mdc-icon>search</mdc-icon>
-        </div>
-        <div class="description">
-            Search
+<div style="display: flex">
+    <div class="dummy-icons-container" [ngClass]="mode" (click)="onBackTriggerClick($event)">
+        <div *ngFor="let icon of navigableIcons; let i = index" 
+            [ngClass]="componentName + ' dummy-icon ' + i">
         </div>
     </div>
-    <!-- <div class="grid-icon-container" (click)="startActivity('BBoxSelection')">
-        <div class="grid-icon">
-            <mdc-icon>build</mdc-icon>
-        </div>
-        <div class="description">
-            Tools
-        </div>
-    </div> -->
-    <div class="grid-icon-container" (click)="startActivity('BBoxSelection')">
-        <div class="grid-icon">
-            <mdc-icon>select_all</mdc-icon>
-        </div>
-        <div class="description">
-            Area Selection
-        </div>
+    <div class="navigable-icons-container" [ngClass]="mode">
+        <app-main-modal-navigable-icon
+            [mode]="mode"
+            (iconClicked)="navigate('./search', 0)"
+            materialIcon="search"
+            title="Search">
+        </app-main-modal-navigable-icon>
+        <!-- <div class="navigable-icon-container" (click)="startActivity('BBoxSelection')">
+            <div class="navigable-icon">
+                <mdc-icon>build</mdc-icon>
+            </div>
+            <div class="description">
+                Tools
+            </div>
+        </div> -->
+        <app-main-modal-navigable-icon 
+            [mode]="mode"
+            (iconClicked)="startActivity('BBoxSelection')"
+            materialIcon="select_all"
+            title="Area Selection">
+        </app-main-modal-navigable-icon>
+        <app-main-modal-navigable-icon 
+            [mode]="mode"
+            (iconClicked)="navigate('./layer-manager', 2)"
+            materialIcon="layers"
+            title="Layer Manager">
+        </app-main-modal-navigable-icon>
+        <app-main-modal-navigable-icon
+            [mode]="mode"
+            materialIcon="settings"
+            title="Options">
+        </app-main-modal-navigable-icon>    
     </div>
-    <div class="grid-icon-container" routerLink="./layer-manager">
-        <div class="grid-icon">
-            <mdc-icon>layers</mdc-icon>
-        </div>
-        <div class="description">
-            Layer Manager
-        </div>
-    </div>
-    <div class="grid-icon-container">
-        <div class="grid-icon">
-            <mdc-icon>settings</mdc-icon>
-        </div>
-        <div class="description">
-            Options
-        </div>
-    </div>
-</div>
-<div *ngIf="!isLastChild">
-    <div (click)="onBackTriggerClick($event)" class="back-trigger">
-        <mdc-icon>arrow_back</mdc-icon>
-    </div>
-    <div style="flex: 1;">
-        <router-outlet></router-outlet>
+    <div class="router-outlet" [ngClass]="{visible: !isLastChild}">
+        <ng-container *ngIf="!isLastChild">
+            <router-outlet></router-outlet>
+        </ng-container>
     </div>
 </div>

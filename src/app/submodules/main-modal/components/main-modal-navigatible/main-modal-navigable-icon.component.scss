@@ -1,0 +1,76 @@
+@import '~@angular-mdc/theme/material';
+@import '../../styles/dimensions.scss';
+@import '../../styles/timing.scss';
+
+.navigable-icon-container {
+    user-select: none;
+    width: $navigable-icon-size;
+    min-height: $navigable-icon-size; 
+    background: rgba(0,0,0,0.12);
+    margin: 32px;
+    padding: 32px;
+    color: white;
+    transition: all $icon-transform-transition-duration ease-in-out,
+        background-color $icon-hover-transition-duration ease-in-out,
+        color $icon-hover-transition-duration ease-in-out;
+        
+
+    .navigable-icon {
+        transition: top $icon-transform-transition-duration ease-in-out,
+            left $icon-transform-transition-duration ease-in-out;
+
+        .material-icons {
+            font-size: $navigable-icon-size;
+            transition: font-size $icon-transform-transition-duration ease-in-out;
+        }
+    }
+
+    .description {
+        font-size: 36px;
+
+        &.sub {
+            font-size: 28px;
+        }
+    }
+
+    &.expanded {
+        cursor: pointer;
+
+        &:hover {
+            background: $material-color-amber-400;
+            color: black;
+        }
+    }
+
+    &.compact {
+        pointer-events: none;
+        background: transparent;
+        margin: 0;
+        padding: 0;
+        transition: background-color 0s, color 0s;
+
+        .description {
+            color: transparent;
+        }
+
+        .navigable-icon {
+
+            &.active {
+                color: black;
+            }
+
+            .material-icons {
+                font-size: $navigable-icon-small-size;
+            }
+        }
+    }
+
+    &.expanding {
+        background: transparent;
+
+        .description {
+            transition: color 0s $icon-transform-transition-duration;
+        }
+    }
+}
+

@@ -1,0 +1,14 @@
+<div *ngIf="mode !== 'hidden'" 
+    class="navigable-icon-container"
+    (click)="onClick($event)"
+    [ngClass]="mode + (expanding ? ' expanding' : '')">
+    <div #icon class="navigable-icon" [ngClass]="{active: active}">
+        <mdc-icon>{{materialIcon}}</mdc-icon>
+    </div>
+    <div class="description">
+        {{title}}
+    </div>
+    <div class="sub description">
+        {{subtitle}}
+    </div>
+</div>

@@ -1,45 +1,25 @@
 <ng-container *ngIf="facetInfo">
-    <div *ngIf="isLastChild" class="grid-icons-container">
-        <div class="grid-icon-container" routerLink="./bookmark">
-            <div class="grid-icon">
-                <mdc-icon>bookmarks</mdc-icon>
-            </div>
-            <div class="description">
-                Bookmarks
-            </div>
-            <div class="sub description">
-                {{getCount('Bookmark')}} Items
+    <div style="display: flex">
+        <div class="dummy-icons-container" [ngClass]="mode" (click)="onBackTriggerClick($event)">
+            <div *ngFor="let icon of navigableIcons; let i = index" 
+                [ngClass]="componentName + ' dummy-icon ' + i">
             </div>
         </div>
-        <div class="grid-icon-container" routerLink="./nomenclature">
-            <div class="grid-icon">
-                <mdc-icon>location_on</mdc-icon>
-            </div>
-            <div class="description">
-                Nomenclatures
-            </div>
-            <div class="sub description">
-                {{getCount('Nomenclature')}} Items
-            </div>
+        <div class="navigable-icons-container" [ngClass]="mode">
+            <ng-container *ngFor="let route of routes; let i = index">
+                <app-main-modal-navigable-icon
+                    [mode]="mode"
+                    (iconClicked)="navigate(route.route, i)"
+                    [materialIcon]="route.icon"
+                    [title]="route.title"
+                    subtitle="{{getCount(route.subtitle)}} Items">
+                </app-main-modal-navigable-icon>
+            </ng-container>
         </div>
-        <div class="grid-icon-container" routerLink="./product">
-            <div class="grid-icon">
-                <mdc-icon>apps</mdc-icon>
-            </div>
-            <div class="description">
-                Products 
-            </div>
-            <div class="sub description">
-                {{getCount('Product')}} Items
-            </div>
-        </div>
-    </div>
-    <div *ngIf="!isLastChild">
-        <div (click)="onBackTriggerClick($event)" class="back-trigger">
-            <mdc-icon>arrow_back</mdc-icon>
-        </div>
-        <div style="flex: 1;">
-            <router-outlet></router-outlet>
+        <div class="router-outlet" [ngClass]="{visible: !isLastChild}">
+            <ng-container *ngIf="!isLastChild">
+                <router-outlet></router-outlet>
+            </ng-container>
         </div>
     </div>
 </ng-container>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
-import { NavigatibleComponent } from '../base-navigatible.component';
+import { MainModalBaseNavigableComponent } from '../main-modal-navigatible/main-modal-base-navigable.component';
 
 @Component({
     selector: 'app-main-modal-layer-manager',
@@ -8,8 +8,12 @@ import { NavigatibleComponent } from '../base-navigatible.component';
     styleUrls: ['./main-modal-layer-manager.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainModalLayerManagerComponent extends NavigatibleComponent {
+export class MainModalLayerManagerComponent extends MainModalBaseNavigableComponent {
 
     protected readonly _title = 'Layer Manager';
 
+    protected get _isNavigable() {
+        return false;
+    }
+    
 }

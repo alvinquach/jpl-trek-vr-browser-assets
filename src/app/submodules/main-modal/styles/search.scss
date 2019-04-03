@@ -1,0 +1,44 @@
+@import '~@angular-mdc/theme/material';
+@import './dimensions.scss';
+
+.search-results-container {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+
+    .actions-container {
+        width: 280px;
+        height: 500px; // FIXME
+
+        .action {
+            margin-bottom: 16px;
+            
+            button {
+                width: 240px;
+            }
+        }
+    }
+
+    .search-results-list {
+        width: $search-results-width;
+        height: #{$modal-height - $modal-header-height};
+        background: rgba(0,0,0,0.12);
+        overflow-y: auto;
+
+        .search-item {
+            cursor: pointer;
+            user-select: none;
+            line-height: 64px;
+            font-size: 24px;
+            padding-left: 24px;
+            box-sizing: border-box;
+
+            &:hover {
+                background: $material-color-amber-400;
+                color: black;
+            }
+        }
+    }
+}

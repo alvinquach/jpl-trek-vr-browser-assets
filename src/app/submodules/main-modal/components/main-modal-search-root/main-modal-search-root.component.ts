@@ -4,7 +4,7 @@ import { SearchFacetInfo } from 'src/app/models/search/search-facet-info.model';
 import { SearchItemType } from 'src/app/models/search/search-item-type.type';
 import { SearchService } from 'src/app/services/search/base-search.service';
 import { MainModalService } from '../../services/main-modal.service';
-import { NavigatibleComponent } from '../base-navigatible.component';
+import { MainModalBaseNavigableComponent } from '../main-modal-navigatible/main-modal-base-navigable.component';
 
 @Component({
     selector: 'app-main-modal-search-root',
@@ -12,9 +12,35 @@ import { NavigatibleComponent } from '../base-navigatible.component';
     styleUrls: ['./main-modal-search-root.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainModalSearchRootComponent extends NavigatibleComponent implements OnInit {
+export class MainModalSearchRootComponent extends MainModalBaseNavigableComponent implements OnInit {
 
     protected readonly _title = 'Search';
+
+    protected get _isNavigable() {
+        return true;
+    }
+
+    readonly routes: any[] = [
+        {
+            route: './bookmark',
+            icon: 'bookmarks',
+            title: 'Bookmarks',
+            subtitle: 'Bookmark'
+        },
+        {
+            route: './nomenclature',
+            icon: 'location_on',
+            title: 'Nomenclatures',
+            subtitle: 'Nomenclature'
+        },
+        {
+            route: './product',
+            icon: 'apps',
+            title: 'Products',
+            subtitle: 'Product'
+        }
+    ];
+
 
     private _facetInfo: SearchFacetInfo;
     get facetInfo() {

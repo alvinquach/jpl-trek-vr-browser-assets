@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { NavigatibleComponent } from '../base-navigatible.component';
+import { MainModalBaseNavigableComponent } from '../main-modal-navigatible/main-modal-base-navigable.component';
 
 @Component({
     selector: 'app-main-modal-search-nomenclature',
@@ -7,8 +7,12 @@ import { NavigatibleComponent } from '../base-navigatible.component';
     styleUrls: ['./main-modal-search-nomenclature.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainModalSearchNomenclatureComponent extends NavigatibleComponent {
+export class MainModalSearchNomenclatureComponent extends MainModalBaseNavigableComponent {
 
     protected readonly _title = 'Nomenclatures';
+
+    protected get _isNavigable() {
+        return false;
+    }
 
 }

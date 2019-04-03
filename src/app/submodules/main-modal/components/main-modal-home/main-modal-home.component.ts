@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { ActivatedRoute, Router } from '@angular/router';
 import { ControllerModalActivity } from 'src/app/models/controller-modal-activity.type';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
-import { NavigatibleComponent } from '../base-navigatible.component';
+import { MainModalBaseNavigableComponent } from '../main-modal-navigatible/main-modal-base-navigable.component';
 import { MainModalService } from '../../services/main-modal.service';
 
 @Component({
@@ -11,9 +11,13 @@ import { MainModalService } from '../../services/main-modal.service';
     styleUrls: ['./main-modal-home.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainModalHomeComponent extends NavigatibleComponent {
+export class MainModalHomeComponent extends MainModalBaseNavigableComponent {
 
     protected readonly _title = 'Menu';
+
+    protected get _isNavigable() {
+        return true;
+    }
 
     constructor(activatedRoute: ActivatedRoute,
                 cd: ChangeDetectorRef,

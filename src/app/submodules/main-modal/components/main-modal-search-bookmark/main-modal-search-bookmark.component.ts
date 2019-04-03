@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SearchResult } from 'src/app/models/search/search-result.model';
 import { SearchService } from 'src/app/services/search/base-search.service';
 import { MainModalService } from '../../services/main-modal.service';
-import { NavigatibleComponent } from '../base-navigatible.component';
+import { MainModalBaseNavigableComponent } from '../main-modal-navigatible/main-modal-base-navigable.component';
 import { SearchResultItem } from 'src/app/models/search/search-result-item.model';
 import { HttpService } from 'src/app/services/http/base-http.service';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
@@ -14,10 +14,14 @@ import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-v
     styleUrls: ['./main-modal-search-bookmark.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainModalSearchBookmarkComponent extends NavigatibleComponent implements OnInit {
+export class MainModalSearchBookmarkComponent extends MainModalBaseNavigableComponent implements OnInit {
 
     protected readonly _title = 'Bookmarks';
 
+    protected get _isNavigable() {
+        return false;
+    }
+    
     private _bookmarks: SearchResult;
     get bookmarks() {
         return this._bookmarks;
