@@ -21,7 +21,7 @@ export class MainModalSearchBookmarkComponent extends MainModalBaseNavigableComp
     protected get _isNavigable() {
         return false;
     }
-    
+
     private _bookmarks: SearchResult;
     get bookmarks() {
         return this._bookmarks;

@@ -168,7 +168,7 @@ export class AngularSearchService extends SearchService {
                 boundingBox: doc.bbox
             };
         });
-        const facetInfo: SearchFacetInfo = {
+        const facetInfo: SearchFacetInfo = !res.facet_counts ? null : {
             itemType: this._convertFacetItemTypesToMap(res.facet_counts.facet_fields.itemType),
             productType: this._convertListToMap(res.facet_counts.facet_fields.productType),
             mission: this._convertListToMap(res.facet_counts.facet_fields.mission),

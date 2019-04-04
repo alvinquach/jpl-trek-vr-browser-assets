@@ -80,6 +80,8 @@ export class UnityGlobalVariables {
 
     getProducts: (requestId: string) => void;
 
+    getRasters: (requestId: string) => void;
+
     search: (searchParams: SearchParameters, requestId: string) => void;
 
     //#endregion

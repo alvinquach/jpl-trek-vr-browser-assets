@@ -100,7 +100,18 @@ export class UnitySearchService extends SearchService {
     }
 
     getRasters(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
-        // TODO Implement this
+        if (!this._functionReadyAndValid('getRasters')) {
+            return;
+        }
+        const requestId = `${this._currentRequestId++}_GET_RASTERS`;
+        UnityGlobalVariables.instance.getRasters(requestId);
+
+        // Register a web request so that a response can be received from Unity.
+        this._addSearchRequest(requestId, (res: SearchResult) => {
+            // TODO Handle errors
+            this._processResults(res);
+            callback(res);
+        });
     }
 
     searchItems(searchParams: SearchParameters, callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
