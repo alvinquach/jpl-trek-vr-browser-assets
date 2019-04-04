@@ -1,9 +1,9 @@
 <ng-container *ngIf="bookmarks">
     <div class="search-results-container">
-        <div class="search-results-list">
-            <div *ngFor="let item of bookmarks.items" (click)="selectItem(item)" class="search-item truncate">
-                {{item.name}}
-            </div>
+        <div>
+            <app-main-modal-search-result-list [items]="bookmarks.items" (selectedItemChange)="selectItem($event)">
+
+            </app-main-modal-search-result-list>
         </div>
         <div>
             <app-main-modal-search-item-info [imageUrl]="selectedItemImageUrl" [description]="selectedItemDescription" [boundingBox]="selectedItem?.boundingBox">

@@ -1,0 +1,8 @@
+<div class="search-results-list">
+    <div *ngFor="let item of items"
+        (click)="selectItem(item)"
+        class="search-item truncate"
+        [ngClass]="{'selected' : item === selectedItem}">
+        {{item.name}}
+    </div>
+</div>

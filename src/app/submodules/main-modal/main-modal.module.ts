@@ -12,6 +12,7 @@ import { MainModalSearchRootComponent } from './components/main-modal-search-roo
 import { MainModalComponent } from './main-modal.component';
 import { MainModalService } from './services/main-modal.service';
 import { MainModalNavigableIconComponent } from './components/main-modal-navigatible/main-modal-navigable-icon.component';
+import { MainModalSearchResultListComponent } from './components/main-modal-search-result-list/main-modal-search-result-list.component';
 
 const ModuleRoutes: Routes = [
     {
@@ -68,9 +69,10 @@ const MdcWebModules = [
         MainModalSearchBookmarkComponent,
         MainModalSearchNomenclatureComponent,
         MainModalSearchProductComponent,
+        MainModalSearchResultListComponent,
         MainModalSearchItemInfoComponent,
         MainModalLayerManagerComponent,
-        MainModalNavigableIconComponent
+        MainModalNavigableIconComponent,
     ],
     imports: [
         CommonModule,

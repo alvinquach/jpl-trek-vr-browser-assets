@@ -28,26 +28,4 @@
             }
         }
     }
-
-    .search-results-list {
-        width: $search-results-width;
-        height: #{$modal-height - $modal-header-height};
-        background: rgba(0, 0, 0, 0.38);
-        overflow-y: auto;
-
-        .search-item {
-            cursor: pointer;
-            user-select: none;
-            line-height: 64px;
-            font-size: 28px;
-            padding: 0 24px;
-            box-sizing: border-box;
-            color: white;
-
-            &:hover {
-                background: $material-color-amber-400;
-                color: black;
-            }
-        }
-    }
 }
