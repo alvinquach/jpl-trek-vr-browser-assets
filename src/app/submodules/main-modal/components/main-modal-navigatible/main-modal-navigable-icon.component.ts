@@ -11,6 +11,9 @@ import { IconMode } from './main-modal-base-navigable.component';
 })
 export class MainModalNavigableIconComponent {
 
+    @HostBinding('style.pointer-events')
+    private _hostPointerEvents: 'all' | 'none' = 'all';
+
     @ViewChild('icon')
     private _iconElement: ElementRef;
 
@@ -39,6 +42,7 @@ export class MainModalNavigableIconComponent {
             this._resetPosition();
             this.active = false;
         }
+        this._hostPointerEvents = value === 'expanded' ? 'all' : 'none';
         this._mode = value;
     }
 
