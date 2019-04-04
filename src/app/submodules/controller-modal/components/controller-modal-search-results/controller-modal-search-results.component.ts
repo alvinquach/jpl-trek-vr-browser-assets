@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Bookmark } from 'src/app/models/bookmark/bookmark.model';
 import { SearchItemType } from 'src/app/models/search/search-item-type.type';
 import { SearchResultItem } from 'src/app/models/search/search-result-item.model';
 import { SearchService } from 'src/app/services/search/base-search.service';
@@ -17,7 +18,7 @@ export class ControllerModalSearchResultsComponent implements OnInit {
         return this._itemType;
     }
 
-    private _items: SearchResultItem[];
+    private _items: (SearchResultItem | Bookmark)[];
     get items() {
         return this._items;
     }
@@ -47,7 +48,7 @@ export class ControllerModalSearchResultsComponent implements OnInit {
         } else if (path === 'bookmarks') {
             this._itemType = 'Bookmark';
             this._searchService.getBookmarks(res => {
-                this._items = res.items;
+                this._items = res;
                 this._cd.detectChanges();
             });
         }

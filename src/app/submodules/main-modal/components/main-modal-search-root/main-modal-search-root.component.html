@@ -12,7 +12,7 @@
                     (iconClicked)="navigate(route.route, i)"
                     [materialIcon]="route.icon"
                     [title]="route.title"
-                    subtitle="{{getCount(route.subtitle)}} Items">
+                    subtitle="{{route.count()}} Items">
                 </app-main-modal-navigable-icon>
             </ng-container>
         </div>

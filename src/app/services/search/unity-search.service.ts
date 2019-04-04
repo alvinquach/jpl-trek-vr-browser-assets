@@ -5,6 +5,7 @@ import { SearchResult } from 'src/app/models/search/search-result.model';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
 import { SearchParameters } from 'src/app/models/search/search-parameters.model';
 import { SearchItemType } from 'src/app/models/search/search-item-type.type';
+import { Bookmark } from 'src/app/models/bookmark/bookmark.model';
 
 /**
  * Implementation of SearchService that makes HTTP calls through
@@ -18,7 +19,7 @@ export class UnitySearchService extends SearchService {
 
     private _currentRequestId = 0;
 
-    private readonly _searchRequests: {[key: string]: UnityDataRequest<SearchResult>} = {};
+    private readonly _searchRequests: {[key: string]: UnityDataRequest<any>} = {};
 
     constructor(private _ngZone: NgZone) {
         super(UnitySearchService.name);
@@ -39,7 +40,7 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    getBookmarks(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
+    getBookmarks(callback: (value: Bookmark[]) => void, errorCallback?: (error: any) => void): void {
         if (!this._functionReadyAndValid('getBookmarks')) {
             return;
         }
@@ -47,9 +48,8 @@ export class UnitySearchService extends SearchService {
         UnityGlobalVariables.instance.getBookmarks(requestId);
 
         // Register a web request so that a response can be received from Unity.
-        this._addSearchRequest(requestId, (res: SearchResult) => {
+        this._addSearchRequest(requestId, (res: Bookmark[]) => {
             // TODO Handle errors
-            this._processResults(res);
             callback(res);
         });
     }
@@ -154,7 +154,7 @@ export class UnitySearchService extends SearchService {
         }
     }
 
-    private _addSearchRequest(requestId: string, callback?: (res: SearchResult) => void): UnityDataRequest<SearchResult> {
+    private _addSearchRequest<T>(requestId: string, callback?: (res: T) => void): UnityDataRequest<T> {
         if (!!this._searchRequests[requestId]) {
             console.error(`Search request ID ${requestId} already exists.`);
             return null;

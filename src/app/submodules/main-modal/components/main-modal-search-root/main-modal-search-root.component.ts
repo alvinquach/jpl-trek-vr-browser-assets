@@ -25,22 +25,23 @@ export class MainModalSearchRootComponent extends MainModalBaseNavigableComponen
             route: './bookmark',
             icon: 'bookmarks',
             title: 'Bookmarks',
-            subtitle: 'Bookmark'
+            count: () => this._bookmarksCount
         },
         {
             route: './nomenclature',
             icon: 'location_on',
             title: 'Nomenclatures',
-            subtitle: 'Nomenclature'
+            count: () => this._getCount('Nomenclature')
         },
         {
             route: './product',
             icon: 'apps',
             title: 'Products',
-            subtitle: 'Product'
+            count: () => this._getCount('Product')
         }
     ];
 
+    private _bookmarksCount: number;
 
     private _facetInfo: SearchFacetInfo;
     get facetInfo() {
@@ -64,9 +65,13 @@ export class MainModalSearchRootComponent extends MainModalBaseNavigableComponen
             console.log(this._facetInfo);
             this._cd.detectChanges();
         });
+
+        this._searchService.getBookmarks(res => {
+            this._bookmarksCount = res.length;
+        });
     }
 
-    getCount(itemType: SearchItemType): number {
+    private _getCount(itemType: SearchItemType): number {
         return this._facetInfo.itemType.get(itemType);
     }
 

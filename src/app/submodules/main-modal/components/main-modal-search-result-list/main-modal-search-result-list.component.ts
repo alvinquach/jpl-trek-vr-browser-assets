@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 import { Component, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { SearchResultItem } from 'src/app/models/search/search-result-item.model';
+import { Bookmark } from 'src/app/models/bookmark/bookmark.model';
 
 @Component({
     selector: 'app-main-modal-search-result-list',
@@ -11,19 +12,15 @@ import { SearchResultItem } from 'src/app/models/search/search-result-item.model
 export class MainModalSearchResultListComponent {
 
     @Output()
-    readonly selectedItemChange: EventEmitter<SearchResultItem> = new EventEmitter();
+    readonly selectedItemChange: EventEmitter<SearchResultItem | Bookmark> = new EventEmitter();
 
     @Input()
-    items: SearchResultItem[];
+    items: (SearchResultItem | Bookmark)[];
 
     @Input()
-    selectedItem: SearchResultItem;
+    selectedItem: SearchResultItem | Bookmark;
 
-    constructor(private _cd: ChangeDetectorRef) {
-
-    }
-
-    selectItem(item: SearchResultItem) {
+    selectItem(item: SearchResultItem | Bookmark) {
         this.selectedItem = item;
         this.selectedItemChange.emit(item);
     }

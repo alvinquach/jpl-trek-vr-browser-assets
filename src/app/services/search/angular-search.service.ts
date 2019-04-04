@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Bookmark } from 'src/app/models/bookmark/bookmark.model';
 import { SearchFacetInfo } from 'src/app/models/search/search-facet-info.model';
 import { SearchItemType } from 'src/app/models/search/search-item-type.type';
 import { SearchParameters } from 'src/app/models/search/search-parameters.model';
+import { SearchResultItem } from 'src/app/models/search/search-result-item.model';
 import { SearchResult } from 'src/app/models/search/search-result.model';
 import { StringUtils } from 'src/app/utils/string.utils';
 import { SearchService } from './base-search.service';
-import { SearchResultItem } from 'src/app/models/search/search-result-item.model';
 
 /**
  * Implementation of SearchServices that makes HTTP calls using
@@ -25,7 +26,7 @@ export class AngularSearchService extends SearchService {
     private readonly _rasterSearchUrl = '/searchRaster?';
 
     private _facetInfo: SearchResult;
-    private _bookmarks: SearchResult;
+    private _bookmarks: Bookmark[];
     private _datasets: SearchResult;
     private _nomenclatures: SearchResult;
     private _products: SearchResult;
@@ -50,15 +51,38 @@ export class AngularSearchService extends SearchService {
         });
     }
 
-    getBookmarks(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
+    getBookmarks(callback: (value: Bookmark[]) => void, errorCallback?: (error: any) => void): void {
         if (this._bookmarks) {
             callback(this._bookmarks);
             return;
         }
-        this.searchItems({ itemType: 'Bookmark' }, res => {
-            this._bookmarks = res;
-            callback(this._bookmarks);
+        /* tslint:disable:max-line-length */
+        // Dummy data since no actual HTTP service currenlty exists.
+        const dummy = [
+            {
+                'item_UUID': 'curiosityBookmarkTesting',
+                'title': 'Curiosity Bookmark',
+                'bbox': '137.2469,-4.8715,137.5518,-4.5392',
+                'shape': 'POLYGON ((137.2469 -4.8715,137.5518 -4.8715,137.5518 -4.5392,137.2469 -4.5392,137.2469 -4.8715))',
+                'textures': ['b40d61ea-a26b-48e1-bdec-5f5ed5cf73d5'],
+                'dem': 'a0f5221a-0a08-40b9-ae82-75a49aac5afe',
+                'description': 'Curiosity landed in Gale Crater on Mars on August 6th, 2012. With a diameter of 154 km and a central peak 5.5 km tall, Gale Crater was chosen as the landing site for the Mars Science Laboratory Curiosity rover. The choice was based on evidence from orbiting spacecraft that indicate that the crater may have once contained large amounts of liquid water. The central peak, Mount Sharp, exhibits layered rock deposits rich in sedimentary minerals including clays, sulfates, and salts that require water to form.',
+                'mediaURL': 'https://trek.nasa.gov/mars/jpl/assets/features/curiosity/images/curiosity_rover_story.png',
+            }
+        ];
+        /* tslint:enable:max-line-length */
+        this._bookmarks = dummy.map(doc => {
+            return {
+                name: doc.title,
+                uuid: doc.item_UUID,
+                thumbnailUrl: doc.mediaURL,
+                description: doc.description,
+                boundingBox: doc.bbox,
+                demUUID: doc.dem,
+                texturesUUID: [...doc.textures],
+            };
         });
+        callback(this._bookmarks);
     }
 
     getDatasets(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
