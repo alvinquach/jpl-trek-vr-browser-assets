@@ -1,4 +1,4 @@
-export class Bookmark {
+export interface Bookmark {
     name: string;
     uuid: string;
     thumbnailUrl: string;
