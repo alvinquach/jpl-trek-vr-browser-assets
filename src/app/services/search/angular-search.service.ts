@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SearchService } from './base-search.service';
-import { SearchParameters } from 'src/app/models/search/search-parameters.model';
-import { SearchResult } from 'src/app/models/search/search-result.model';
-import { SearchResultItem } from 'src/app/models/search/search-result-item.model';
-import { StringUtils } from 'src/app/utils/string.utils';
+import { Injectable } from '@angular/core';
 import { SearchFacetInfo } from 'src/app/models/search/search-facet-info.model';
 import { SearchItemType } from 'src/app/models/search/search-item-type.type';
+import { SearchParameters } from 'src/app/models/search/search-parameters.model';
+import { SearchResult } from 'src/app/models/search/search-result.model';
+import { StringUtils } from 'src/app/utils/string.utils';
+import { SearchService } from './base-search.service';
+import { SearchResultItem } from 'src/app/models/search/search-result-item.model';
 
 /**
  * Implementation of SearchServices that makes HTTP calls using
@@ -156,11 +156,12 @@ export class AngularSearchService extends SearchService {
     }
 
     private _convertResults(res: any): SearchResult {
-        const items: any[] = (<any[]>res.response.docs).map(doc => {
+        const items: SearchResultItem[] = (<any[]>res.response.docs).map(doc => {
             return {
                 name: doc.title,
+                uuid: doc.item_UUID,
                 thumbnailUrl: doc.thumbnailURLDir,
-                itemType: StringUtils.firstCharacterToUpper(doc.itemType),
+                itemType: <any>StringUtils.firstCharacterToUpper(doc.itemType),
                 productLabel: doc.productLabel,
                 productType: doc.productType,
                 instrument: doc.instrument,
