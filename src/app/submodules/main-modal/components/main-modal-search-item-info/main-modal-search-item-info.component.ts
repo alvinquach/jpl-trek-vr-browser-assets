@@ -9,6 +9,9 @@ import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-v
 })
 export class MainModalSearchItemInfoComponent {
 
+    @Input()
+    title = 'No Title';
+
     private _imageUrl: string;
     get imageUrl(): string {
         return this._imageUrl;

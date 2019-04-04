@@ -1,13 +1,17 @@
 <ng-container *ngIf="products">
     <div class="search-results-container">
         <div>
-            <app-main-modal-search-result-list [items]="products.items" (selectedItemChange)="selectItem($event)">
-
+            <app-main-modal-search-result-list 
+                [items]="products.items" 
+                (selectedItemChange)="selectItem($event)">
             </app-main-modal-search-result-list>
         </div>
         <div>
-            <app-main-modal-search-item-info [imageUrl]="selectedItemImageUrl" [description]="selectedItemDescription" [boundingBox]="selectedItem?.boundingBox">
-                
+            <app-main-modal-search-item-info
+                [title]="selectedItem?.name"
+                [imageUrl]="selectedItemImageUrl" 
+                [description]="selectedItemDescription" 
+                [boundingBox]="selectedItem?.boundingBox">
             </app-main-modal-search-item-info>
         </div>
         <div class="actions-container">

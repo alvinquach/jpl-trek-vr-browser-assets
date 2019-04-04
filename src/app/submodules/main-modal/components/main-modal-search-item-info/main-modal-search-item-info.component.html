@@ -1,5 +1,8 @@
 <div class="info-container">
     <ng-container *ngIf="imageUrl || description" >
+        <div class="title">
+            {{title}}
+        </div>
         <div *ngIf="imageUrl" class="image-container">
             <img [src]="imageUrl">
         </div>
