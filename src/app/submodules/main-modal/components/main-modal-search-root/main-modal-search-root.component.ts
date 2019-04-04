@@ -68,6 +68,7 @@ export class MainModalSearchRootComponent extends MainModalBaseNavigableComponen
 
         this._searchService.getBookmarks(res => {
             this._bookmarksCount = res.length;
+            this._cd.detectChanges();
         });
     }
 
