@@ -3,10 +3,9 @@
         <div *ngIf="imageUrl" class="image-container">
             <img [src]="imageUrl">
         </div>
-        <div *ngIf="description" class="description">
-            {{description}}
+        <div *ngIf="description" [innerHTML]="description" class="description">
         </div>
-        <button mdc-button outlined (click)="navigate()">
+        <button mdc-button primary (click)="navigate()" style="zoom: 1.5;">
             Navigate To
         </button>
     </ng-container>

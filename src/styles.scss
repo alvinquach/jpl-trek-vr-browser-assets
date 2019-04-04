@@ -1,7 +1,4 @@
-$mdc-theme-primary: #20c0ff;
-$mdc-theme-secondary: #83e603;
-
-@import '~@angular-mdc/theme/material';
+@import './app/styles/theme.scss';
 
 body {
     margin: 0;
@@ -20,4 +17,10 @@ mdc-icon {
 /* optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
     background: #FF0000;
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

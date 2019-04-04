@@ -1,21 +1,7 @@
 <ng-container *ngIf="bookmarks">
     <div class="search-results-container">
-        <div class="actions-container">
-            <div class="action">
-                <button mdc-button outlined (click)="viewInController()">
-                    <mdc-icon>settings_remote</mdc-icon>
-                    VIEW IN CONTROLLER
-                </button>
-            </div>
-            <div class="action">
-                <button mdc-button outlined>
-                    <mdc-icon>sort_by_alpha</mdc-icon>
-                    SORT
-                </button>
-            </div>
-        </div>
         <div class="search-results-list">
-            <div *ngFor="let item of bookmarks.items" (click)="selectItem(item)" class="search-item">
+            <div *ngFor="let item of bookmarks.items" (click)="selectItem(item)" class="search-item truncate">
                 {{item.name}}
             </div>
         </div>
@@ -23,6 +9,22 @@
             <app-main-modal-search-item-info [imageUrl]="selectedItemImageUrl" [description]="selectedItemDescription" [boundingBox]="selectedItem?.boundingBox">
                 
             </app-main-modal-search-item-info>
+        </div>
+        <div class="actions-container">
+            <div class="action">
+                <button mdc-button (click)="viewInController()">
+                    <div class="action-button-contents">
+                        <mdc-icon>settings_remote</mdc-icon>SEND TO CONTROLLER
+                    </div>
+                </button>
+            </div>
+            <div class="action">
+                <button mdc-button>
+                    <div class="action-button-contents">
+                        <mdc-icon>sort_by_alpha</mdc-icon>SORT
+                    </div>
+                </button>
+            </div>
         </div>
     </div>
 </ng-container>

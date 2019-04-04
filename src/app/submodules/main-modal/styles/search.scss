@@ -1,4 +1,4 @@
-@import '~@angular-mdc/theme/material';
+@import '../../../styles/theme.scss';
 @import './dimensions.scss';
 
 .search-results-container {
@@ -9,14 +9,22 @@
     align-items: center;
 
     .actions-container {
-        width: 280px;
-        height: 500px; // FIXME
+        width: 72px;
+        height: #{$modal-height - $modal-header-height};
+        //height: 500px; // FIXME
 
         .action {
-            margin-bottom: 16px;
-            
+            padding: 4px;
+            zoom: 2;
+
             button {
-                width: 240px;
+                width: 250px;
+
+                .action-button-contents {
+                    width: 100%;
+                    text-align: left;
+                    color: white;
+                }
             }
         }
     }
@@ -24,16 +32,17 @@
     .search-results-list {
         width: $search-results-width;
         height: #{$modal-height - $modal-header-height};
-        background: rgba(0,0,0,0.12);
+        background: rgba(0, 0, 0, 0.38);
         overflow-y: auto;
 
         .search-item {
             cursor: pointer;
             user-select: none;
             line-height: 64px;
-            font-size: 24px;
-            padding-left: 24px;
+            font-size: 28px;
+            padding: 0 24px;
             box-sizing: border-box;
+            color: white;
 
             &:hover {
                 background: $material-color-amber-400;

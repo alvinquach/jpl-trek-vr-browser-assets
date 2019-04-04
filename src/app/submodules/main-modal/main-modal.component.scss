@@ -1,17 +1,16 @@
-@import '~@angular-mdc/theme/material';
+@import '../../styles/theme.scss';
 @import './styles/dimensions.scss';
 
 .modal-bounds {
     width: $modal-width;
     height: $modal-height;
     overflow: hidden;
-    background: rgba(132, 160, 192, 0.24);
-    //background: rgba(0,0,0,0.12);
+    background: rgba(96, 144, 192, 0.38);
 }
 
 .modal-header {
     text-transform: capitalize;
-    font-size: 56px;
+    font-size: 72px;
     font-weight: 500;
     padding-left: 24px;
     color: white;
