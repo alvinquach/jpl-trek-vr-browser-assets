@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
+import { SearchResultItem } from 'src/app/models/search/search-result-item.model';
 import { SearchResult } from 'src/app/models/search/search-result.model';
+import { HttpService } from 'src/app/services/http/base-http.service';
 import { SearchService } from 'src/app/services/search/base-search.service';
 import { MainModalService } from '../../services/main-modal.service';
-import { MainModalBaseNavigableComponent } from '../main-modal-navigatible/main-modal-base-navigable.component';
-import { SearchResultItem } from 'src/app/models/search/search-result-item.model';
-import { HttpService } from 'src/app/services/http/base-http.service';
-import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
+import { MainModalBaseSearchResultsComponent } from '../main-modal-base-search-results/main-modal-base-search-results.component';
 
 @Component({
     selector: 'app-main-modal-search-product',
@@ -14,22 +14,13 @@ import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-v
     styleUrls: ['./main-modal-search-product.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainModalSearchProductComponent extends MainModalBaseNavigableComponent implements OnInit {
+export class MainModalSearchProductComponent extends MainModalBaseSearchResultsComponent<SearchResultItem> implements OnInit {
 
     protected readonly _title = 'Products';
 
     protected get _isNavigable() {
         return false;
     }
-
-    private _products: SearchResult;
-    get products() {
-        return this._products;
-    }
-
-    selectedItem: SearchResultItem;
-    selectedItemImageUrl: string;
-    selectedItemDescription: string;
 
     constructor(activatedRoute: ActivatedRoute,
                 cd: ChangeDetectorRef,
@@ -45,7 +36,7 @@ export class MainModalSearchProductComponent extends MainModalBaseNavigableCompo
         super.ngOnInit();
 
         this._searchService.getProducts(res => {
-            this._products = res;
+            this._items = res.items;
             this._cd.detectChanges();
         });
     }

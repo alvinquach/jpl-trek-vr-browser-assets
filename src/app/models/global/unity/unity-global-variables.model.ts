@@ -48,6 +48,8 @@ export class UnityGlobalVariables {
 
     navigateToCoordinate: (bbox: string) => void;
 
+    selectBookmarkTerrainSection: (bookmarkJson: string) => void;
+
     getCurrentViewSettings: (requestId: string) => void;
 
     setHeightExaggeration: (value: number) => void;

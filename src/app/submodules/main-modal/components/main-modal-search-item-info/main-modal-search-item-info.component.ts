@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
 
 @Component({
     selector: 'app-main-modal-search-item-info',
@@ -23,17 +22,5 @@ export class MainModalSearchItemInfoComponent {
 
     @Input()
     description: string;
-
-    @Input()
-    boundingBox: string;
-
-    navigate() {
-        const unityGlobalVariables = UnityGlobalVariables.instance;
-        if (unityGlobalVariables.terrainFunctionsReady) {
-            unityGlobalVariables.navigateToCoordinate(this.boundingBox);
-        } else {
-            console.error(`Terrain functions are not available or ready.`);
-        }
-    }
 
 }

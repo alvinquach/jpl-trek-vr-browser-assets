@@ -4,7 +4,7 @@ import { Bookmark } from 'src/app/models/bookmark/bookmark.model';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
 import { SearchService } from 'src/app/services/search/base-search.service';
 import { MainModalService } from '../../services/main-modal.service';
-import { MainModalBaseNavigableComponent } from '../main-modal-navigatible/main-modal-base-navigable.component';
+import { MainModalBaseSearchResultsComponent } from '../main-modal-base-search-results/main-modal-base-search-results.component';
 
 @Component({
     selector: 'app-main-modal-search-bookmark',
@@ -12,22 +12,13 @@ import { MainModalBaseNavigableComponent } from '../main-modal-navigatible/main-
     styleUrls: ['./main-modal-search-bookmark.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainModalSearchBookmarkComponent extends MainModalBaseNavigableComponent implements OnInit {
+export class MainModalSearchBookmarkComponent extends MainModalBaseSearchResultsComponent<Bookmark> implements OnInit {
 
     protected readonly _title = 'Bookmarks';
 
     protected get _isNavigable() {
         return false;
     }
-
-    private _bookmarks: Bookmark[];
-    get bookmarks() {
-        return this._bookmarks;
-    }
-
-    selectedItem: Bookmark;
-    selectedItemImageUrl: string;
-    selectedItemDescription: string;
 
     constructor(activatedRoute: ActivatedRoute,
                 cd: ChangeDetectorRef,
@@ -42,7 +33,7 @@ export class MainModalSearchBookmarkComponent extends MainModalBaseNavigableComp
         super.ngOnInit();
 
         this._searchService.getBookmarks(res => {
-            this._bookmarks = res;
+            this._items = res;
             this._cd.detectChanges();
         });
     }
@@ -61,6 +52,16 @@ export class MainModalSearchBookmarkComponent extends MainModalBaseNavigableComp
 
     viewInController() {
         UnityGlobalVariables.instance.startSecondaryControllerActivity('BookmarkResults');
+    }
+
+    selectTerrainSection() {
+        const unityGlobalVariables = UnityGlobalVariables.instance;
+        if (unityGlobalVariables.terrainFunctionsReady) {
+            const jsonString = JSON.stringify(this.selectedItem);
+            unityGlobalVariables.selectBookmarkTerrainSection(jsonString);
+        } else {
+            console.error(`Terrain functions are not available or ready.`);
+        }
     }
 
 }

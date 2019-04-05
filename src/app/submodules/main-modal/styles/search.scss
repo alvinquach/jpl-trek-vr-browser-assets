@@ -11,19 +11,36 @@
     .actions-container {
         width: 72px;
         height: #{$modal-height - $modal-header-height};
-        //height: 500px; // FIXME
+        padding-left: 16px;
+
+        .subheader {
+            color: white;
+            white-space: nowrap;
+            font-size: 24px;
+            font-weight: 500;
+            padding: 32px 0 16px 0;
+        }
 
         .action {
             padding: 4px;
-            zoom: 2;
+            zoom: 1.6;
 
             button {
                 width: 250px;
+                background: rgba(0, 0, 0, 0.24);
 
                 .action-button-contents {
                     width: 100%;
                     text-align: left;
                     color: white;
+                }
+
+                &:hover {
+                    background: $material-color-amber-400;
+
+                    .action-button-contents {
+                        color: black;
+                    }
                 }
             }
         }
