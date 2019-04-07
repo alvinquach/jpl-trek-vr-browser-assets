@@ -24,12 +24,17 @@ export abstract class MainModalBaseSearchResultsComponent<T> extends MainModalBa
     }
 
     navigate() {
-        if (!this.selectedItem || !this.selectedItem['boundingBox']) {
+        if (!this.selectedItem) {
+            return;
+        }
+        const bbox: string = this.selectedItem['boundingBox'];
+        if (!bbox) {
             return;
         }
         const unityGlobalVariables = UnityGlobalVariables.instance;
         if (unityGlobalVariables.terrainFunctionsReady) {
-            unityGlobalVariables.navigateToCoordinate(this.selectedItem['boundingBox']);
+            unityGlobalVariables.navigateToCoordinate(bbox);
+            unityGlobalVariables.highlightBoundingBoxOnGlobe(bbox);
         } else {
             console.error(`Terrain functions are not available or ready.`);
         }

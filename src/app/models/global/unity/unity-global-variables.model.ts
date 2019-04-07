@@ -48,6 +48,8 @@ export class UnityGlobalVariables {
 
     navigateToCoordinate: (bbox: string) => void;
 
+    highlightBoundingBoxOnGlobe: (bbox: string) => void;
+
     viewLocalTerrainBookmark: (bookmarkJson: string) => void;
 
     getCurrentViewSettings: (requestId: string) => void;

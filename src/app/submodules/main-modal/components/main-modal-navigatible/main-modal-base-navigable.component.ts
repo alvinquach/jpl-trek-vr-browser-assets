@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, HostListener, OnDestroy, OnInit, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { ChangeDetectorRef, HostListener, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { MainModalService } from '../../services/main-modal.service';
 import * as $ from 'jquery';
+import { Subscription } from 'rxjs';
+import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
+import { MainModalService } from '../../services/main-modal.service';
 import { MainModalNavigableIconComponent } from './main-modal-navigable-icon.component';
 
 export abstract class MainModalBaseNavigableComponent implements OnInit, OnDestroy {
@@ -65,6 +66,12 @@ export abstract class MainModalBaseNavigableComponent implements OnInit, OnDestr
 
     ngOnDestroy() {
         this._routerSubscription.unsubscribe();
+
+        // Temporary way to unhighlight the area.
+        const unityGlobalVariables = UnityGlobalVariables.instance;
+        if (unityGlobalVariables.terrainFunctionsReady) {
+            unityGlobalVariables.highlightBoundingBoxOnGlobe(null);
+        }
     }
 
     navigate(route: string, iconIndex: number) {
