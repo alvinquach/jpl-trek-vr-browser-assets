@@ -48,7 +48,7 @@ export class UnityGlobalVariables {
 
     navigateToCoordinate: (bbox: string) => void;
 
-    selectBookmarkTerrainSection: (bookmarkJson: string) => void;
+    viewLocalTerrainBookmark: (bookmarkJson: string) => void;
 
     getCurrentViewSettings: (requestId: string) => void;
 

@@ -63,7 +63,7 @@ export class TerrainControlPanelViewSettingsComponent extends GlobalComponent im
             offIcon: 'invert_colors_off',
             status: true,
             enabled: true,
-            terrainTypes: ['globe', 'section'],
+            terrainTypes: ['globe', 'local'],
             onValueChanged: val => {
                 this._executeUnityTerrainFunction(this._unityGlobalVariables.setTexturesVisiblity, val);
             }

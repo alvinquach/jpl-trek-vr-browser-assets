@@ -1,1 +1,1 @@
-export type TerrainType = 'globe' | 'section';
+export type TerrainType = 'globe' | 'local';

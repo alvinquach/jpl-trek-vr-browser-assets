@@ -54,11 +54,11 @@ export class MainModalSearchBookmarkComponent extends MainModalBaseSearchResults
         UnityGlobalVariables.instance.startSecondaryControllerActivity('BookmarkResults');
     }
 
-    selectTerrainSection() {
+    selectLocalTerrain() {
         const unityGlobalVariables = UnityGlobalVariables.instance;
         if (unityGlobalVariables.terrainFunctionsReady) {
             const jsonString = JSON.stringify(this.selectedItem);
-            unityGlobalVariables.selectBookmarkTerrainSection(jsonString);
+            unityGlobalVariables.viewLocalTerrainBookmark(jsonString);
         } else {
             console.error(`Terrain functions are not available or ready.`);
         }
