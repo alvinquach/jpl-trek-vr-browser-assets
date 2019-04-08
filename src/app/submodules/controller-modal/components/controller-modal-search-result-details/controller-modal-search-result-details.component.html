@@ -1,0 +1,38 @@
+<div class="modal-contents with-header with-footer">
+    <div class="modal-header">
+        {{itemType}}s
+    </div>
+    <div class="main-contents scrollbar">
+        <div class="info-container">
+            <ng-container *ngIf="imageUrl || description" >
+                <div class="title">
+                    {{item.name}}
+                </div>
+                <div *ngIf="imageUrl" class="image-container">
+                    <img [src]="imageUrl">
+                </div>
+                <div *ngIf="description" [innerHTML]="description" class="description">
+                    
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="action-buttons-container">
+            <ng-container *ngFor="let button of actionButtons; let i = index">
+                <div *ngIf="!button.displayCondition || button.displayCondition()"
+                    class="action-button"
+                    [ngClass]="{
+                        'focused': focusedActionButtonIndex === i,
+                        'disabled': button.disableCondition && button.disableCondition()
+                    }"
+                    (click)="focusButton(i)"
+                    (dblclick)="button.clickedAction()">
+
+                    <mdc-icon>{{button.icon}}</mdc-icon>
+                    <div class="label">{{button.label}}</div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

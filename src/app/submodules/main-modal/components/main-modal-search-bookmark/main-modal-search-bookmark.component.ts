@@ -42,18 +42,24 @@ export class MainModalSearchBookmarkComponent extends MainModalBaseSearchResults
 
     selectItem(item: Bookmark): void {
         this.selectedItem = item;
+        if (!item) {
+            return;
+        }
         if (!item.thumbnailUrl || item.thumbnailUrl === 'n/a') {
             this.selectedItemImageUrl = null;
         } else {
             this.selectedItemImageUrl = item.thumbnailUrl;
         }
-        if (item.description) {
-            this.selectedItemDescription = item.description;
-        }
+        this.selectedItemDescription = item.description;
     }
 
     viewInController() {
-        UnityGlobalVariables.instance.startSecondaryControllerActivity('BookmarkResults');
+        const unityGlobalVariables = UnityGlobalVariables.instance;
+        if (unityGlobalVariables.userInterfaceFunctionsReady) {
+            unityGlobalVariables.startSecondaryControllerActivity('BookmarkResults');
+        } else {
+            console.error(`User interface functions are not available or ready.`);
+        }
     }
 
     selectLocalTerrain() {

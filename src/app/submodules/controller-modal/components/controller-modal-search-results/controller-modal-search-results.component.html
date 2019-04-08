@@ -4,7 +4,11 @@
     </div>
     <div class="main-contents scrollbar no-padding" [ngSwitch]="helpMode">
         <ng-container *ngSwitchCase="false">
-            <div *ngFor="let item of items; let i = index" class="item truncate" [ngClass]="{'active': activeItemIndex === i}">
+            <div *ngFor="let item of items; let i = index" 
+                class="item truncate" 
+                [ngClass]="{'active': activeItemIndex === i}"
+                (click)="focusItem(i)"
+                (dblclick)="viewItem(i)">
                 {{item.name}}
             </div>
         </ng-container>

@@ -51,10 +51,16 @@ export abstract class MainModalBaseSearchResultsComponent<T> extends MainModalBa
         });
 
         this._searchListActiveIndexSubscription = this._searchService.onSearchListActiveIndexChange.subscribe(index => {
-            if (!this._items || index < 0 || index >= this._items.length) {
+            if (!this._items || !this._items.length) {
                 return;
             }
-            this.selectItem(this._items[index]);
+            if (index == null) {
+                this.selectItem(null);
+            } else if (index < 0 || index >= this._items.length) {
+                return;
+            } else {
+                this.selectItem(this._items[index]);
+            }
             this._cd.detectChanges();
         });
     }
@@ -67,6 +73,9 @@ export abstract class MainModalBaseSearchResultsComponent<T> extends MainModalBa
 
         // Temporary way to unhighlight the area.
         this._terrainModelService.highlightBoundingBoxOnGlobe();
+
+        // If we navigate away from search page, then clear the selected index.
+        this._searchService.updateSearchListActiveIndex(null);
     }
 
     highlightOnGlobe() {

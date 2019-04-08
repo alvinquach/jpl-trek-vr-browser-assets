@@ -1,12 +1,13 @@
+import { MdcIconModule, MdcSliderModule } from '@angular-mdc/web';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ControllerModalBoundingBoxSelectionComponent } from './components/controller-modal-bbox-selection/controller-modal-bbox-selection.component';
 import { ControllerModalLayerManagerComponent } from './components/controller-modal-layer-manager/controller-modal-layer-manager.component';
+import { ControllerModalSearchResultDetailsComponent } from './components/controller-modal-search-result-details/controller-modal-search-result-details.component';
 import { ControllerModalSearchResultsComponent } from './components/controller-modal-search-results/controller-modal-search-results.component';
 import { ControllerModalComponent } from './controller-modal.component';
-import { MdcSliderModule, MdcIconModule } from '@angular-mdc/web';
-import { FormsModule } from '@angular/forms';
 
 const ModuleRoutes: Routes = [
     {
@@ -24,11 +25,19 @@ const ModuleRoutes: Routes = [
             },
             {
                 path: 'products',
-                component: ControllerModalSearchResultsComponent
+                component: ControllerModalSearchResultsComponent,
+            },
+            {
+                path: 'products/:index',
+                component: ControllerModalSearchResultDetailsComponent
             },
             {
                 path: 'bookmarks',
-                component: ControllerModalSearchResultsComponent
+                component: ControllerModalSearchResultsComponent,
+            },
+            {
+                path: 'bookmarks/:index',
+                component: ControllerModalSearchResultDetailsComponent
             },
             {
                 path: 'layer-manager',
@@ -48,6 +57,7 @@ const MdcWebModules = [
         ControllerModalComponent,
         ControllerModalBoundingBoxSelectionComponent,
         ControllerModalSearchResultsComponent,
+        ControllerModalSearchResultDetailsComponent,
         ControllerModalLayerManagerComponent
     ],
     imports: [

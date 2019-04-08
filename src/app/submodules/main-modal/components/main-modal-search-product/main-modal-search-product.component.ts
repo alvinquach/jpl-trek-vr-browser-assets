@@ -44,11 +44,21 @@ export class MainModalSearchProductComponent extends MainModalBaseSearchResultsC
 
     selectItem(item: SearchResultItem): void {
         this.selectedItem = item;
-        if (!item.thumbnailUrl || item.thumbnailUrl === 'n/a') {
-            this.selectedItemImageUrl = null;
-        } else {
-            this.selectedItemImageUrl = `${item.thumbnailUrl}200.png`;
+        if (!item) {
+            return;
         }
+
+        // Get thumbnail URL
+        const baseThumbnailUrl = item.thumbnailUrl;
+        if (!baseThumbnailUrl || baseThumbnailUrl === 'n/a') {
+            this.selectedItemImageUrl = null;
+        } else if (baseThumbnailUrl.endsWith('-')) {
+            this.selectedItemImageUrl = `${baseThumbnailUrl}200.png`;
+        } else {
+            this.selectedItemImageUrl = baseThumbnailUrl;
+        }
+
+        // Get description
         if (item.description) {
             this.selectedItemDescription = item.description;
         } else {
@@ -61,10 +71,16 @@ export class MainModalSearchProductComponent extends MainModalBaseSearchResultsC
                 }
             );
         }
+
     }
 
     viewInController() {
-        UnityGlobalVariables.instance.startSecondaryControllerActivity('ProductResults');
+        const unityGlobalVariables = UnityGlobalVariables.instance;
+        if (unityGlobalVariables.userInterfaceFunctionsReady) {
+            unityGlobalVariables.startSecondaryControllerActivity('ProductResults');
+        } else {
+            console.error(`User interface functions are not available or ready.`);
+        }
     }
 
 }

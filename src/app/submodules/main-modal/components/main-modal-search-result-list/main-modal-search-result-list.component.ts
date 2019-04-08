@@ -46,7 +46,9 @@ export class MainModalSearchResultListComponent {
     private _scrollToSelected() {
         const container = $('.search-results-list');
         const target = $('.search-item.selected');
-
+        if (!container || !target) {
+            return;
+        }
         container.scrollTop(target.offset().top - container.offset().top + container.scrollTop() - container.height() / 2);
     }
 

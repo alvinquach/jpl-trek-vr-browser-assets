@@ -1,6 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import { ControllerModalActivity } from '../../controller-modal-activity.type';
 import { SearchParameters } from '../../search/search-parameters.model';
+import { TerrainType } from '../../terrain/terrain-type.type';
 
 export class UnityGlobalVariables {
 
@@ -44,6 +45,8 @@ export class UnityGlobalVariables {
     //#region Functions registered by UnityTerrainModelFunctions.cs
 
     terrainFunctionsReady = false;
+
+    readonly onTerrainTypeChange: BehaviorSubject<TerrainType> = new BehaviorSubject<TerrainType>('globe');
 
     showGlobeModel: () => void;
 
