@@ -3,6 +3,7 @@
         <div>
             <app-main-modal-search-result-list 
                 [items]="items" 
+                [selectedItem]="selectedItem"
                 (selectedItemChange)="selectItem($event)">
             </app-main-modal-search-result-list>
         </div>
@@ -35,8 +36,8 @@
                 <div class="subheader">
                     SELECTED ITEM
                 </div>
-                <div class="action">
-                    <button mdc-button (click)="navigate()">
+                <div class="action" [ngClass]="{'active': selectedItem === highlightedItem}">
+                    <button mdc-button (click)="highlightOnGlobe()" [disabled]="terrainType !== 'globe'">
                         <div class="action-button-contents">
                             <mdc-icon>language</mdc-icon>VIEW ON GLOBE
                         </div>

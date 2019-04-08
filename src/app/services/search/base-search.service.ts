@@ -1,9 +1,14 @@
-import { GlobalService } from '../base-global.service';
+import { BehaviorSubject } from 'rxjs';
+import { Bookmark } from 'src/app/models/bookmark/bookmark.model';
 import { SearchParameters } from 'src/app/models/search/search-parameters.model';
 import { SearchResult } from 'src/app/models/search/search-result.model';
-import { Bookmark } from 'src/app/models/bookmark/bookmark.model';
+import { GlobalService } from '../base-global.service';
 
 export abstract class SearchService extends GlobalService {
+
+    abstract get onSearchListActiveIndexChange(): BehaviorSubject<number>;
+
+    abstract updateSearchListActiveIndex(index: number): void;
 
     abstract getFacetInfo(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void;
 

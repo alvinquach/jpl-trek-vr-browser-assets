@@ -1,5 +1,6 @@
-import { SearchParameters } from '../../search/search-parameters.model';
+import { BehaviorSubject } from 'rxjs';
 import { ControllerModalActivity } from '../../controller-modal-activity.type';
+import { SearchParameters } from '../../search/search-parameters.model';
 
 export class UnityGlobalVariables {
 
@@ -73,6 +74,10 @@ export class UnityGlobalVariables {
     //#region Functions registered by UnityBrowserSearchFunctions.cs
 
     searchFunctionsReady = false;
+
+    readonly onSearchListActiveIndexChange: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
+    updateSearchListActiveIndex: (index: number) => void;
 
     getFacetInfo: (requestId: string) => void;
 

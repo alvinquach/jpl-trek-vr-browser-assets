@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Bookmark } from 'src/app/models/bookmark/bookmark.model';
 import { SearchFacetInfo } from 'src/app/models/search/search-facet-info.model';
 import { SearchItemType } from 'src/app/models/search/search-item-type.type';
@@ -25,6 +26,8 @@ export class AngularSearchService extends SearchService {
 
     private readonly _rasterSearchUrl = '/searchRaster?';
 
+    private readonly _onSearchListActiveIndexChange: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
     private _facetInfo: SearchResult;
     private _bookmarks: Bookmark[];
     private _datasets: SearchResult;
@@ -34,6 +37,14 @@ export class AngularSearchService extends SearchService {
 
     constructor(private _http: HttpClient) {
         super(undefined);
+    }
+
+    get onSearchListActiveIndexChange() {
+        return this._onSearchListActiveIndexChange;
+    }
+
+    updateSearchListActiveIndex(index: number) {
+        this.onSearchListActiveIndexChange.next(index);
     }
 
     getFacetInfo(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {

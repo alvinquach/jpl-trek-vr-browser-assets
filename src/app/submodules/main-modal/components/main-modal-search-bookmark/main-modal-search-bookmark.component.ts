@@ -10,7 +10,7 @@ import { MainModalBaseSearchResultsComponent } from '../main-modal-base-search-r
 @Component({
     selector: 'app-main-modal-search-bookmark',
     templateUrl: './main-modal-search-bookmark.component.html',
-    styleUrls: ['./main-modal-search-bookmark.component.scss'],
+    styleUrls: ['../main-modal-base-search-results/main-modal-base-search-results.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainModalSearchBookmarkComponent extends MainModalBaseSearchResultsComponent<Bookmark> implements OnInit {
@@ -25,10 +25,10 @@ export class MainModalSearchBookmarkComponent extends MainModalBaseSearchResults
                 cd: ChangeDetectorRef,
                 router: Router,
                 mainModalService: MainModalService,
-                terrainModelService: TerrainModelService,
-                private _searchService: SearchService) {
+                searchService: SearchService,
+                terrainModelService: TerrainModelService) {
 
-        super(activatedRoute, cd, router, mainModalService, terrainModelService);
+        super(activatedRoute, cd, router, mainModalService, searchService, terrainModelService);
     }
 
     ngOnInit() {

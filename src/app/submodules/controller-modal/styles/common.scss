@@ -1,4 +1,4 @@
-@import '~@angular-mdc/theme/material';
+@import '../../../styles/theme.scss';
 @import './dimensions.scss';
 
 .modal-header {
@@ -33,6 +33,18 @@
     
         &.no-padding {
             padding: 0;
+        }
+
+        &.scrollbar {
+
+            &::-webkit-scrollbar {
+                width: $scroll-bar-width;
+                background: rgba(black, 0.12);
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                background: $mdc-theme-secondary;
+            }
         }
     }
 

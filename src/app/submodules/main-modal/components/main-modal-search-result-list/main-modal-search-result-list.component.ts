@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
-import { Component, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
-import { SearchResultItem } from 'src/app/models/search/search-result-item.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import * as $ from 'jquery';
 import { Bookmark } from 'src/app/models/bookmark/bookmark.model';
+import { SearchResultItem } from 'src/app/models/search/search-result-item.model';
+import { SearchService } from 'src/app/services/search/base-search.service';
 
 @Component({
     selector: 'app-main-modal-search-result-list',
@@ -17,12 +19,35 @@ export class MainModalSearchResultListComponent {
     @Input()
     items: (SearchResultItem | Bookmark)[];
 
+    private _selectedItem: SearchResultItem | Bookmark;
+    get selectedItem() {
+        return this._selectedItem;
+    }
     @Input()
-    selectedItem: SearchResultItem | Bookmark;
+    set selectedItem(value) {
+        this._selectedItem = value;
+        setTimeout(() => {
+            if (this._selectedItem) {
+                this._scrollToSelected();
+            }
+        });
+    }
 
-    selectItem(item: SearchResultItem | Bookmark) {
-        this.selectedItem = item;
-        this.selectedItemChange.emit(item);
+    constructor(private _searchService: SearchService) {
+
+    }
+
+    selectItem(index: number) {
+        this._selectedItem = this.items[index];
+        this.selectedItemChange.emit(this.selectedItem);
+        this._searchService.updateSearchListActiveIndex(index);
+    }
+
+    private _scrollToSelected() {
+        const container = $('.search-results-list');
+        const target = $('.search-item.selected');
+
+        container.scrollTop(target.offset().top - container.offset().top + container.scrollTop() - container.height() / 2);
     }
 
 }

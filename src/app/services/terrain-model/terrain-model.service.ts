@@ -34,7 +34,7 @@ export class TerrainModelService extends GlobalService {
         this._unityGlobalVariables.navigateToCoordinate(bbox);
     }
 
-    highlightBoundingBoxOnGlobe(bbox: string) {
+    highlightBoundingBoxOnGlobe(bbox?: string) {
         if (!this._functionReadyAndValid('highlightBoundingBoxOnGlobe')) {
             return;
         }

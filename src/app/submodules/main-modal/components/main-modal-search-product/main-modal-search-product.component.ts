@@ -11,7 +11,7 @@ import { MainModalBaseSearchResultsComponent } from '../main-modal-base-search-r
 @Component({
     selector: 'app-main-modal-search-product',
     templateUrl: './main-modal-search-product.component.html',
-    styleUrls: ['./main-modal-search-product.component.scss'],
+    styleUrls: ['../main-modal-base-search-results/main-modal-base-search-results.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainModalSearchProductComponent extends MainModalBaseSearchResultsComponent<SearchResultItem> implements OnInit {
@@ -26,11 +26,11 @@ export class MainModalSearchProductComponent extends MainModalBaseSearchResultsC
                 cd: ChangeDetectorRef,
                 router: Router,
                 mainModalService: MainModalService,
+                searchService: SearchService,
                 terrainModelService: TerrainModelService,
-                private _httpService: HttpService,
-                private _searchService: SearchService) {
+                private _httpService: HttpService) {
 
-        super(activatedRoute, cd, router, mainModalService, terrainModelService);
+        super(activatedRoute, cd, router, mainModalService, searchService, terrainModelService);
     }
 
     ngOnInit() {

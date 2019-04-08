@@ -4,7 +4,7 @@ import { MainModalBaseNavigableComponent } from '../main-modal-navigatible/main-
 @Component({
     selector: 'app-main-modal-search-nomenclature',
     templateUrl: './main-modal-search-nomenclature.component.html',
-    styleUrls: ['./main-modal-search-nomenclature.component.scss'],
+    styleUrls: ['../main-modal-base-search-results/main-modal-base-search-results.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainModalSearchNomenclatureComponent extends MainModalBaseNavigableComponent {

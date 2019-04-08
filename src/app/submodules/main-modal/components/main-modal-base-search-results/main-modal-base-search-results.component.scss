@@ -1,5 +1,5 @@
-@import '../../../styles/theme.scss';
-@import './dimensions.scss';
+@import '../../../../styles/theme.scss';
+@import '../../styles/dimensions.scss';
 
 .search-results-container {
     flex-direction: row;
@@ -7,6 +7,10 @@
     display: flex;
     place-content: center;
     align-items: center;
+
+    >div:first-child {
+        border-right: 2px solid rgba(black, 0.54);
+    }
 
     .actions-container {
         width: 72px;
@@ -27,7 +31,7 @@
 
             button {
                 width: 250px;
-                background: rgba(0, 0, 0, 0.24);
+                background: rgba(black, 0.24);
 
                 .action-button-contents {
                     width: 100%;
@@ -40,6 +44,25 @@
 
                     .action-button-contents {
                         color: black;
+                    }
+                }
+
+                &:disabled {
+                    background: rgba(black, 0.12) !important;
+
+                    .action-button-contents {
+                        color: rgba(white, 0.54) !important;
+                    }
+                }
+            }
+            
+            &.active {
+
+                button {
+                    background: $mdc-theme-primary;
+
+                    .action-button-contents {
+                        color: white;
                     }
                 }
             }

@@ -1,6 +1,6 @@
 <div class="search-results-list">
-    <div *ngFor="let item of items"
-        (click)="selectItem(item)"
+    <div *ngFor="let item of items; let i = index"
+        (click)="selectItem(i)"
         class="search-item truncate"
         [ngClass]="{'selected' : item === selectedItem}">
         {{item.name}}

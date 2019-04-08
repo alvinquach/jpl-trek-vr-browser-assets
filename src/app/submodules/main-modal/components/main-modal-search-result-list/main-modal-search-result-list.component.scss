@@ -6,6 +6,7 @@
     height: #{$modal-height - $modal-header-height};
     background: rgba(0, 0, 0, 0.38);
     overflow-y: auto;
+    direction: rtl;
 
     .search-item {
         cursor: pointer;
@@ -15,6 +16,7 @@
         padding: 0 24px;
         box-sizing: border-box;
         color: white;
+        direction: ltr;
 
         &.selected {
             background: $mdc-theme-primary;
@@ -25,4 +27,14 @@
             color: black;
         }
     }
+    
+    &::-webkit-scrollbar {
+        width: $scroll-bar-width;
+        background: rgba(black, 0.12);
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: $mdc-theme-secondary;
+    }
+
 }

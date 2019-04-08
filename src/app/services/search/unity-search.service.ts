@@ -27,7 +27,18 @@ export class UnitySearchService extends SearchService {
         super(UnitySearchService.name);
     }
 
-    getFacetInfo(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
+    get onSearchListActiveIndexChange() {
+        return this._unityGlobalVariables.onSearchListActiveIndexChange;
+    }
+
+    updateSearchListActiveIndex(index: number) {
+        if (!this._functionReadyAndValid('updateSearchListActiveIndex')) {
+            return;
+        }
+        this._unityGlobalVariables.updateSearchListActiveIndex(index);
+    }
+
+    getFacetInfo(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void) {
         if (!this._functionReadyAndValid('getFacetInfo')) {
             return;
         }
@@ -42,7 +53,7 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    getBookmarks(callback: (value: Bookmark[]) => void, errorCallback?: (error: any) => void): void {
+    getBookmarks(callback: (value: Bookmark[]) => void, errorCallback?: (error: any) => void) {
         if (!this._functionReadyAndValid('getBookmarks')) {
             return;
         }
@@ -56,7 +67,7 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    getDatasets(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
+    getDatasets(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void) {
         if (!this._functionReadyAndValid('getDatasets')) {
             return;
         }
@@ -71,7 +82,7 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    getNomenclatures(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
+    getNomenclatures(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void) {
         if (!this._functionReadyAndValid('getNomenclatures')) {
             return;
         }
@@ -86,7 +97,7 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    getProducts(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
+    getProducts(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void) {
         if (!this._functionReadyAndValid('getProducts')) {
             return;
         }
@@ -101,7 +112,7 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    getRasters(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
+    getRasters(callback: (value: SearchResult) => void, errorCallback?: (error: any) => void) {
         if (!this._functionReadyAndValid('getRasters')) {
             return;
         }
@@ -116,7 +127,7 @@ export class UnitySearchService extends SearchService {
         });
     }
 
-    searchItems(searchParams: SearchParameters, callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
+    searchItems(searchParams: SearchParameters, callback: (value: SearchResult) => void, errorCallback?: (error: any) => void) {
         if (!this._functionReadyAndValid('search')) {
             return;
         }
@@ -145,7 +156,7 @@ export class UnitySearchService extends SearchService {
         return true;
     }
 
-    private _processResults(res: SearchResult): void {
+    private _processResults(res: SearchResult) {
         if (res.facetInfo && res.facetInfo.itemType) {
             const itemType = <any>res.facetInfo.itemType;
             const itemTypeMap = new Map<SearchItemType, number>();
@@ -165,7 +176,7 @@ export class UnitySearchService extends SearchService {
     }
 
     private _functionReadyAndValid(functionName: string): boolean {
-        if (!this._unityGlobalVariables || !this._unityGlobalVariables.webFunctionsReady) {
+        if (!this._unityGlobalVariables || !this._unityGlobalVariables.searchFunctionsReady) {
             console.error('Error: Search requests through Unity is currently not available.');
             return false;
         }

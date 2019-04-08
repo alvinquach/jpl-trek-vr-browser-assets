@@ -1,3 +1,4 @@
+@import '../../../../styles/theme.scss';
 @import '../../styles/dimensions.scss';
 
 .info-container {
@@ -35,4 +36,14 @@
     button {
         margin-top: 32px;
     }
+
+    &::-webkit-scrollbar {
+        width: $scroll-bar-width;
+        background: rgba(black, 0.12);
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: $mdc-theme-secondary;
+    }
+
 }

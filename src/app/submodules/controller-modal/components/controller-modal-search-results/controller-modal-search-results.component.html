@@ -2,17 +2,17 @@
     <div class="modal-header">
         {{itemType}}s
     </div>
-    <div class="main-contents no-padding" [ngSwitch]="helpMode">
-        <div *ngSwitchCase="false">
-            <div *ngFor="let item of items" class="item">
+    <div class="main-contents scrollbar no-padding" [ngSwitch]="helpMode">
+        <ng-container *ngSwitchCase="false">
+            <div *ngFor="let item of items; let i = index" class="item truncate" [ngClass]="{'active': activeItemIndex === i}">
                 {{item.name}}
             </div>
-        </div>
-        <div *ngSwitchCase="true">
+        </ng-container>
+        <ng-container *ngSwitchCase="true">
             <div>
                 Coming Soon
             </div>
-        </div>
+        </ng-container>
     </div>
     <div class="modal-footer" (click)="toggleHelpMode()" [ngSwitch]="helpMode">
         <div *ngSwitchCase="false">
