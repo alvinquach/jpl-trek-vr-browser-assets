@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { GlobalComponent } from 'src/app/components/base-global.component';
-import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
 import { TerrainType } from 'src/app/models/terrain/terrain-type.type';
 import { TerrainModelService } from 'src/app/services/terrain-model/terrain-model.service';
 import { MathUtils } from 'src/app/utils/math.utils';
@@ -12,9 +12,7 @@ import { MathUtils } from 'src/app/utils/math.utils';
     styleUrls: ['./terrain-control-panel-view-settings.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TerrainControlPanelViewSettingsComponent extends GlobalComponent implements OnInit {
-
-    private readonly _unityGlobalVariables = UnityGlobalVariables.instance;
+export class TerrainControlPanelViewSettingsComponent extends GlobalComponent implements OnInit, OnDestroy {
 
     // Note, these values are scaled by a factor of 10.
     readonly defaultTerrainExaggeration = 10;
@@ -94,6 +92,8 @@ export class TerrainControlPanelViewSettingsComponent extends GlobalComponent im
         },
     ];
 
+    private _terrainTypeChangeSubscription: Subscription;
+
     constructor(cd: ChangeDetectorRef,
                 private _activatedRoute: ActivatedRoute,
                 private _router: Router,
@@ -107,6 +107,16 @@ export class TerrainControlPanelViewSettingsComponent extends GlobalComponent im
             this._onViewSettingsRetreived(data);
             this.cd.detectChanges();
         });
+
+        this._terrainTypeChangeSubscription = this._terrainModelService.onTerrainTypeChange.subscribe(type => {
+            this._terrainType = type;
+            this._updateViewSettingsAvailability();
+            this.cd.detectChanges();
+        });
+    }
+
+    ngOnDestroy() {
+        this._terrainTypeChangeSubscription && this._terrainTypeChangeSubscription.unsubscribe();
     }
 
     toggleSetting(setting: BooleanViewSetting) {
@@ -158,12 +168,18 @@ export class TerrainControlPanelViewSettingsComponent extends GlobalComponent im
             }
         }
 
-        // Check which settings are avalible for the current terrain type.
+        this._updateViewSettingsAvailability();
+
+        this._settingsRetrieved = true;
+    }
+
+    /**
+     * Checks which settings are avalible for the current terrain type.
+     */
+    private _updateViewSettingsAvailability() {
         for (const setting of this.booleanViewSettings) {
             setting.enabled = setting.terrainTypes.indexOf(this._terrainType) !== -1;
         }
-
-        this._settingsRetrieved = true;
     }
 
 }

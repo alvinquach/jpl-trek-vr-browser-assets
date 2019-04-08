@@ -1,5 +1,7 @@
-import { Optional, Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
+import { TerrainType } from 'src/app/models/terrain/terrain-type.type';
 import { GlobalService } from '../base-global.service';
 import { UnityDataService } from '../unity-data/unity-data.service';
 
@@ -7,6 +9,12 @@ import { UnityDataService } from '../unity-data/unity-data.service';
 export class TerrainModelService extends GlobalService {
 
     private readonly _unityGlobalVariables = UnityGlobalVariables.instance;
+
+    readonly onTerrainTypeChange: BehaviorSubject<TerrainType> = new BehaviorSubject<TerrainType>('globe');
+
+    set currentTerrainType(value: TerrainType) {
+        this.onTerrainTypeChange.next(value);
+    }
 
     constructor(@Optional() private _unityDataService: UnityDataService) {
         super(TerrainModelService.name);
