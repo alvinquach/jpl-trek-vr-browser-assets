@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { ActivatedRoute, Router } from '@angular/router';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
 import { SearchResultItem } from 'src/app/models/search/search-result-item.model';
-import { SearchResult } from 'src/app/models/search/search-result.model';
 import { HttpService } from 'src/app/services/http/base-http.service';
 import { SearchService } from 'src/app/services/search/base-search.service';
+import { TerrainModelService } from 'src/app/services/terrain-model/terrain-model.service';
 import { MainModalService } from '../../services/main-modal.service';
 import { MainModalBaseSearchResultsComponent } from '../main-modal-base-search-results/main-modal-base-search-results.component';
 
@@ -26,10 +26,11 @@ export class MainModalSearchProductComponent extends MainModalBaseSearchResultsC
                 cd: ChangeDetectorRef,
                 router: Router,
                 mainModalService: MainModalService,
+                terrainModelService: TerrainModelService,
                 private _httpService: HttpService,
                 private _searchService: SearchService) {
 
-        super(activatedRoute, cd, router, mainModalService);
+        super(activatedRoute, cd, router, mainModalService, terrainModelService);
     }
 
     ngOnInit() {

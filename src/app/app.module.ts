@@ -12,6 +12,7 @@ import { UnityHttpService } from './services/http/unity-http.service';
 import { AngularSearchService } from './services/search/angular-search.service';
 import { SearchService } from './services/search/base-search.service';
 import { UnitySearchService } from './services/search/unity-search.service';
+import { TerrainModelService } from './services/terrain-model/terrain-model.service';
 import { UnityDataService } from './services/unity-data/unity-data.service';
 
 const MdcWebModules = [
@@ -43,6 +44,7 @@ const MdcWebModules = [
             provide: SearchService,
             useClass: environment.unity ? UnitySearchService : AngularSearchService
         },
+        TerrainModelService,
         {
             provide: UnityDataService,
             useFactory: (ngZone: NgZone) => environment.unity ? new UnityDataService(ngZone) : null

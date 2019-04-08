@@ -47,7 +47,7 @@ export class ControllerModalBoundingBoxSelectionComponent extends GlobalComponen
         this._boundingBox.lonEnd = lonEnd;
         this._boundingBox.latEnd = latEnd;
         this._activeIndex = activeIndex;
-        this.changeDetector.detectChanges();
+        this.cd.detectChanges();
     }
 
     formatCoordinate(coordinate: number): string {

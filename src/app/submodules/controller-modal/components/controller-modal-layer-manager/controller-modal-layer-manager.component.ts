@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit, Optional, ChangeDetectorRef, HostListener } from '@angular/core';
-import { UnityDataService } from 'src/app/services/unity-data/unity-data.service';
-import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
+import { TerrainModelService } from 'src/app/services/terrain-model/terrain-model.service';
 
 @Component({
     selector: 'app-controller-modal-layer-manager',
@@ -27,7 +26,7 @@ export class ControllerModalLayerManagerComponent implements OnInit {
     }
 
     constructor(private _cd: ChangeDetectorRef,
-                @Optional() private _unityDataService: UnityDataService) {
+                private _terrainModelService: TerrainModelService) {
 
     }
 
@@ -50,34 +49,10 @@ export class ControllerModalLayerManagerComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this._unityDataService) {
-            const unityGlobalVariables = UnityGlobalVariables.instance;
-            if (unityGlobalVariables.terrainFunctionsReady) {
-                const request = this._unityDataService.registerRequest<any>(data => {
-                    this._layers = data;
-                    this._cd.detectChanges();
-                });
-                unityGlobalVariables.getCurrentLayers(request.requestId);
-            } else {
-                console.error(`Terrain model functions are not available or not ready yet.`);
-            }
-        } else {
-            console.error('Unity data service is not available. Displaying mock data.');
-            this._layers = [
-                {
-                    name: 'Test Texture',
-                    opacity: 0
-                },
-                {
-                    name: 'mola_roughness',
-                    opacity: 0
-                },
-                {
-                    name: 'Mars_MGS_MOLA_ClrShade_merge_global_463m',
-                    opacity: 0
-                },
-            ];
-        }
+        this._terrainModelService.getCurrentLayers(data => {
+            this._layers = data;
+            this._cd.detectChanges();
+        });
     }
 
     private _focusPrevious(): void {
@@ -102,11 +77,7 @@ export class ControllerModalLayerManagerComponent implements OnInit {
         } else if (layer.opacity > 100) {
             layer.opacity = 100;
         }
-
-        const unityGlobalVariables = UnityGlobalVariables.instance;
-        if (unityGlobalVariables.terrainFunctionsReady) {
-            unityGlobalVariables.adjustLayer(index + 1, layer.opacity);
-        }
+        this._terrainModelService.adjustLayer(index + 1, layer.opacity);
     }
 
 }

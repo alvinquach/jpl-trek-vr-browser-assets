@@ -50,7 +50,7 @@ export class UnityGlobalVariables {
 
     highlightBoundingBoxOnGlobe: (bbox: string) => void;
 
-    viewLocalTerrainBookmark: (bookmarkJson: string) => void;
+    createLocalTerrainFromBookmark: (bookmarkJson: string) => void;
 
     getCurrentViewSettings: (requestId: string) => void;
 

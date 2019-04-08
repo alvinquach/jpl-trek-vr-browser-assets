@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { GlobalComponent } from 'src/app/components/base-global.component';
-import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
+import { TerrainModelService } from 'src/app/services/terrain-model/terrain-model.service';
 
 @Component({
     selector: 'app-terrain-control-panel-home',
@@ -12,26 +10,18 @@ import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-v
 })
 export class TerrainControlPanelHomeComponent extends GlobalComponent {
 
-    private readonly _unityGlobalVariables = UnityGlobalVariables.instance;
+    constructor(cd: ChangeDetectorRef,
+                private _terrainModelService: TerrainModelService) {
 
-    constructor(protected _cd: ChangeDetectorRef) {
-        super(TerrainControlPanelHomeComponent.name, _cd);
+        super(TerrainControlPanelHomeComponent.name, cd);
     }
 
     showGlobeModel() {
-        if (!this._unityGlobalVariables.terrainFunctionsReady) {
-            console.error('Unity terrain functions are not ready or not available.');
-            return;
-        }
-        this._unityGlobalVariables.showGlobeModel();
+        this._terrainModelService.showGlobeModel();
     }
 
     hideControlPanel() {
-        if (!this._unityGlobalVariables.terrainFunctionsReady) {
-            console.error('Unity terrain functions are not ready or not available.');
-            return;
-        }
-        this._unityGlobalVariables.hideControlPanel();
+        this._terrainModelService.hideControlPanel();
     }
 
 }

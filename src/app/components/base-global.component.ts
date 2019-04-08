@@ -3,7 +3,7 @@ import { OnDestroy, ChangeDetectorRef } from '@angular/core';
 
 export abstract class GlobalComponent implements OnDestroy {
 
-    constructor(protected readonly _componentName: string, public changeDetector: ChangeDetectorRef) {
+    constructor(protected readonly _componentName: string, public cd: ChangeDetectorRef) {
         const angularGlobalVariables = AngularGlobalVariables.instance;
         if (!!angularGlobalVariables.injectablesMap[_componentName]) {
             console.error(`Error: Injectable with the name ${_componentName} already exists in the global map.`);

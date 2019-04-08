@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalComponent } from 'src/app/components/base-global.component';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
 import { TerrainType } from 'src/app/models/terrain/terrain-type.type';
-import { UnityDataService } from 'src/app/services/unity-data/unity-data.service';
+import { TerrainModelService } from 'src/app/services/terrain-model/terrain-model.service';
 import { MathUtils } from 'src/app/utils/math.utils';
 
 @Component({
@@ -33,7 +33,7 @@ export class TerrainControlPanelViewSettingsComponent extends GlobalComponent im
     }
     set editHeightScaleMode(value) {
         this._editHeightScaleMode = value;
-        this._cd.detectChanges();
+        this.cd.detectChanges();
     }
 
     private _terrainType: TerrainType = 'globe';
@@ -49,9 +49,9 @@ export class TerrainControlPanelViewSettingsComponent extends GlobalComponent im
     set heightExaggeration(value) {
         value = MathUtils.clamp(value, this.minTerrainExaggeration, this.maxTerrainExaggeration);
         if (value !== this._heightExaggeration) {
-            this._executeUnityTerrainFunction(this._unityGlobalVariables.setHeightExaggeration, value / 10);
+            this._terrainModelService.setHeightExaggeration(value / 10);
             this._heightExaggeration = value;
-            this._cd.detectChanges();
+            this.cd.detectChanges();
         }
     }
 
@@ -65,7 +65,7 @@ export class TerrainControlPanelViewSettingsComponent extends GlobalComponent im
             enabled: true,
             terrainTypes: ['globe', 'local'],
             onValueChanged: val => {
-                this._executeUnityTerrainFunction(this._unityGlobalVariables.setTexturesVisiblity, val);
+                this._terrainModelService.setTexturesVisiblity(val);
             }
         },
         {
@@ -77,7 +77,7 @@ export class TerrainControlPanelViewSettingsComponent extends GlobalComponent im
             enabled: true,
             terrainTypes: ['globe'],
             onValueChanged: val => {
-                this._executeUnityTerrainFunction(this._unityGlobalVariables.setCoordinateIndicatorsVisibility, val);
+                this._terrainModelService.setCoordinateIndicatorsVisibility(val);
             }
         },
         {
@@ -89,30 +89,24 @@ export class TerrainControlPanelViewSettingsComponent extends GlobalComponent im
             enabled: false,
             terrainTypes: ['globe'],
             onValueChanged: val => {
-                this._executeUnityTerrainFunction(this._unityGlobalVariables.setLocationNamesVisibility, val);
+                this._terrainModelService.setLocationNamesVisibility(val);
             }
         },
     ];
 
-    constructor(private _activatedRoute: ActivatedRoute,
-                private _cd: ChangeDetectorRef,
+    constructor(cd: ChangeDetectorRef,
+                private _activatedRoute: ActivatedRoute,
                 private _router: Router,
-                @Optional() private _unityDataService: UnityDataService) {
+                private _terrainModelService: TerrainModelService) {
 
-        super(TerrainControlPanelViewSettingsComponent.name, _cd);
+        super(TerrainControlPanelViewSettingsComponent.name, cd);
     }
 
     ngOnInit() {
-        if (this._unityDataService && this._unityGlobalVariables.terrainFunctionsReady) {
-            const request = this._unityDataService.registerRequest<{[key: string]: any}>(data => {
-                this._onViewSettingsRetreived(data);
-                this._cd.detectChanges();
-            });
-            this._unityGlobalVariables.getCurrentViewSettings(request.requestId);
-        } else {
-            console.error(`Error retrieving view settings. Displaying mock data.`);
-            this._settingsRetrieved = true;
-        }
+        this._terrainModelService.getCurrentViewSettings(data => {
+            this._onViewSettingsRetreived(data);
+            this.cd.detectChanges();
+        });
     }
 
     toggleSetting(setting: BooleanViewSetting) {
@@ -121,7 +115,7 @@ export class TerrainControlPanelViewSettingsComponent extends GlobalComponent im
         }
         setting.status = !setting.status;
         setting.onValueChanged && setting.onValueChanged(setting.status);
-        this._cd.detectChanges();
+        this.cd.detectChanges();
     }
 
     onBackTriggerClick(event): void {
@@ -140,15 +134,7 @@ export class TerrainControlPanelViewSettingsComponent extends GlobalComponent im
     }
 
     hideControlPanel() {
-        this._executeUnityTerrainFunction(this._unityGlobalVariables.hideControlPanel, undefined);
-    }
-
-    private _executeUnityTerrainFunction<T>(fn: (value: T) => void, val: T) {
-        if (!this._unityGlobalVariables.terrainFunctionsReady) {
-            console.error('Unity terrain functions are not ready or not available.');
-            return;
-        }
-        fn(val);
+        this._terrainModelService.hideControlPanel();
     }
 
     private _onViewSettingsRetreived(settings: {[key: string]: any}) {

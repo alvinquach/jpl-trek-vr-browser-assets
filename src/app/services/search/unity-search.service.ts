@@ -17,6 +17,8 @@ import { Bookmark } from 'src/app/models/bookmark/bookmark.model';
 @Injectable()
 export class UnitySearchService extends SearchService {
 
+    private readonly _unityGlobalVariables = UnityGlobalVariables.instance;
+
     private _currentRequestId = 0;
 
     private readonly _searchRequests: {[key: string]: UnityDataRequest<any>} = {};
@@ -30,7 +32,7 @@ export class UnitySearchService extends SearchService {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_FACET_INFO`;
-        UnityGlobalVariables.instance.getFacetInfo(requestId);
+        this._unityGlobalVariables.getFacetInfo(requestId);
 
         // Register a web request so that a response can be received from Unity.
         this._addSearchRequest(requestId, (res: SearchResult) => {
@@ -45,7 +47,7 @@ export class UnitySearchService extends SearchService {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_BOOKMARKS`;
-        UnityGlobalVariables.instance.getBookmarks(requestId);
+        this._unityGlobalVariables.getBookmarks(requestId);
 
         // Register a web request so that a response can be received from Unity.
         this._addSearchRequest(requestId, (res: Bookmark[]) => {
@@ -59,7 +61,7 @@ export class UnitySearchService extends SearchService {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_DATASETS`;
-        UnityGlobalVariables.instance.getDatasets(requestId);
+        this._unityGlobalVariables.getDatasets(requestId);
 
         // Register a web request so that a response can be received from Unity.
         this._addSearchRequest(requestId, (res: SearchResult) => {
@@ -74,7 +76,7 @@ export class UnitySearchService extends SearchService {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_NOMENCLATURE`;
-        UnityGlobalVariables.instance.getNomenclatures(requestId);
+        this._unityGlobalVariables.getNomenclatures(requestId);
 
         // Register a web request so that a response can be received from Unity.
         this._addSearchRequest(requestId, (res: SearchResult) => {
@@ -89,7 +91,7 @@ export class UnitySearchService extends SearchService {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_PRODUCTS`;
-        UnityGlobalVariables.instance.getProducts(requestId);
+        this._unityGlobalVariables.getProducts(requestId);
 
         // Register a web request so that a response can be received from Unity.
         this._addSearchRequest(requestId, (res: SearchResult) => {
@@ -104,7 +106,7 @@ export class UnitySearchService extends SearchService {
             return;
         }
         const requestId = `${this._currentRequestId++}_GET_RASTERS`;
-        UnityGlobalVariables.instance.getRasters(requestId);
+        this._unityGlobalVariables.getRasters(requestId);
 
         // Register a web request so that a response can be received from Unity.
         this._addSearchRequest(requestId, (res: SearchResult) => {
@@ -119,7 +121,7 @@ export class UnitySearchService extends SearchService {
             return;
         }
         const requestId = `${this._currentRequestId++}_SEARCH`;
-        UnityGlobalVariables.instance.search(searchParams, requestId);
+        this._unityGlobalVariables.search(searchParams, requestId);
 
         // Register a web request so that a response can be received from Unity.
         this._addSearchRequest(requestId, (res: SearchResult) => {
@@ -163,12 +165,11 @@ export class UnitySearchService extends SearchService {
     }
 
     private _functionReadyAndValid(functionName: string): boolean {
-        const unityGlobalVariables = UnityGlobalVariables.instance;
-        if (!unityGlobalVariables || !unityGlobalVariables.webFunctionsReady) {
+        if (!this._unityGlobalVariables || !this._unityGlobalVariables.webFunctionsReady) {
             console.error('Error: Search requests through Unity is currently not available.');
             return false;
         }
-        if (typeof unityGlobalVariables[functionName] !== 'function') {
+        if (typeof this._unityGlobalVariables[functionName] !== 'function') {
             console.error(`Error: ${functionName} is not a function.`);
             return false;
         }

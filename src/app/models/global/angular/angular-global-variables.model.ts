@@ -26,7 +26,7 @@ export class AngularGlobalVariables {
 
     detectChanges(): void {
         for (const key of Object.keys(this.componentsMap)) {
-            this.componentsMap[key].changeDetector.detectChanges();
+            this.componentsMap[key].cd.detectChanges();
         }
     }
 

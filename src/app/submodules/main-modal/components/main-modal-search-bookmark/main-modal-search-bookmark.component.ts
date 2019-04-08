@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Bookmark } from 'src/app/models/bookmark/bookmark.model';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
 import { SearchService } from 'src/app/services/search/base-search.service';
+import { TerrainModelService } from 'src/app/services/terrain-model/terrain-model.service';
 import { MainModalService } from '../../services/main-modal.service';
 import { MainModalBaseSearchResultsComponent } from '../main-modal-base-search-results/main-modal-base-search-results.component';
 
@@ -24,9 +25,10 @@ export class MainModalSearchBookmarkComponent extends MainModalBaseSearchResults
                 cd: ChangeDetectorRef,
                 router: Router,
                 mainModalService: MainModalService,
+                terrainModelService: TerrainModelService,
                 private _searchService: SearchService) {
 
-        super(activatedRoute, cd, router, mainModalService);
+        super(activatedRoute, cd, router, mainModalService, terrainModelService);
     }
 
     ngOnInit() {
@@ -55,13 +57,8 @@ export class MainModalSearchBookmarkComponent extends MainModalBaseSearchResults
     }
 
     selectLocalTerrain() {
-        const unityGlobalVariables = UnityGlobalVariables.instance;
-        if (unityGlobalVariables.terrainFunctionsReady) {
-            const jsonString = JSON.stringify(this.selectedItem);
-            unityGlobalVariables.viewLocalTerrainBookmark(jsonString);
-        } else {
-            console.error(`Terrain functions are not available or ready.`);
-        }
+        const jsonString = JSON.stringify(this.selectedItem);
+        this._terrainModelService.createLocalTerrainFromBookmark(jsonString);
     }
 
 }

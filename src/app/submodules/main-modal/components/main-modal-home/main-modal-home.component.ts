@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { ActivatedRoute, Router } from '@angular/router';
 import { ControllerModalActivity } from 'src/app/models/controller-modal-activity.type';
 import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
-import { MainModalBaseNavigableComponent } from '../main-modal-navigatible/main-modal-base-navigable.component';
 import { MainModalService } from '../../services/main-modal.service';
+import { MainModalBaseNavigableComponent } from '../main-modal-navigatible/main-modal-base-navigable.component';
 
 @Component({
     selector: 'app-main-modal-home',
@@ -38,10 +38,10 @@ export class MainModalHomeComponent extends MainModalBaseNavigableComponent {
 
     protected _navigateBackAction() {
         const unityGlobalVariables = UnityGlobalVariables.instance;
-        if (unityGlobalVariables.terrainFunctionsReady) {
+        if (unityGlobalVariables.userInterfaceFunctionsReady) {
             unityGlobalVariables.setMainModalVisiblity(false);
         } else {
-            console.error(`Terrain functions are not available or ready.`);
+            console.error(`User interface functions are not available or ready.`);
         }
     }
 
