@@ -64,8 +64,8 @@ export class AngularSearchService extends SearchService {
                 'title': 'Curiosity Bookmark',
                 'bbox': '137.2469,-4.8715,137.5518,-4.5392',
                 'shape': 'POLYGON ((137.2469 -4.8715,137.5518 -4.8715,137.5518 -4.5392,137.2469 -4.5392,137.2469 -4.8715))',
-                'textures': ['eb179b2d-89a8-4c5a-baaa-f4670ff5a335'],
-                'dem': '1cc3cfbb-ac38-46d1-a3df-5fff16ca397e',
+                'textures': ['b40d61ea-a26b-48e1-bdec-5f5ed5cf73d5'],
+                'dem': 'a0f5221a-0a08-40b9-ae82-75a49aac5afe',
                 'description': 'Curiosity landed in Gale Crater on Mars on August 6th, 2012. With a diameter of 154 km and a central peak 5.5 km tall, Gale Crater was chosen as the landing site for the Mars Science Laboratory Curiosity rover. The choice was based on evidence from orbiting spacecraft that indicate that the crater may have once contained large amounts of liquid water. The central peak, Mount Sharp, exhibits layered rock deposits rich in sedimentary minerals including clays, sulfates, and salts that require water to form.',
                 'mediaURL': 'https://trek.nasa.gov/mars/jpl/assets/features/curiosity/images/curiosity_rover_story.png',
             }
