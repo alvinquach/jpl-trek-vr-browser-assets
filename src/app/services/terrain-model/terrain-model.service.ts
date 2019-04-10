@@ -89,38 +89,6 @@ export class TerrainModelService extends GlobalService {
         this._unityGlobalVariables.hideControlPanel();
     }
 
-    // Temporary
-    adjustLayer(layer: number, value: number) {
-        if (!this._functionReadyAndValid('adjustLayer')) {
-            return;
-        }
-        this._unityGlobalVariables.adjustLayer(layer, value);
-    }
-
-    // Temporary
-    getCurrentLayers(callback: (layers: any) => void) {
-        if (this._unityDataService && this._functionReadyAndValid('getCurrentLayers')) {
-            const request = this._unityDataService.registerRequest(callback);
-            this._unityGlobalVariables.getCurrentLayers(request.requestId);
-        } else {
-            console.error('Unity data service is not available. Displaying mock data.');
-            callback([
-                {
-                    name: 'Test Texture',
-                    opacity: 0
-                },
-                {
-                    name: 'mola_roughness',
-                    opacity: 0
-                },
-                {
-                    name: 'Mars_MGS_MOLA_ClrShade_merge_global_463m',
-                    opacity: 0
-                },
-            ]);
-        }
-    }
-
     private _functionReadyAndValid(functionName: string): boolean {
         if (!this._unityGlobalVariables || !this._unityGlobalVariables.terrainFunctionsReady) {
             console.error('Error: Terrain model control is currently not available.');

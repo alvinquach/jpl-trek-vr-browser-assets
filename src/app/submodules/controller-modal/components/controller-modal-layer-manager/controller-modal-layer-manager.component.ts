@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
-import { TerrainModelService } from 'src/app/services/terrain-model/terrain-model.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { TerrainModelLayer } from 'src/app/models/terrain/layer/terrain-model-layer.model';
+import { LayerService } from 'src/app/services/layer/layer.service';
 
 @Component({
     selector: 'app-controller-modal-layer-manager',
@@ -7,26 +9,24 @@ import { TerrainModelService } from 'src/app/services/terrain-model/terrain-mode
     styleUrls: ['./controller-modal-layer-manager.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ControllerModalLayerManagerComponent implements OnInit {
+export class ControllerModalLayerManagerComponent implements OnInit, OnDestroy {
 
     private readonly _adjustmentDelta = 5;
 
-    private _selectedLayer = 0;
-    get selectedLayer() {
-        return this._selectedLayer;
+    private _layersUpdateSubscription: Subscription;
+
+    private _activeLayerIndex = 0;
+    get activeLayerIndex() {
+        return this._activeLayerIndex;
     }
 
-    private _layers: any[];
+    private _layers: TerrainModelLayer[];
     get layers() {
         return this._layers;
     }
-    set layers(value: any[]) {
-        this._selectedLayer = 0;
-        this._layers = value;
-    }
 
     constructor(private _cd: ChangeDetectorRef,
-                private _terrainModelService: TerrainModelService) {
+                private _layerService: LayerService) {
 
     }
 
@@ -37,36 +37,48 @@ export class ControllerModalLayerManagerComponent implements OnInit {
                 this._focusPrevious();
                 break;
             case 'a':
-                this._adjustLayer(this._selectedLayer, -this._adjustmentDelta)
+                this._adjustLayer(this._activeLayerIndex, -this._adjustmentDelta)
                 break;
             case 's':
                 this._focusNext();
                 break;
             case 'd':
-                this._adjustLayer(this._selectedLayer, this._adjustmentDelta)
+                this._adjustLayer(this._activeLayerIndex, this._adjustmentDelta)
                 break;
         }
     }
 
     ngOnInit() {
-        this._terrainModelService.getCurrentLayers(data => {
-            this._layers = data;
+        this._layerService.getCurrentLayers(res => {
+            this._layers = this._layerService.processData(res);
+            this._cd.detectChanges();
+        });
+
+        this._layersUpdateSubscription = this._layerService.onLayersUpdated.subscribe(res => {
+            if (!res) {
+                return;
+            }
+            this._layers = this._layerService.processData(res);
             this._cd.detectChanges();
         });
     }
 
+    ngOnDestroy() {
+        this._layersUpdateSubscription && this._layersUpdateSubscription.unsubscribe();
+    }
+
     private _focusPrevious(): void {
-        if (this._selectedLayer <= 0) {
+        if (this._activeLayerIndex <= 0) {
             return;
         }
-        this._selectedLayer--;
+        this._activeLayerIndex--;
     }
 
     private _focusNext(): void {
-        if (this._selectedLayer >= this._layers.length - 1) {
+        if (this._activeLayerIndex >= this._layers.length - 1) {
             return;
         }
-        this._selectedLayer++;
+        this._activeLayerIndex++;
     }
 
     private _adjustLayer(index: number, diff: number) {
@@ -77,7 +89,15 @@ export class ControllerModalLayerManagerComponent implements OnInit {
         } else if (layer.opacity > 100) {
             layer.opacity = 100;
         }
-        this._terrainModelService.adjustLayer(index + 1, layer.opacity);
+        this._layerService.updateLayer({
+            index: this._getActualIndex(index),
+            opacity: layer.opacity / 100
+        });
+    }
+
+    private _getActualIndex(index: number) {
+        // Assumes index is within bounds.
+        return this._layers.length - index - 1;
     }
 
 }

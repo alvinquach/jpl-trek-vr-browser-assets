@@ -1,0 +1,163 @@
+@import '../../../../styles/theme.scss';
+@import '../../styles/dimensions.scss';
+@import '../../../../styles/mixins/mdc-slider-mixin.scss';
+
+$layer-list-width: 960px;
+$thumbnail-size: 120px;
+$drag-trigger-height: 64px;
+
+$slider-track-thickness: 6px;
+$slider-thumb-size: 64px;
+$icon-button-size: 40px;
+
+.layers-template {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+
+    .layers-list-container {
+        width: $layer-list-width;
+        height: #{$modal-height - $modal-header-height};
+        background: rgba(black, 0.32);
+        overflow-y: auto;
+
+        .drag-trigger-container {
+            height: 0;
+            overflow: visible;
+
+            .drag-trigger {
+                height: $drag-trigger-height;
+                position: relative;
+                top: #{-$drag-trigger-height / 2};
+            }
+
+            &.triggered {
+                border-top: 4px solid $mdc-theme-primary;
+                border-bottom: 4px solid $mdc-theme-primary;
+
+                .drag-trigger {
+                    border-left: 8px solid $mdc-theme-primary;
+                    border-right: 8px solid $mdc-theme-primary;
+                }
+            }
+        }
+
+        .layer-item {
+            flex-direction: row;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            box-sizing: border-box;
+            color: white;
+
+            .thumbnail-container {
+                width: $thumbnail-size;
+                padding: 0 16px;
+
+                img {
+                    width: $thumbnail-size;
+                }
+            }
+
+            .name {
+                font-size: 28px;
+                line-height: 64px;
+            }
+
+            .item-actions-container {
+                height: 84px;
+                width: 720px;
+                flex-direction: row;
+                box-sizing: border-box;
+                display: flex;
+                place-content: center;
+                align-items: center;
+
+                .opacity {
+                    padding-left: 16px;
+                    font-size: 28px;
+                    font-weight: 500;
+                }
+
+                .slider-container {
+                    flex: 1;
+                    padding: 0 56px 0 32px;
+                                
+                    &::ng-deep {
+                        @include mdc-slider-track-thickness($slider-track-thickness);
+                        @include mdc-slider-thumb-size($slider-thumb-size);
+                    }
+                }
+
+                .mdc-icon-button {
+                    @include mdc-icon-button-size($icon-button-size);
+        
+                    mdc-icon {
+                        font-size: $icon-button-size;
+                    }
+                }
+            }
+
+            &.selected {
+                background: $mdc-theme-primary;
+            }
+    
+            &:hover {
+                background: $material-color-amber-400;
+                color: black;
+            }
+
+            .add-layer {
+                zoom: 2;
+                width: 100%;
+                height: 72px;
+                font-weight: 500;
+                flex-direction: row;
+                box-sizing: border-box;
+                display: flex;
+                place-content: center;
+                align-items: center;
+            }
+        }
+
+        &::-webkit-scrollbar {
+            width: $scroll-bar-width;
+            background: rgba(black, 0.12);
+        }
+        
+        &::-webkit-scrollbar-thumb {
+            background: $mdc-theme-secondary;
+        }
+    }
+}
+
+.actions-container {
+    
+    >div:first-child {
+        padding-top: 8px;
+    }
+
+    .info {
+        font-size: 32px;
+        color: white;
+        width: #{250px * 1.6};
+        padding: 16px 8px;
+
+        &.yellow {
+            color: gold;
+        }
+
+        &.red {
+            color: red;
+        }
+    }
+
+    .action.bottom {
+        position: absolute;
+        top: #{($modal-height - 96px) / 1.6};
+    }
+}

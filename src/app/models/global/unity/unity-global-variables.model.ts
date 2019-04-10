@@ -2,6 +2,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ControllerModalActivity } from '../../controller-modal-activity.type';
 import { SearchParameters } from '../../search/search-parameters.model';
 import { TerrainType } from '../../terrain/terrain-type.type';
+import { TerrainModelLayer } from '../../terrain/layer/terrain-model-layer.model';
 
 export class UnityGlobalVariables {
 
@@ -68,9 +69,23 @@ export class UnityGlobalVariables {
 
     hideControlPanel: () => void;
 
-    adjustLayer: (layer: number, value: number) => void; // Temporary
+    //#endregion
 
-    getCurrentLayers: (requestId: string) => void; // Temporary
+    //#region Functions registered by UnityTerrainModelFunctions.cs
+
+    layerFunctionsReady = false;
+
+    readonly onLayersUpdated: BehaviorSubject<TerrainModelLayer[]> = new BehaviorSubject<TerrainModelLayer[]>(null);
+
+    addLayer: (uuid: string, index?: number) => void;
+
+    updateLayer: (layerChangeJson: string) => void;
+
+    moveLayer: (from: number, to: number) => void;
+
+    removeLayer: (index: number) => void;
+
+    getCurrentLayers: (requestId: string) => void;
 
     //#endregion
 

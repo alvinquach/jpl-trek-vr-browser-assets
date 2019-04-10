@@ -2,10 +2,8 @@ import { ChangeDetectorRef, HostListener, OnDestroy, OnInit, QueryList, ViewChil
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import * as $ from 'jquery';
 import { Subscription } from 'rxjs';
-import { UnityGlobalVariables } from 'src/app/models/global/unity/unity-global-variables.model';
 import { MainModalService } from '../../services/main-modal.service';
 import { MainModalNavigableIconComponent } from './main-modal-navigable-icon.component';
-import { TerrainModelService } from 'src/app/services/terrain-model/terrain-model.service';
 
 export abstract class MainModalBaseNavigableComponent implements OnInit, OnDestroy {
 

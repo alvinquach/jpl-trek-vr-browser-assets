@@ -14,6 +14,7 @@ import { SearchService } from './services/search/base-search.service';
 import { UnitySearchService } from './services/search/unity-search.service';
 import { TerrainModelService } from './services/terrain-model/terrain-model.service';
 import { UnityDataService } from './services/unity-data/unity-data.service';
+import { LayerService } from './services/layer/layer.service';
 
 const MdcWebModules = [
     MdcButtonModule,
@@ -40,6 +41,7 @@ const MdcWebModules = [
             provide: HttpService,
             useClass: environment.unity ? UnityHttpService : AngularHttpService
         },
+        LayerService,
         {
             provide: SearchService,
             useClass: environment.unity ? UnitySearchService : AngularSearchService

@@ -107,6 +107,12 @@ export abstract class MainModalBaseSearchResultsComponent<T> extends MainModalBa
         this.highlightedItem = null;
     }
 
+    resetSelectedItem() {
+        this.selectedItem = null;
+        this.selectedItemDescription = null;
+        this.selectedItemImageUrl = null;
+    }
+
     abstract selectItem(item: T): void;
 
     abstract viewInController(): void;

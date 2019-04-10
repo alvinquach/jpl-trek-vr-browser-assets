@@ -1,1 +1,131 @@
-To be implemented
+<ng-container *ngIf="searchMode; else layersTemplate">
+    <ng-container *ngIf="items">
+        <div class="search-results-container">
+            <div>
+                <app-main-modal-search-result-list 
+                    [items]="items" 
+                    [selectedItem]="selectedItem"
+                    (selectedItemChange)="selectItem($event)">
+                </app-main-modal-search-result-list>
+            </div>
+            <div>
+                <app-main-modal-search-item-info
+                    [title]="selectedItem?.name"
+                    [imageUrl]="selectedItemImageUrl" 
+                    [description]="selectedItemDescription">
+                </app-main-modal-search-item-info>
+            </div>
+            <div class="actions-container" [ngSwitch]="!!selectedItem">
+                <div *ngSwitchDefault class="info">
+                    Select an item from the list to add it to layers.
+                </div>
+                <ng-container *ngSwitchCase="true">
+                    <div class="subheader">
+                        SELECTED ITEM
+                    </div>
+                    <div class="action">
+                        <button mdc-button (click)="addSelectedItem()" [disabled]="selectedItemAlreadyAdded || selectedItemIsDem">
+                            <div class="action-button-contents">
+                                <mdc-icon>add</mdc-icon>ADD TO LAYERS
+                            </div>
+                        </button>
+                    </div>
+                    <div *ngIf="selectedItemAlreadyAdded" class="info yellow">
+                        This item has already been added to layers.
+                    </div>
+                    <div *ngIf="selectedItemIsDem" class="info red">
+                        DEM files are currently not supported can cannot be added as a layer.
+                    </div>
+                </ng-container>
+                <div class="action bottom">
+                    <button mdc-button (click)="toggleSearchMode()">
+                        <div class="action-button-contents">
+                            <mdc-icon>keyboard_return</mdc-icon>BACK TO LAYERS
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>
+
+<ng-template #layersTemplate>
+    <div class="layers-template">
+        <div class="layers-list-container">
+            <ng-container *ngIf="layers.length < maxLayerCount">
+                <div class="layer-item">
+                    <div class="add-layer" (click)="toggleSearchMode()">
+                        <mdc-icon>add</mdc-icon>ADD NEW LAYER
+                    </div>
+                </div>
+                <div class="drag-trigger-container" [ngClass]="{'triggered' : draggedOverIndex === -1}">
+                    <div *ngIf="draggedIndex != null"
+                        class="drag-trigger"
+                        (dragenter)="onDragEnter(-1)"
+                        (dragleave)="onDragLeave()">
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngFor="let layer of layers; let i = index">
+                <ng-container *ngIf="i < layers.length - 1">
+                    <div class="layer-item"
+                        draggable="true"
+                        (dragstart)="onDragStart(i)"
+                        (drag)="onDrag($event)"
+                        (dragend)="onDragEnd()">
+                        <div class="thumbnail-container">
+                            <img [src]="layer.thumbnailUrl">
+                        </div>
+                        <div>
+                            <div class="name truncate">
+                                {{layer.name}}
+                            </div>
+                            <div class="item-actions-container">
+                                <div class="opacity">
+                                    {{layer.opacity / 100 | percent}}
+                                </div>
+                                <div class="slider-container">
+                                    <mdc-slider *ngIf="slidersReady"
+                                        [min]="0" 
+                                        [max]="100"
+                                        [(ngModel)]="layer.opacity" 
+                                        (change)="onSliderChange(i)">
+                                    </mdc-slider>
+                                </div>
+                                <button mdc-icon-button (mousedown)="toggleVisiblity(i)">
+                                    <mdc-icon>{{layer.visible ? 'visibility' : 'visibility_off'}}</mdc-icon>
+                                </button>
+                                <button mdc-icon-button (mousedown)="deleteLayer(i)">
+                                    <mdc-icon style="color: red;">delete_forever</mdc-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="drag-trigger-container" [ngClass]="{'triggered' : draggedOverIndex === i}">
+                        <div *ngIf="draggedIndex != null"
+                            class="drag-trigger"
+                            (dragenter)="onDragEnter(i)"
+                            (dragleave)="onDragLeave()">
+                        </div>
+                    </div> 
+                </ng-container>
+            </ng-container>
+        </div>
+        <div class="actions-container">
+            <div class="action">
+                <button mdc-button (click)="toggleSearchMode()">
+                    <div class="action-button-contents">
+                        <mdc-icon>search</mdc-icon>SEARCH LAYERS
+                    </div>
+                </button>
+            </div>
+            <div class="action">
+                <button mdc-button (click)="viewInController()">
+                    <div class="action-button-contents">
+                        <mdc-icon>settings_remote</mdc-icon>VIEW IN CONTROLLER
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>
