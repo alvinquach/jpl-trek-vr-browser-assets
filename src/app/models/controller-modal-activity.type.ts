@@ -4,4 +4,7 @@ export type ControllerModalActivity =
     'BookmarkResults' |
     'NomenclatureResults' |
     'ProductResults' |
-    'LayerManager';
+    'LayerManager' |
+    'ToolsDistance' |
+    'ToolsProfile' |
+    'ToolsSunAngle';

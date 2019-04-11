@@ -7,6 +7,7 @@ import { ControllerModalBoundingBoxSelectionComponent } from './components/contr
 import { ControllerModalLayerManagerComponent } from './components/controller-modal-layer-manager/controller-modal-layer-manager.component';
 import { ControllerModalSearchResultDetailsComponent } from './components/controller-modal-search-result-details/controller-modal-search-result-details.component';
 import { ControllerModalSearchResultsComponent } from './components/controller-modal-search-results/controller-modal-search-results.component';
+import { ControllerModalToolsDistanceComponent } from './components/controller-modal-tools-distance/controller-modal-tools-distance.component';
 import { ControllerModalComponent } from './controller-modal.component';
 
 const ModuleRoutes: Routes = [
@@ -46,6 +47,10 @@ const ModuleRoutes: Routes = [
             {
                 path: 'layer-manager',
                 component: ControllerModalLayerManagerComponent
+            },
+            {
+                path: 'tools/distance',
+                component: ControllerModalToolsDistanceComponent
             }
         ]
     }
@@ -62,7 +67,8 @@ const MdcWebModules = [
         ControllerModalBoundingBoxSelectionComponent,
         ControllerModalSearchResultsComponent,
         ControllerModalSearchResultDetailsComponent,
-        ControllerModalLayerManagerComponent
+        ControllerModalLayerManagerComponent,
+        ControllerModalToolsDistanceComponent
     ],
     imports: [
         CommonModule,

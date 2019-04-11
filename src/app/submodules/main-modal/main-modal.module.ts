@@ -14,6 +14,7 @@ import { MainModalSearchRootComponent } from './components/main-modal-search-roo
 import { MainModalComponent } from './main-modal.component';
 import { MainModalService } from './services/main-modal.service';
 import { FormsModule } from '@angular/forms';
+import { MainModalToolsRootComponent } from './components/main-modal-tools-root.component.ts/main-modal-tools-root.component';
 
 const ModuleRoutes: Routes = [
     {
@@ -29,6 +30,10 @@ const ModuleRoutes: Routes = [
                 path: 'home',
                 component: MainModalHomeComponent,
                 children: [
+                    {
+                        path: 'tools',
+                        component: MainModalToolsRootComponent,
+                    },
                     {
                         path: 'search',
                         component: MainModalSearchRootComponent,
@@ -68,6 +73,7 @@ const MdcWebModules = [
     declarations: [
         MainModalComponent,
         MainModalHomeComponent,
+        MainModalToolsRootComponent,
         MainModalSearchRootComponent,
         MainModalSearchBookmarkComponent,
         MainModalSearchNomenclatureComponent,

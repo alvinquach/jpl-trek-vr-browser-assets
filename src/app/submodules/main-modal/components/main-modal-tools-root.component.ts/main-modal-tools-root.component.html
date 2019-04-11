@@ -5,29 +5,30 @@
         </div>
     </div>
     <div class="navigable-icons-container" [ngClass]="mode">
-        <app-main-modal-navigable-icon
+        <app-main-modal-navigable-icon 
             [mode]="mode"
-            (iconClicked)="navigate('./search', 0)"
-            materialIcon="search"
-            title="Search">
+            (iconClicked)="startActivity('BBoxSelection')"
+            materialIcon="select_all"
+            title="Area Selection">
         </app-main-modal-navigable-icon>
         <app-main-modal-navigable-icon 
             [mode]="mode"
-            (iconClicked)="navigate('./tools', 1)"
-            materialIcon="build"
-            title="Tools">
-        </app-main-modal-navigable-icon>
-        <app-main-modal-navigable-icon 
-            [mode]="mode"
-            (iconClicked)="navigate('./layer-manager', 2)"
-            materialIcon="layers"
-            title="Layer Manager">
+            (iconClicked)="startActivity('ToolsDistance')"
+            materialIcon="space_bar"
+            title="Distance">
         </app-main-modal-navigable-icon>
         <app-main-modal-navigable-icon
             [mode]="mode"
-            materialIcon="settings"
-            title="Options">
-        </app-main-modal-navigable-icon>    
+            (iconClicked)="startActivity('ToolsProfile')"
+            materialIcon="show_chart"
+            title="Height Profile">
+        </app-main-modal-navigable-icon>   
+        <app-main-modal-navigable-icon
+            [mode]="mode"
+            (iconClicked)="startActivity('ToolsSunAngle')"
+            materialIcon="wb_sunny"
+            title="Sun Angle">
+        </app-main-modal-navigable-icon> 
     </div>
     <div class="router-outlet" [ngClass]="{visible: !isLastChild}">
         <ng-container *ngIf="!isLastChild">
