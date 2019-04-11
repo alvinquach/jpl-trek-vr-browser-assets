@@ -6,5 +6,5 @@ export type ControllerModalActivity =
     'ProductResults' |
     'LayerManager' |
     'ToolsDistance' |
-    'ToolsProfile' |
+    'ToolsHeightProfile' |
     'ToolsSunAngle';

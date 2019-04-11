@@ -4,7 +4,12 @@
     </div>
     <div class="main-contents" [ngSwitch]="helpMode">
         <div *ngSwitchCase="false">
-            Under Construction...
+            <div *ngFor="let point of points">
+                ({{point.x}}°, {{point.y}}°)
+            </div>
+            <div>
+                ({{currentPoint.x}}°, {{currentPoint.y}}°)
+            </div>
         </div>
         <div *ngSwitchCase="true">
             <div>
