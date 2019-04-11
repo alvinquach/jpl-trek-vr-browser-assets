@@ -64,41 +64,45 @@ $icon-button-size: 40px;
                 }
             }
 
-            .name {
-                font-size: 28px;
-                line-height: 64px;
-            }
-
-            .item-actions-container {
-                height: 84px;
+            .main-section {
                 width: 720px;
-                flex-direction: row;
-                box-sizing: border-box;
-                display: flex;
-                place-content: center;
-                align-items: center;
 
-                .opacity {
-                    padding-left: 16px;
+                .name {
                     font-size: 28px;
-                    font-weight: 500;
+                    line-height: 64px;
                 }
 
-                .slider-container {
-                    flex: 1;
-                    padding: 0 56px 0 32px;
-                                
-                    &::ng-deep {
-                        @include mdc-slider-track-thickness($slider-track-thickness);
-                        @include mdc-slider-thumb-size($slider-thumb-size);
+                .item-actions-container {
+                    height: 84px;
+                    width: 100%;
+                    flex-direction: row;
+                    box-sizing: border-box;
+                    display: flex;
+                    place-content: center;
+                    align-items: center;
+
+                    .opacity {
+                        padding-left: 16px;
+                        font-size: 28px;
+                        font-weight: 500;
                     }
-                }
 
-                .mdc-icon-button {
-                    @include mdc-icon-button-size($icon-button-size);
-        
-                    mdc-icon {
-                        font-size: $icon-button-size;
+                    .slider-container {
+                        flex: 1;
+                        padding: 0 56px 0 32px;
+                                    
+                        &::ng-deep {
+                            @include mdc-slider-track-thickness($slider-track-thickness);
+                            @include mdc-slider-thumb-size($slider-thumb-size);
+                        }
+                    }
+
+                    .mdc-icon-button {
+                        @include mdc-icon-button-size($icon-button-size);
+            
+                        mdc-icon {
+                            font-size: $icon-button-size;
+                        }
                     }
                 }
             }
@@ -119,16 +123,7 @@ $icon-button-size: 40px;
                     }
                 }
             }
-
-            &.selected {
-                background: $mdc-theme-primary;
-            }
-    
-            &:hover {
-                background: $material-color-amber-400;
-                color: black;
-            }
-
+            
             .add-layer {
                 zoom: 2;
                 width: 100%;
@@ -139,6 +134,23 @@ $icon-button-size: 40px;
                 display: flex;
                 place-content: center;
                 align-items: center;
+            }
+
+            .reorder-container {
+
+                .mdc-icon-button {
+                    @include mdc-icon-button-size($icon-button-size);
+        
+                    mdc-icon {
+                        font-size: $icon-button-size;
+                        color: $mdc-theme-primary;
+                    }
+                }
+            }
+
+            &:hover {
+                background: $material-color-amber-400;
+                color: black;
             }
         }
 

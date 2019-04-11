@@ -38,6 +38,7 @@ export class LayerService extends GlobalService {
         if (!this._functionReadyAndValid('moveLayer')) {
             return;
         }
+        console.log(`Moved from ${from} to ${to}.`);
         this._unityGlobalVariables.moveLayer(from, to);
     }
 

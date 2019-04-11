@@ -52,16 +52,9 @@ export class MainModalLayerManagerComponent extends MainModalBaseSearchResultsCo
     }
     set searchMode(value) {
         this._searchMode = value;
-        if (value) {
-            this._slidersReady = false;
-        } else {
+        if (!value) {
             this.resetSelectedItem();
-
-            // Hacky fix for positioning issues with sliders.
-            setTimeout(() => {
-                this._slidersReady = true;
-                this._cd.detectChanges();
-            }, 50);
+            this._refreshSliders();
         }
     }
 
@@ -121,7 +114,7 @@ export class MainModalLayerManagerComponent extends MainModalBaseSearchResultsCo
                 return;
             }
             this._layers = this._layerService.processData(res);
-            this._cd.detectChanges();
+            this._refreshSliders();
         });
     }
 
@@ -173,7 +166,6 @@ export class MainModalLayerManagerComponent extends MainModalBaseSearchResultsCo
                 this._draggedOverIndex += 1;
             }
             if (this._draggedIndex !== this._draggedOverIndex) {
-                console.log("Moved from", this._draggedIndex, "to", this._draggedOverIndex);
                 const from = this._getActualIndex(this._draggedIndex);
                 const to = this._getActualIndex(this._draggedOverIndex);
                 this._layerService.moveLayer(from, to);
@@ -195,6 +187,30 @@ export class MainModalLayerManagerComponent extends MainModalBaseSearchResultsCo
             opacity: layer.opacity / 100
         });
         this._updateTimedout = true;
+        setTimeout(() => this._updateTimedout = false, this._updateTimeoutDuration);
+    }
+
+    moveLayerUp(index: number) {
+        if (this._updateTimedout) {
+            return;
+        }
+        if (index <= 0) {
+            return;
+        }
+        index = this._getActualIndex(index);
+        this._layerService.moveLayer(index, index + 1);
+        setTimeout(() => this._updateTimedout = false, this._updateTimeoutDuration);
+    }
+
+    moveLayerDown(index: number) {
+        if (this._updateTimedout) {
+            return;
+        }
+        if (index >= this._layers.length - 2) {
+            return;
+        }
+        index = this._getActualIndex(index);
+        this._layerService.moveLayer(index, index - 1);
         setTimeout(() => this._updateTimedout = false, this._updateTimeoutDuration);
     }
 
@@ -271,6 +287,16 @@ export class MainModalLayerManagerComponent extends MainModalBaseSearchResultsCo
     private _getActualIndex(index: number) {
         // Assumes index is within bounds.
         return this._layers.length - index - 1;
+    }
+
+    // Hacky fix for positioning issues with sliders.
+    private _refreshSliders() {
+        this._slidersReady = false;
+        this._cd.detectChanges();
+        setTimeout(() => {
+            this._slidersReady = true;
+            this._cd.detectChanges();
+        }, 50);
     }
 
 }

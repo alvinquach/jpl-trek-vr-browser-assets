@@ -77,7 +77,7 @@
                         <div class="thumbnail-container">
                             <img [src]="layer.thumbnailUrl">
                         </div>
-                        <div>
+                        <div class="main-section">
                             <div class="name truncate">
                                 {{layer.name}}
                             </div>
@@ -98,6 +98,18 @@
                                 </button>
                                 <button mdc-icon-button (mousedown)="deleteLayer(i)">
                                     <mdc-icon style="color: red;">delete_forever</mdc-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="reorder-container">
+                            <div>
+                                <button mdc-icon-button (mousedown)="moveLayerUp(i)">
+                                    <mdc-icon>keyboard_arrow_up</mdc-icon>
+                                </button>
+                            </div>
+                            <div>
+                                <button mdc-icon-button (mousedown)="moveLayerDown(i)">
+                                    <mdc-icon>keyboard_arrow_down</mdc-icon>
                                 </button>
                             </div>
                         </div>
