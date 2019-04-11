@@ -4,18 +4,27 @@
     </div>
     <ng-container *ngFor="let layer of layers; let i = index">
         <ng-container *ngIf="i < layers.length - 1">
-            <div class="layer-item" [ngClass]="{'focused': activeLayerIndex === i}">
+            <div class="layer-item"
+                [ngClass]="{
+                    'focused': activeLayerIndex === i,
+                    'not-visible': !layer.visible
+                }">
                 <div class="name">
                     {{layer.name}}
                 </div>
                 <div class="opacity">
                     <mdc-icon>opacity</mdc-icon> 
                     <div class="slider-container">
-                        <mdc-slider [min]="0" [max]="100" [(ngModel)]="layer.opacity"></mdc-slider>
+                        <mdc-slider *ngIf="slidersReady" 
+                            [min]="0"
+                            [max]="100"
+                            [(ngModel)]="layer.opacity">
+                        </mdc-slider>
                     </div>
                     <div class="value">
                         {{(layer.opacity) / 100 | percent}}
                     </div>
+                    <mdc-icon class="visibility-icon">{{layer.visible ? 'visibility' : 'visibility_off'}}</mdc-icon>
                 </div>
             </div>
         </ng-container>

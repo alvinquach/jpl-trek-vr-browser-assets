@@ -15,6 +15,13 @@ export class ControllerModalLayerManagerComponent implements OnInit, OnDestroy {
 
     private _layersUpdateSubscription: Subscription;
 
+    // Sliders are wonky if they are moved after they are initialized.
+    // We have to wait for the page animation to end before displaying.
+    private _slidersReady = false;
+    get slidersReady() {
+        return this._slidersReady;
+    }
+
     private _activeLayerIndex = 0;
     get activeLayerIndex() {
         return this._activeLayerIndex;
@@ -45,13 +52,16 @@ export class ControllerModalLayerManagerComponent implements OnInit, OnDestroy {
             case 'd':
                 this._adjustLayer(this._activeLayerIndex, this._adjustmentDelta)
                 break;
+            case 't':
+                this._toggleVisibility(this._activeLayerIndex);
+                break;
         }
     }
 
     ngOnInit() {
         this._layerService.getCurrentLayers(res => {
             this._layers = this._layerService.processData(res);
-            this._cd.detectChanges();
+            this._refreshSliders();
         });
 
         this._layersUpdateSubscription = this._layerService.onLayersUpdated.subscribe(res => {
@@ -59,7 +69,7 @@ export class ControllerModalLayerManagerComponent implements OnInit, OnDestroy {
                 return;
             }
             this._layers = this._layerService.processData(res);
-            this._cd.detectChanges();
+            this._refreshSliders();
         });
     }
 
@@ -95,9 +105,28 @@ export class ControllerModalLayerManagerComponent implements OnInit, OnDestroy {
         });
     }
 
+    private _toggleVisibility(index: number) {
+        const layer = this._layers[index];
+        layer.visible = !layer.visible;
+        this._layerService.updateLayer({
+            index: this._getActualIndex(index),
+            visible: layer.visible,
+        });
+    }
+
     private _getActualIndex(index: number) {
         // Assumes index is within bounds.
         return this._layers.length - index - 1;
+    }
+
+    // Hacky fix for positioning issues with sliders.
+    private _refreshSliders() {
+        this._slidersReady = false;
+        this._cd.detectChanges();
+        setTimeout(() => {
+            this._slidersReady = true;
+            this._cd.detectChanges();
+        }, 50);
     }
 
 }
