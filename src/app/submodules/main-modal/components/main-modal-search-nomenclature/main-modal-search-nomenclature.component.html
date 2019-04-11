@@ -1,5 +1,49 @@
-<div style="position: relative; top: 240px; text-align: center; font-size: 48px; font-weight: 500;">
-    <mdc-icon style="zoom: 150%;">build</mdc-icon>
-    <span style="padding: 0 24px;">UNDER CONSTRUCTION</span>
-    <mdc-icon style="zoom: 150%;">build</mdc-icon>
-</div>
+<ng-container *ngIf="items">
+    <div class="search-results-container">
+        <div>
+            <app-main-modal-search-result-list 
+                [items]="items" 
+                [selectedItem]="selectedItem"
+                (selectedItemChange)="selectItem($event)">
+            </app-main-modal-search-result-list>
+        </div>
+        <!-- <div>
+            <app-main-modal-search-item-info
+                [title]="selectedItem?.name"
+                [imageUrl]="selectedItemImageUrl" 
+                [description]="selectedItemDescription">
+            </app-main-modal-search-item-info>
+        </div> -->
+        <div class="actions-container">
+            <div class="subheader">
+                SEARCH RESULTS
+            </div>
+            <div class="action">
+                <button mdc-button>
+                    <div class="action-button-contents">
+                        <mdc-icon>sort_by_alpha</mdc-icon>SORT
+                    </div>
+                </button>
+            </div>
+            <div class="action">
+                <button mdc-button (click)="viewInController()">
+                    <div class="action-button-contents">
+                        <mdc-icon>settings_remote</mdc-icon>SEND TO CONTROLLER
+                    </div>
+                </button>
+            </div>
+            <ng-container *ngIf="selectedItem">
+                <div class="subheader">
+                    SELECTED ITEM
+                </div>
+                <div class="action" [ngClass]="{'active': selectedItem === highlightedItem}">
+                    <button mdc-button (click)="highlightOnGlobe()" [disabled]="terrainType !== 'globe'">
+                        <div class="action-button-contents">
+                            <mdc-icon>language</mdc-icon>VIEW ON GLOBE
+                        </div>
+                    </button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</ng-container>

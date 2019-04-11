@@ -14,11 +14,6 @@ const ModuleRoutes: Routes = [
         path: '',
         component: ControllerModalComponent,
         children: [
-            // {
-            //     path: '',
-            //     pathMatch: 'full',
-            //     redirectTo: 'home'
-            // },
             {
                 path: 'bbox-selection',
                 component: ControllerModalBoundingBoxSelectionComponent
@@ -34,6 +29,15 @@ const ModuleRoutes: Routes = [
             {
                 path: 'bookmarks',
                 component: ControllerModalSearchResultsComponent,
+            },
+            {
+                path: 'nomenclatures',
+                component: ControllerModalSearchResultsComponent,
+            },
+            {
+                path: 'nomenclatures/:index',
+                pathMatch: 'full',
+                redirectTo: 'nomenclatures'
             },
             {
                 path: 'bookmarks/:index',

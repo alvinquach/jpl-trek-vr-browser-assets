@@ -7,6 +7,7 @@ import { SearchService } from 'src/app/services/search/base-search.service';
 import { TerrainModelService } from 'src/app/services/terrain-model/terrain-model.service';
 import { MainModalService } from '../../services/main-modal.service';
 import { MainModalBaseSearchResultsComponent } from '../main-modal-base-search-results/main-modal-base-search-results.component';
+import { ProductUtils } from 'src/app/utils/product.utils';
 
 @Component({
     selector: 'app-main-modal-search-product',
@@ -49,14 +50,7 @@ export class MainModalSearchProductComponent extends MainModalBaseSearchResultsC
         }
 
         // Get thumbnail URL
-        const baseThumbnailUrl = item.thumbnailUrl;
-        if (!baseThumbnailUrl || baseThumbnailUrl === 'n/a') {
-            this.selectedItemImageUrl = null;
-        } else if (baseThumbnailUrl.endsWith('-')) {
-            this.selectedItemImageUrl = `${baseThumbnailUrl}200.png`;
-        } else {
-            this.selectedItemImageUrl = baseThumbnailUrl;
-        }
+        this.selectedItemImageUrl = ProductUtils.parseThumbnailUrl(item.thumbnailUrl);
 
         // Get description
         if (item.description) {

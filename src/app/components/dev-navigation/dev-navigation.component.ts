@@ -28,6 +28,10 @@ export class DevNavigationComponent {
             link: './controller-modal/bookmarks'
         },
         {
+            label: 'Nomeclatures',
+            link: './controller-modal/nomenclatures'
+        },
+        {
             label: 'Products',
             link: './controller-modal/products'
         },

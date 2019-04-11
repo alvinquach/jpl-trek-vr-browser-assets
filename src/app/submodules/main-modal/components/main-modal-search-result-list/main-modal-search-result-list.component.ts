@@ -25,6 +25,9 @@ export class MainModalSearchResultListComponent {
     }
     @Input()
     set selectedItem(value) {
+        if (this._selectedItem === value) {
+            return;
+        }
         this._selectedItem = value;
         setTimeout(() => {
             if (this._selectedItem) {

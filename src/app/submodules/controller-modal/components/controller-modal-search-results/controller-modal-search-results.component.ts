@@ -8,6 +8,7 @@ import { SearchItemType } from 'src/app/models/search/search-item-type.type';
 import { SearchResultItem } from 'src/app/models/search/search-result-item.model';
 import { SearchService } from 'src/app/services/search/base-search.service';
 import { MathUtils } from 'src/app/utils/math.utils';
+import { TerrainModelService } from 'src/app/services/terrain-model/terrain-model.service';
 
 @Component({
     selector: 'app-controller-modal-search-results',
@@ -47,7 +48,8 @@ export class ControllerModalSearchResultsComponent implements OnInit, OnDestroy 
     constructor(private _activatedRoute: ActivatedRoute,
                 private _cd: ChangeDetectorRef,
                 private _router: Router,
-                private _searchService: SearchService) {
+                private _searchService: SearchService,
+                private _terrainModelService: TerrainModelService) {
 
     }
 
@@ -94,6 +96,9 @@ export class ControllerModalSearchResultsComponent implements OnInit, OnDestroy 
         if (path === 'products') {
             this._itemType = 'Product';
             this._searchService.getProducts(res => this._onItemsLoaded(res.items));
+        } else if (path === 'nomenclatures') {
+            this._itemType = 'Nomenclature';
+            this._searchService.getNomenclatures(res => this._onItemsLoaded(res.items));
         } else if (path === 'bookmarks') {
             this._itemType = 'Bookmark';
             this._searchService.getBookmarks(res => this._onItemsLoaded(res));
@@ -115,7 +120,14 @@ export class ControllerModalSearchResultsComponent implements OnInit, OnDestroy 
     }
 
     viewItem(index: number) {
-        if (this._indexInRange(this._activeItemIndex)) {
+        if (!this._indexInRange(index)) {
+            return;
+        }
+        if (this._itemType === 'Nomenclature') {
+            const item = this._items[index];
+            this._terrainModelService.navigateToCoordinate(item.boundingBox);
+            this._searchService.updateSearchListActiveIndex(index);
+        } else {
             this._router.navigate([`./${index}`], { relativeTo: this._activatedRoute });
         }
     }
@@ -123,7 +135,7 @@ export class ControllerModalSearchResultsComponent implements OnInit, OnDestroy 
     private _onItemsLoaded(items: (SearchResultItem | Bookmark)[]) {
         this._items = items;
         this._checkValidIndex();
-        this._cd.detectChanges();
+        this._cd.detectChanges(); 
         setTimeout(() => this._scrollToActive());
     }
 

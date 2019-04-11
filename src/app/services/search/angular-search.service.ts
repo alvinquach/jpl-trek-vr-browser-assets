@@ -28,6 +28,9 @@ export class AngularSearchService extends SearchService {
 
     private readonly _bookmarksUrl = 'https://trek.nasa.gov/etc/sampleBookmark.json';
 
+    /** Limit search results to 400 items. */
+    private readonly _resultsLimit = 400;
+
     private readonly _onSearchListActiveIndexChange: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
     private _facetInfo: SearchResult;
@@ -140,48 +143,51 @@ export class AngularSearchService extends SearchService {
     }
 
     searchItems(searchParams: SearchParameters, callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
-
         this.getFacetInfo(info => {
-
-            const paramsMap = {
-                start: '0',
-                rows: `${info.totalCount}`
-            };
-
-            const facetKeys: string[] = [];
-            const facetValues: string[] = [];
-
-            if (searchParams.itemType) {
-                facetKeys.push('itemType');
-                facetValues.push(StringUtils.firstCharacterToLower(searchParams.itemType));
-            }
-            if (searchParams.productType) {
-                facetKeys.push('productType');
-                facetValues.push(searchParams.productType);
-            }
-            if (searchParams.mission) {
-                facetKeys.push('mission');
-                facetValues.push(searchParams.mission);
-            }
-            if (searchParams.instrument) {
-                facetKeys.push('instrument');
-                facetValues.push(searchParams.instrument);
-            }
-
-            paramsMap['facetKeys'] = facetKeys.join('|');
-            paramsMap['facetValues'] = facetValues.join('|');
-
-            if (searchParams.search) {
-                paramsMap['key'] = searchParams.search;
-            }
-
-            this._http.get(`${this._baseUrl}${this._itemSearchUrl}`, { params: paramsMap }).subscribe(res => {
-                const result = this._convertResults(res);
-                callback(result);
-            });
-
+            const limit = Math.min(this._resultsLimit, info.totalCount);
+            this._searchItems(searchParams, limit, callback, errorCallback);
         });
+    }
 
+    private _searchItems(searchParams: SearchParameters, limit: number,
+        callback: (value: SearchResult) => void, errorCallback?: (error: any) => void): void {
+
+        const paramsMap = {
+            start: '0',
+            rows: `${limit}`
+        };
+
+        const facetKeys: string[] = [];
+        const facetValues: string[] = [];
+
+        if (searchParams.itemType) {
+            facetKeys.push('itemType');
+            facetValues.push(StringUtils.firstCharacterToLower(searchParams.itemType));
+        }
+        if (searchParams.productType) {
+            facetKeys.push('productType');
+            facetValues.push(searchParams.productType);
+        }
+        if (searchParams.mission) {
+            facetKeys.push('mission');
+            facetValues.push(searchParams.mission);
+        }
+        if (searchParams.instrument) {
+            facetKeys.push('instrument');
+            facetValues.push(searchParams.instrument);
+        }
+
+        paramsMap['facetKeys'] = facetKeys.join('|');
+        paramsMap['facetValues'] = facetValues.join('|');
+
+        if (searchParams.search) {
+            paramsMap['key'] = searchParams.search;
+        }
+
+        this._http.get(`${this._baseUrl}${this._itemSearchUrl}`, { params: paramsMap }).subscribe(res => {
+            const result = this._convertResults(res);
+            callback(result);
+        });
     }
 
     private _convertResults(res: any): SearchResult {
