@@ -52,8 +52,16 @@ export class MainModalLayerManagerComponent extends MainModalBaseSearchResultsCo
     }
     set searchMode(value) {
         this._searchMode = value;
-        if (!value) {
+        if (value) {
+            this._slidersReady = false;
+        } else {
             this.resetSelectedItem();
+
+            // Hacky fix for positioning issues with sliders.
+            setTimeout(() => {
+                this._slidersReady = true;
+                this._cd.detectChanges();
+            }, 50);
         }
     }
 
