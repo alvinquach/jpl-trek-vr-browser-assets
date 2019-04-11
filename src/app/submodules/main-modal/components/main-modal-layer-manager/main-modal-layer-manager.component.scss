@@ -53,6 +53,7 @@ $icon-button-size: 40px;
             user-select: none;
             box-sizing: border-box;
             color: white;
+            border-bottom: 1px solid rgba(black, 0.54);
 
             .thumbnail-container {
                 width: $thumbnail-size;
@@ -98,6 +99,23 @@ $icon-button-size: 40px;
         
                     mdc-icon {
                         font-size: $icon-button-size;
+                    }
+                }
+            }
+
+            &.not-visible {
+
+                .item-actions-container {
+
+                    .opacity {
+                        color: red;
+                    }
+
+                    .mdc-icon-button {
+            
+                        mdc-icon {
+                            color: red;
+                        }
                     }
                 }
             }

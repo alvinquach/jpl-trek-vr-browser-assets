@@ -69,6 +69,7 @@
             <ng-container *ngFor="let layer of layers; let i = index">
                 <ng-container *ngIf="i < layers.length - 1">
                     <div class="layer-item"
+                        [ngClass]="{'not-visible': !layer.visible}"
                         draggable="true"
                         (dragstart)="onDragStart(i)"
                         (drag)="onDrag($event)"
