@@ -14,11 +14,11 @@
 .modal-footer {
 
     cursor: pointer;
-        border-top: 1px solid rgba(0,0,0,0.54);
-        line-height: $modal-footer-height;
-        height: $modal-footer-height;
-        text-align: center;
-        font-size: 56px;
+    border-top: 1px solid rgba(black, 0.54);
+    line-height: $modal-footer-height;
+    height: $modal-footer-height;
+    text-align: center;
+    font-size: 56px;
 }
 
 .modal-contents {

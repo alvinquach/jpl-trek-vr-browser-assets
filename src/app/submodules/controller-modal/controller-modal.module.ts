@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { AngularToolsService } from 'src/app/services/tools/angular-tools.service';
+import { ToolsService } from 'src/app/services/tools/base-tools.service';
+import { UnityToolsService } from 'src/app/services/tools/unity-tools.service';
+import { environment } from 'src/environments/environment';
 import { ControllerModalBoundingBoxSelectionComponent } from './components/controller-modal-bbox-selection/controller-modal-bbox-selection.component';
 import { ControllerModalLayerManagerComponent } from './components/controller-modal-layer-manager/controller-modal-layer-manager.component';
 import { ControllerModalSearchResultDetailsComponent } from './components/controller-modal-search-result-details/controller-modal-search-result-details.component';
@@ -79,7 +83,12 @@ const MdcWebModules = [
     exports: [
         RouterModule
     ],
-    providers: []
+    providers: [
+        {
+            provide: ToolsService,
+            useClass: environment.unity ? UnityToolsService : AngularToolsService
+        },
+    ]
 })
 export class ControllerModalModule {
 

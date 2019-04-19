@@ -2,20 +2,27 @@
     <div class="modal-header">
         Measure Distance
     </div>
-    <div class="main-contents" [ngSwitch]="helpMode">
-        <div *ngSwitchCase="false">
-            <div *ngFor="let point of points">
-                ({{point.x}}°, {{point.y}}°)
+    <div class="main-contents no-padding" [ngSwitch]="helpMode">
+        <div *ngSwitchCase="false" class="container">
+            <div class="points-container">
+                <div *ngFor="let point of points; let i = index" class="point">
+                    <div class="number">{{i + 1}}</div>
+                    ({{point.x}}°, {{point.y}}°)
+                </div>
+                <div *ngIf="!results" class="current point">
+                    <div class="number">&#9733;</div>
+                    ({{currentPoint.x}}°, {{currentPoint.y}}°)
+                </div>
             </div>
-            <div>
-                ({{currentPoint.x}}°, {{currentPoint.y}}°)
+            <div *ngIf="results" class="results">
+                {{results.totalDistance / 1000 | number: '1.1-3'}} km
             </div>
         </div>
-        <div *ngSwitchCase="true">
+        <ng-container *ngSwitchCase="true">
             <div>
                 Make an area selection by specifying the bounding box boundaries:
             </div>
-        </div>
+        </ng-container>
     </div>
     <div class="modal-footer" (click)="toggleHelpMode()" [ngSwitch]="helpMode">
         <div *ngSwitchCase="false">

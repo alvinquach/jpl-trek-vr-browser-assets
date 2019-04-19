@@ -113,4 +113,12 @@ export class UnityGlobalVariables {
 
     //#endregion
 
+    //#region Functions registered by UnityBrowserToolsFunctions.cs
+
+    toolsFunctionsReady = false;
+
+    getDistance: (points: string, requestId: string) => void;
+
+    //#endregion
+
 }
