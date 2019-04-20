@@ -119,6 +119,8 @@ export class UnityGlobalVariables {
 
     getDistance: (points: string, requestId: string) => void;
 
+    getHeightProfile: (points: string, sampleCount: number, requestId: string) => void;
+
     //#endregion
 
 }

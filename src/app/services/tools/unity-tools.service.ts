@@ -18,9 +18,18 @@ export class UnityToolsService extends ToolsService {
             const request = this._unityDataService.registerRequest<string>(res => {
                 callback(JSON.parse(res));
             });
-            this._unityGlobalVariables.getDistance(this._coordinatesToString(points), request.requestId);
+            this._unityGlobalVariables.getDistance(`[${this._coordinatesToString(points)}]`, request.requestId);
         } else {
             callback({totalDistance: 'Service not available'});
+        }
+    }
+
+    getHeightProfile(points: Coordinate[], sampleCount: number, callback: (res) => void, errorCallback?: (error: any) => void) {
+        if (this._unityDataService && this._functionReadyAndValid('getHeightProfile')) {
+            const request = this._unityDataService.registerRequest<string>(res => {
+                callback(JSON.parse(res));
+            });
+            this._unityGlobalVariables.getHeightProfile(this._coordinatesToString(points), sampleCount, request.requestId);
         }
     }
 

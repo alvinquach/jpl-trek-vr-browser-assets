@@ -1,0 +1,29 @@
+.points-container {
+    max-height: 100%;
+    overflow-y: auto;
+
+    .point {
+        display: flex;
+        padding: 0 32px;
+        line-height: 88px;
+
+        &.current {
+            color: gold;
+        }
+
+        .number {
+            font-size: 36px;
+            font-weight: 500;
+            width: 56px;
+        }
+    }
+
+    &::-webkit-scrollbar {
+        width: $scroll-bar-width;
+        background: rgba(black, 0.12);
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: $mdc-theme-secondary;
+    }
+}

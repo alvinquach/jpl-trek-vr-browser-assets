@@ -1,0 +1,35 @@
+<div class="modal-contents with-header with-footer">
+    <div class="modal-header">
+        Elevation Profile
+    </div>
+    <div class="main-contents no-padding" [ngSwitch]="helpMode">
+        <div *ngSwitchCase="false" [ngSwitch]="!!results" class="container">
+            <div *ngSwitchCase="false" class="points-container">
+                <div *ngFor="let point of points; let i = index" class="point">
+                    <div class="number">{{i + 1}}</div>
+                    ({{point.x}}°, {{point.y}}°)
+                </div>
+                <div *ngIf="!results" class="current point">
+                    <div class="number">&#9733;</div>
+                    ({{currentPoint.x}}°, {{currentPoint.y}}°)
+                </div>
+            </div>
+            <div *ngSwitchCase="true" class="results">
+                <google-chart [data]="results"></google-chart>
+            </div>
+        </div>
+        <ng-container *ngSwitchCase="true">
+            <div>
+                Make an area selection by specifying the bounding box boundaries:
+            </div>
+        </ng-container>
+    </div>
+    <div class="modal-footer" (click)="toggleHelpMode()" [ngSwitch]="helpMode">
+        <div *ngSwitchCase="false">
+            Press the Steam button for help
+        </div>
+        <div *ngSwitchCase="true">
+            Press the Steam button to return
+        </div>
+    </div>
+</div>

@@ -38,6 +38,14 @@ export class DevNavigationComponent {
         {
             label: 'Layer Manager',
             link: './controller-modal/layer-manager'
+        },
+        {
+            label: 'Distance',
+            link: './controller-modal/tools/distance'
+        },
+        {
+            label: 'Height Profile',
+            link: './controller-modal/tools/height-profile'
         }
     ];
 

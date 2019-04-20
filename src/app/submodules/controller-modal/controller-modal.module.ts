@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { AngularToolsService } from 'src/app/services/tools/angular-tools.service';
 import { ToolsService } from 'src/app/services/tools/base-tools.service';
 import { UnityToolsService } from 'src/app/services/tools/unity-tools.service';
@@ -12,6 +13,7 @@ import { ControllerModalLayerManagerComponent } from './components/controller-mo
 import { ControllerModalSearchResultDetailsComponent } from './components/controller-modal-search-result-details/controller-modal-search-result-details.component';
 import { ControllerModalSearchResultsComponent } from './components/controller-modal-search-results/controller-modal-search-results.component';
 import { ControllerModalToolsDistanceComponent } from './components/controller-modal-tools-distance/controller-modal-tools-distance.component';
+import { ControllerModalToolsHeightProfileComponent } from './components/controller-modal-tools-height-profile/controller-modal-tools-height-profile.component';
 import { ControllerModalComponent } from './controller-modal.component';
 
 const ModuleRoutes: Routes = [
@@ -55,6 +57,10 @@ const ModuleRoutes: Routes = [
             {
                 path: 'tools/distance',
                 component: ControllerModalToolsDistanceComponent
+            },
+            {
+                path: 'tools/height-profile',
+                component: ControllerModalToolsHeightProfileComponent
             }
         ]
     }
@@ -72,13 +78,15 @@ const MdcWebModules = [
         ControllerModalSearchResultsComponent,
         ControllerModalSearchResultDetailsComponent,
         ControllerModalLayerManagerComponent,
-        ControllerModalToolsDistanceComponent
+        ControllerModalToolsDistanceComponent,
+        ControllerModalToolsHeightProfileComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
         RouterModule.forChild(ModuleRoutes),
-        ...MdcWebModules
+        ...MdcWebModules,
+        Ng2GoogleChartsModule
     ],
     exports: [
         RouterModule
