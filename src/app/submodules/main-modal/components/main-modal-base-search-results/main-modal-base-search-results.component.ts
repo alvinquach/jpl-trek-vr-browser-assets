@@ -25,6 +25,25 @@ export abstract class MainModalBaseSearchResultsComponent<T> extends MainModalBa
         return this._items;
     }
 
+    protected _sortKey: string;
+    get sortKey() {
+        return this._sortKey;
+    }
+    set sortKey(value) {
+        if (this._sortKey !== value) {
+            this._sortKey = value;
+            this._sortOrder = 'desc';
+        } else {
+            this._sortOrder = this._sortOrder === 'asc' ? 'desc' : 'asc';
+        }
+        this._cd.detectChanges();
+    }
+
+    protected _sortOrder: 'asc' | 'desc' = 'desc';
+    get sortOrder() {
+        return this._sortOrder;
+    }
+
     highlightedItem: T;
 
     selectedItem: T;

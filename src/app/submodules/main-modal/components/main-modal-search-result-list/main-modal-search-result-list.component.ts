@@ -16,8 +16,30 @@ export class MainModalSearchResultListComponent {
     @Output()
     readonly selectedItemChange: EventEmitter<SearchResultItem | Bookmark> = new EventEmitter();
 
+    private _items: (SearchResultItem | Bookmark)[];
+    private _sortedItems: (SearchResultItem | Bookmark)[];
+    get items() {
+        return this._sortedItems;
+    }
     @Input()
-    items: (SearchResultItem | Bookmark)[];
+    set items(value) {
+        this._items = value;
+        this._sortItems();
+    }
+
+    private _sortKey: string;
+    @Input()
+    set sortKey(value) {
+        this._sortKey = value;
+        this._sortItems();
+    }
+
+    private _sortOrder: 'asc' | 'desc' = 'desc';
+    @Input()
+    set sortOrder(value) {
+        this._sortOrder = value;
+        this._sortItems();
+    }
 
     private _selectedItem: SearchResultItem | Bookmark;
     get selectedItem() {
@@ -44,6 +66,27 @@ export class MainModalSearchResultListComponent {
         this._selectedItem = this.items[index];
         this.selectedItemChange.emit(this.selectedItem);
         this._searchService.updateSearchListActiveIndex(index);
+    }
+
+    private _sortItems() {
+        if (!this._items) {
+            return;
+        }
+        const key = this._sortKey;
+        if (!key) {
+            this._sortedItems = [...this._items];
+            return;
+        }
+        const order = this._sortOrder === 'asc' ? -1 : 1;
+        this._sortedItems = [...this._items].sort((a, b) => {
+            if (a[key] === b[key]) {
+                return 0;
+            } else if (a[key] < b[key]) {
+                return order;
+            } else {
+                return -order;
+            }
+        });
     }
 
     private _scrollToSelected() {

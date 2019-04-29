@@ -4,6 +4,8 @@
             <div>
                 <app-main-modal-search-result-list 
                     [items]="items" 
+                    [sortKey]="sortKey"
+                    [sortOrder]="sortOrder"
                     [selectedItem]="selectedItem"
                     (selectedItemChange)="selectItem($event)">
                 </app-main-modal-search-result-list>

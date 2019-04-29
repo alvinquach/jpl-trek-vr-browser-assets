@@ -2,7 +2,9 @@
     <div class="search-results-container">
         <div>
             <app-main-modal-search-result-list 
-                [items]="items" 
+                [items]="items"
+                [sortKey]="sortKey"
+                [sortOrder]="sortOrder"
                 [selectedItem]="selectedItem"
                 (selectedItemChange)="selectItem($event)">
             </app-main-modal-search-result-list>
@@ -19,7 +21,7 @@
                 SEARCH RESULTS
             </div>
             <div class="action">
-                <button mdc-button>
+                <button mdc-button (click)="sortKey = 'name'">
                     <div class="action-button-contents">
                         <mdc-icon>sort_by_alpha</mdc-icon>SORT
                     </div>
