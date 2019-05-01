@@ -127,6 +127,7 @@ export class MainModalLayerManagerComponent extends MainModalBaseSearchResultsCo
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         this._layersUpdateSubscription && this._layersUpdateSubscription.unsubscribe();
     }
 
