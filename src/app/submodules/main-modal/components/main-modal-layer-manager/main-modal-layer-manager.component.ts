@@ -99,7 +99,7 @@ export class MainModalLayerManagerComponent extends MainModalBaseSearchResultsCo
         super.ngOnInit();
 
         this._searchService.getRasters(res => {
-            this._items = res.items;
+            this._items = res.items.filter(i => i.productType !== 'DEM');
             console.log(res);
             this._cd.detectChanges();
         });
